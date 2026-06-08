@@ -1,1 +1,11 @@
-<app-header></app-header>
+<app-header/>
+
+<main>
+    <ul id="users">
+        @for (u of user; track u.id) {
+            <li>
+                <app-user [id]="u.id" [name]="u.name" (select)="onSelectUser(u)"/>
+            </li>
+        }
+    </ul>
+</main>

@@ -1,0 +1,18 @@
+main{
+    width: 90%;
+    max-width: 50rem;
+    margin: 2.5rem auto;
+    display: grid;
+    grid-auto-flow: row;
+    gap: 2rem;
+
+    #users {
+        list-style: none;
+        padding: 15px;
+        display: flex;
+        gap: 0.5rem;
+        overflow: scroll;
+        
+
+    }
+}
