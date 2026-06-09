@@ -1,27 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { HeaderComponent } from "./header/header.component";
-import { UserComponent } from "./user/user.component";
-import { DummyUsers } from "./user/dummy-users";
-import { User } from '../models/user.models';
-
-
+import { Component, signal } from '@angular/core';
+import { HeaderComponent } from './header/header.component';
+import { MenuComponent } from './menu/menu.component';
+import { OrdersComponent } from './orders/orders.component';
+import { TakeawayComponent } from './takeaway/takeaway.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [HeaderComponent, UserComponent],
+  imports: [HeaderComponent, MenuComponent, OrdersComponent, TakeawayComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit{
-  user = DummyUsers;
+export class AppComponent {
+  readonly activeView = signal<'menu' | 'orders' | 'takeaway'>('menu');
 
-  ngOnInit() {
-    console.log('abcde')
-  }
-
-  onSelectUser(user: User) {
-    console.log('User wurde selektiert');
-    console.log("Der aktuelle Name ist: " + user.name);
+  selectView(view: 'menu' | 'orders' | 'takeaway'): void {
+    this.activeView.set(view);
   }
 }

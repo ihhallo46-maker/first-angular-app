@@ -1,11 +1,26 @@
 <app-header/>
 
-<main>
-    <ul id="users">
-        @for (u of user; track u.id) {
-            <li>
-                <app-user [id]="u.id" [name]="u.name" (select)="onSelectUser(u)"/>
-            </li>
-        }
-    </ul>
+<main class="container py-4 page-main">
+  <div class="row g-4">
+    <div class="col-lg-5">
+      <aside class="navigation-card h-100">
+        <h2 class="h5 fw-bold mb-3">Quick Navigation</h2>
+
+        <div class="list-group list-group-flush">
+          <a      routerLink="/menu"
+            routerLinkActive="active" class="list-group-item list-group-item-action">Speisekarte</a>
+          <a      routerLink="/orders"
+            routerLinkActive="active" class="list-group-item list-group-item-action">Bestellungen</a>
+          <a      routerLink="/takeaway"
+            routerLinkActive="active" class="list-group-item list-group-item-action">Take Away</a>
+        </div>
+      </aside>
+    </div>
+
+    <div class="col-lg-7">
+      <section class="content-card h-100">
+
+      </section>
+    </div>
+  </div>
 </main>

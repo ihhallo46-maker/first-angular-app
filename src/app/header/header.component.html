@@ -1,4 +1,20 @@
-<header>
-  <img src="../assets/angular-logo.png" alt="App Logo"/>
-  <h1>My Angular App</h1>
+<header class="site-header py-4" aria-label="Duck House Header">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="brand-card d-flex flex-column flex-md-row align-items-start align-md-items-center justify-content-between gap-3 p-3 p-md-4">
+          <div class="d-flex align-items-center gap-3">
+            <div>
+              <h1 class="brand-title mb-1">Duck House</h1>
+              <p class="brand-date mb-0">{{ formattedDate() }}</p>
+            </div>
+          </div>
+
+          <div class="text-bg-light fw-semibold px-3 py-2">
+              Fine Dining • Reservations • Takeaway 
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
 </header>
