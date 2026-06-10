@@ -1,3 +1,104 @@
-.content.page {
+:host {
   display: block;
+}
+
+.content-page {
+  display: block;
+}
+
+.empty-state {
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px dashed #d9d9d9;
+  border-radius: 1rem;
+  background: #fafafa;
+  padding: 1.5rem;
+}
+
+.order-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.order-item {
+  border: 1px solid #ececec;
+  border-radius: 1rem;
+  padding: 1rem 1.1rem;
+  background: #fcfcfc;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.order-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+}
+
+.order-item--pending {
+  border-color: #f0c36d;
+  background: linear-gradient(135deg, #fff8e8 0%, #fcfcfc 100%);
+}
+
+.order-item--completed {
+  border-color: #cfe9d8;
+  background: linear-gradient(135deg, #f5fff7 0%, #fcfcfc 100%);
+}
+
+.order-meta {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 0.85rem;
+}
+
+.order-meta ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.drink-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.drink-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.35rem 0;
+}
+
+.drink-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.drink-pill--new {
+  background: #fff3cd;
+  color: #8a5b00;
+}
+
+.drink-pill--completed {
+  background: #d1e7dd;
+  color: #0f5132;
+}
+.drink-row {
+  margin-bottom: 6px;
+}
+
+.drink-confirmed {
+  color: #198754;
+}
+
+.drink-new {
+  color: #dc3545;
+  font-weight: 600;
 }

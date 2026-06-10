@@ -1,25 +1,31 @@
 <app-header/>
 
-<main class="container py-4 page-main">
+<main class="container page-main">
   <div class="row g-4">
-    <div class="col-lg-5">
+    <div class="col-lg-3">
       <aside class="navigation-card h-100">
         <h2 class="h5 fw-bold mb-3">Quick Navigation</h2>
 
         <div class="list-group list-group-flush">
-          <a      routerLink="/menu"
+          <a routerLink="/menu" [class.active]="activeView() === 'menu'" (click)="selectView('menu')"
             routerLinkActive="active" class="list-group-item list-group-item-action">Speisekarte</a>
-          <a      routerLink="/orders"
+          <a routerLink="/orders" [class.active]="activeView() === 'orders'" (click)="selectView('orders')"
             routerLinkActive="active" class="list-group-item list-group-item-action">Bestellungen</a>
-          <a      routerLink="/takeaway"
+          <a routerLink="/takeaway" [class.active]="activeView() === 'takeaway'" (click)="selectView('takeaway')"
             routerLinkActive="active" class="list-group-item list-group-item-action">Take Away</a>
         </div>
       </aside>
     </div>
 
-    <div class="col-lg-7">
-      <section class="content-card h-100">
-
+    <div class="col-lg-9">
+      <section class="content-card h-300">
+            @if (activeView() === 'menu') {
+              <app-menu></app-menu>
+            } @else if (activeView() === 'orders') {
+              <app-orders></app-orders>
+            } @else {
+              <app-takeaway></app-takeaway>
+            }
       </section>
     </div>
   </div>

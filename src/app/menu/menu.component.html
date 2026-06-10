@@ -2,46 +2,91 @@
   <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
       <h2 class="h4 fw-bold mb-1">Speisekarte</h2>
-      <p class="text-muted mb-0">Unsere beliebtesten Gerichte aus der Duck House Küche.</p>
     </div>
-    <span class="badge rounded-pill bg-dark-subtle text-dark">Frisch zubereitet</span>
+
+    <div class="d-flex gap-3">
+      <a
+        class="btn btn-outline-dark btn-sm"
+        href="https://www.duckhouse.de/speisekarte.html"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        In neuem Tab öffnen
+      </a>
+
+      <button type="button" class="btn btn-dark btn-sm print" (click)="printMenu()">
+        Als PDF speichern
+      </button>
+    </div>
   </div>
 
-  <div class="row g-3">
-    <div class="col-md-6">
-      <div class="card border-0 shadow-sm h-100">
-        <div class="card-body">
-          <h3 class="h6 fw-bold mb-2">Duck Breast</h3>
-          <p class="text-muted mb-0">Mit saisonalem Gemüse und feiner Sauce.</p>
-        </div>
-      </div>
+  <div class="search-box mb-3">
+    <div class="input-group-text">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Suche nach Gerichten oder Zutaten..."
+        [value]="searchTerm()"
+        (input)="search($any($event.target).value)"
+      />
+
+      <button
+        class="btn btn-outline-primary"
+        type="button"
+        aria-label="Suche starten"
+        (click)="search(searchTerm())"
+      >
+      Suchen
+      </button>
+
+      @if (searchTerm()) {
+        <button class="btn btn-outline-danger" type="button" (click)="clearSearch()">
+          Löschen
+        </button>
+      }
     </div>
 
-    <div class="col-md-6">
-      <div class="card border-0 shadow-sm h-100">
-        <div class="card-body">
-          <h3 class="h6 fw-bold mb-2">Crispy Duck Wrap</h3>
-          <p class="text-muted mb-0">Knusprig, aromatisch und perfekt zum Mitnehmen.</p>
-        </div>
+    @if (searchTerm()) {
+      <div class="search-info mt-2 text-muted small">
+        Suche nach: "{{ searchTerm() }}"
       </div>
-    </div>
+    }
+  </div>
 
-    <div class="col-md-6">
-      <div class="card border-0 shadow-sm h-100">
-        <div class="card-body">
-          <h3 class="h6 fw-bold mb-2">Duck Ramen</h3>
-          <p class="text-muted mb-0">Mit reichhaltiger Brühe und frischen Kräutern.</p>
-        </div>
-      </div>
-    </div>
+  <div class="menu-embed-wrapper">
+    <div class="menu-scroll-area">
+      <div class="menu-page">
+        @if (filteredSections().length === 0) {
+          <div class="empty-state">
+            <p class="mb-0">Keine Gerichte gefunden.</p>
+          </div>
+        } @else {
+          @for (section of filteredSections(); track section.title) {
+            <section class="menu-section">
+              <h3>{{ section.title }}</h3>
 
-    <div class="col-md-6">
-      <div class="card border-0 shadow-sm h-100">
-        <div class="card-body">
-          <h3 class="h6 fw-bold mb-2">Seasonal Dessert</h3>
-          <p class="text-muted mb-0">Hausgemacht und perfekt abgerundet.</p>
-        </div>
+              <div class="menu-list">
+                @for (item of section.items; track item.name) {
+                  <article class="menu-item">
+                    <div class="menu-item-head">
+                      <h4>{{ item.name }}</h4>
+                      <span>{{ item.price }}</span>
+                    </div>
+
+                    @if (item.description) {
+                      <p>{{ item.description }}</p>
+                    }
+                  </article>
+                }
+              </div>
+            </section>
+          }
+        }
       </div>
     </div>
   </div>
+
+  <p class="small text-muted mt-3 mb-0">
+    Falls die Speisekarte nicht angezeigt wird, liegt das meist an einer Embed-Sperre der Website.
+  </p>
 </div>

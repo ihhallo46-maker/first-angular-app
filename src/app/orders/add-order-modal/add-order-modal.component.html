@@ -1,0 +1,110 @@
+<div class="modal-backdrop" role="presentation" (click)="close()">
+  <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="add-order-title" (click)="$event.stopPropagation()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h3 id="add-order-title" class="h5 fw-bold mb-1">{{ orderToEdit() ? 'Bestellung bearbeiten' : 'Neue Bestellung' }}</h3>
+          <p class="text-muted mb-0">Erfassen Sie Tisch, Getränke und Auswahl für Buffet oder Karte.</p>
+        </div>
+        <button type="button" class="btn-close" aria-label="Schließen" (click)="close()"></button>
+      </div>
+
+      <form class="modal-body" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="mb-4">
+          <label class="form-label fw-semibold" for="tableNumber">Tischnummer</label>
+          <select id="tableNumber" class="form-select" formControlName="tableNumber">
+            @for (tableNumber of tableNumbers; track tableNumber) {
+              <option [value]="tableNumber">{{ tableNumber }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <h4 class="h6 fw-semibold mb-3">Getränke</h4>
+          <div class="drink-grid">
+            @for (option of drinkOptions; track option.key) {
+              <div class="drink-card">
+                <div class="fw-semibold mb-2">{{ option.label }}</div>
+                <div class="d-flex flex-column gap-2">
+                  @if (option.sizes.includes('0.3L')) {
+                    <div class="d-flex align-items-center gap-2">
+                      @if (getConfirmedCount(option.key, '0.3L') > 0) {
+                        <span class="badge bg-success flex-shrink-0">{{ getConfirmedCount(option.key, '0.3L') }}x</span>
+                        <span class="form-check-label small text-muted">0.3L</span>
+                        <span class="text-muted">+</span>
+                      } @else {
+                        <label class="form-check mb-0">
+                          <input class="form-check-input" type="checkbox" [formControlName]="option.key + '03'" />
+                          <span class="form-check-label">0.3L</span>
+                        </label>
+                      }
+                      <input class="form-control form-control-sm" type="number" min="0" step="1"
+                             [formControlName]="option.key + '03Count'"
+                             [placeholder]="getConfirmedCount(option.key, '0.3L') > 0 ? 'Neu' : '0'" />
+                    </div>
+                  }
+                  @if (option.sizes.includes('0.5L')) {
+                    <div class="d-flex align-items-center gap-2">
+                      @if (getConfirmedCount(option.key, '0.5L') > 0) {
+                        <span class="badge bg-success flex-shrink-0">{{ getConfirmedCount(option.key, '0.5L') }}x</span>
+                        <span class="form-check-label small text-muted">0.5L</span>
+                        <span class="text-muted">+</span>
+                      } @else {
+                        <label class="form-check mb-0">
+                          <input class="form-check-input" type="checkbox" [formControlName]="option.key + '05'" />
+                          <span class="form-check-label">0.5L</span>
+                        </label>
+                      }
+                      <input class="form-control form-control-sm" type="number" min="0" step="1"
+                             [formControlName]="option.key + '05Count'"
+                             [placeholder]="getConfirmedCount(option.key, '0.5L') > 0 ? 'Neu' : '0'" />
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h4 class="h6 fw-semibold mb-3">Buffet & Karte</h4>
+          <div class="d-flex flex-column gap-3">
+            <label class="form-check">
+              <input class="form-check-input" type="checkbox" formControlName="buffet" />
+              <span class="form-check-label">Buffet</span>
+            </label>
+
+            @if (form.get('buffet')?.value) {
+              <div class="count-box">
+                <label class="form-label fw-semibold" for="buffetCount">Anzahl Buffet</label>
+                <input id="buffetCount" class="form-control" type="number" min="1" formControlName="buffetCount" />
+              </div>
+            }
+
+            <label class="form-check">
+              <input class="form-check-input" type="checkbox" formControlName="carte" />
+              <span class="form-check-label">Karte</span>
+            </label>
+
+            @if (form.get('carte')?.value) {
+              <div class="count-box">
+                <label class="form-label fw-semibold" for="carteCount">Anzahl Karte</label>
+                <input id="carteCount" class="form-control" type="number" min="1" formControlName="carteCount" />
+              </div>
+
+              <div>
+                <label class="form-label fw-semibold" for="comment">Kommentar zur Karte</label>
+                <textarea id="comment" class="form-control" rows="3" formControlName="comment" placeholder="Was wurde aus der Karte bestellt?"></textarea>
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" (click)="close()">Abbrechen</button>
+          <button type="submit" class="btn btn-dark">Bestellung speichern</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
