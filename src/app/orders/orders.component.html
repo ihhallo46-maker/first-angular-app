@@ -14,113 +14,115 @@
     <div class="card-body">
         <div class="row">
             @if (orders().length === 0) {
-                <div class="empty-state">
-                <div>
-                    <h3 class="h6 fw-semibold mb-2">Noch keine Bestellungen</h3>
-                    <p class="text-muted mb-0">Klicken Sie auf „Bestellung hinzufügen“, um eine neue Bestellung zu erfassen.</p>
-                </div>
+                <div class="empty-state col-12 text-center">
+                    <div>
+                        <h3 class="h6 fw-semibold mb-2">Noch keine Bestellungen</h3>
+                        <p class="text-muted mb-0">Klicken Sie auf „Bestellung hinzufügen“, um eine neue Bestellung zu erfassen.</p>
+                    </div>
                 </div>
             } @else {
                 <div class="order-list col-12">
-                @for (order of orders(); track order.id) {
-                    <article class="order-item col-4">
-                        <div class="d-flex justify-content-between align-items-start gap-3">
-                            <div>
-                            <h3 class="h6 fw-bold mb-1">Tisch {{ order.tableNumber }}</h3>
-                            <p class="text-muted mb-0">Bestellung für den aktuellen Service.</p>
-                            </div>
-                            <span class="badge rounded-pill" [class.bg-success]="order.status === 'completed'" [class.bg-warning-subtle]="order.status !== 'completed'" [class.text-dark]="order.status !== 'completed'" [class.text-white]="order.status === 'completed'">
-                            {{ order.status === 'completed' ? 'Abgeschlossen' : 'In Bearbeitung' }}
-                            </span>
-                        </div>
-
-                        <div class="order-meta">
-                            @if (order.drinks.length > 0) {
-                            <div>
-                                <span class="fw-semibold d-block mb-1">Getränke</span>
-                               <ul class="mb-0 ps-3">
-                                @for (drink of order.drinks; track drink.name + drink.size + drink.status) {
-                                    <li
-                                    class="drink-row"
-                                    [class.drink-confirmed]="drink.status === 'confirmed'"
-                                    [class.drink-new]="drink.status === 'new'">
-
-                                    <span>
-                                        {{ drink.name }} {{ drink.size }} {{ drink.quantity }}x
+                    <div class="row">
+                        @for (order of orders(); track order.id) {
+                            <article class="order-item col-4">
+                                <div class="d-flex justify-content-between align-items-start gap-3">
+                                    <div>
+                                    <h3 class="h6 fw-bold mb-1">Tisch {{ order.tableNumber }}</h3>
+                                    <p class="text-muted mb-0">Bestellung für den aktuellen Service.</p>
+                                    </div>
+                                    <span class="badge rounded-pill" [class.bg-success]="order.status === 'completed'" [class.bg-warning-subtle]="order.status !== 'completed'" [class.text-dark]="order.status !== 'completed'" [class.text-white]="order.status === 'completed'">
+                                    {{ order.status === 'completed' ? 'Abgeschlossen' : 'In Bearbeitung' }}
                                     </span>
+                                </div>
 
-                                    @if (drink.status === 'confirmed') {
-                                        <span class="badge bg-success ms-2">Bestellt</span>
+                                <div class="order-meta">
+                                    @if (order.drinks.length > 0) {
+                                    <div>
+                                        <span class="fw-semibold d-block mb-1">Getränke</span>
+                                    <ul class="mb-0 ps-3">
+                                        @for (drink of order.drinks; track drink.name + drink.size + drink.status) {
+                                            <li
+                                            class="drink-row"
+                                            [class.drink-confirmed]="drink.status === 'confirmed'"
+                                            [class.drink-new]="drink.status === 'new'">
+
+                                            <span>
+                                                {{ drink.name }} {{ drink.size }} {{ drink.quantity }}x
+                                            </span>
+
+                                            @if (drink.status === 'confirmed') {
+                                                <span class="badge bg-success ms-2">Bestellt</span>
+                                            }
+
+                                            @if (drink.status === 'new') {
+                                                <span class="badge bg-danger ms-2">Neu</span>
+                                            }
+                                            </li>
+                                        }
+                                        </ul>
+                                    </div>
                                     }
 
-                                    @if (drink.status === 'new') {
-                                        <span class="badge bg-danger ms-2">Neu</span>
-                                    }
-                                    </li>
-                                }
-                                </ul>
-                            </div>
-                            }
+                                    @if (order.buffetCount > 0) {
+                                    <div>
+                                        <span class="fw-semibold d-block mb-1">Buffet</span>
+                                        <span
+                                            [class.text-success]="order.buffetStatus === 'confirmed'"
+                                            [class.text-danger]="order.buffetStatus === 'new'">
 
-                            @if (order.buffetCount > 0) {
-                            <div>
-                                <span class="fw-semibold d-block mb-1">Buffet</span>
-                                <span
-                                    [class.text-success]="order.buffetStatus === 'confirmed'"
-                                    [class.text-danger]="order.buffetStatus === 'new'">
+                                            Anzahl: {{ order.buffetCount }}
 
-                                    Anzahl: {{ order.buffetCount }}
+                                            @if (order.buffetStatus === 'confirmed') {
+                                                <span class="badge bg-success ms-2">Bestellt</span>
+                                            }
 
-                                    @if (order.buffetStatus === 'confirmed') {
-                                        <span class="badge bg-success ms-2">Bestellt</span>
+                                            @if (order.buffetStatus === 'new') {
+                                                <span class="badge bg-danger ms-2">Neu</span>
+                                            }
+                                        </span>
+                                    </div>
                                     }
 
-                                    @if (order.buffetStatus === 'new') {
-                                        <span class="badge bg-danger ms-2">Neu</span>
+                                    @if (order.carteCount > 0) {
+                                    <div>
+                                        <span class="fw-semibold d-block mb-1">Karte</span>
+                                        <span
+                                            [class.text-success]="order.carteStatus === 'confirmed'"
+                                            [class.text-danger]="order.carteStatus === 'new'">
+
+                                            Anzahl: {{ order.carteCount }}
+
+                                            @if (order.carteStatus === 'confirmed') {
+                                                <span class="badge bg-success ms-2">Bestellt</span>
+                                            }
+
+                                            @if (order.carteStatus === 'new') {
+                                                <span class="badge bg-danger ms-2">Neu</span>
+                                            }
+                                        </span>
+                                        @if (order.carteComment) {
+                                        <p class="mb-0 mt-2 text-muted">Kommentar: {{ order.carteComment }}</p>
+                                        }
+                                    </div>
                                     }
-                                </span>
-                            </div>
-                            }
+                                </div>
 
-                            @if (order.carteCount > 0) {
-                            <div>
-                                <span class="fw-semibold d-block mb-1">Karte</span>
-                                <span
-                                    [class.text-success]="order.carteStatus === 'confirmed'"
-                                    [class.text-danger]="order.carteStatus === 'new'">
-
-                                    Anzahl: {{ order.carteCount }}
-
-                                    @if (order.carteStatus === 'confirmed') {
-                                        <span class="badge bg-success ms-2">Bestellt</span>
+                                <div class="d-flex flex-wrap gap-2 mt-3">
+                                    @if (order.status !== 'completed') {
+                                    <button type="button" class="btn btn-outline-success btn-sm" (click)="markCompleted(order.id)">
+                                        Abgeschlossen
+                                    </button>
                                     }
-
-                                    @if (order.carteStatus === 'new') {
-                                        <span class="badge bg-danger ms-2">Neu</span>
-                                    }
-                                </span>
-                                @if (order.carteComment) {
-                                <p class="mb-0 mt-2 text-muted">Kommentar: {{ order.carteComment }}</p>
-                                }
-                            </div>
-                            }
-                        </div>
-
-                        <div class="d-flex flex-wrap gap-2 mt-3">
-                            @if (order.status !== 'completed') {
-                            <button type="button" class="btn btn-outline-success btn-sm" (click)="markCompleted(order.id)">
-                                Abgeschlossen
-                            </button>
-                            }
-                            <button type="button" class="btn btn-outline-primary btn-sm" (click)="startEdit(order)">
-                            Bearbeiten
-                            </button>
-                            <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteOrder(order.id)">
-                            Löschen
-                            </button>
-                        </div>
-                    </article>
-                }
+                                    <button type="button" class="btn btn-outline-primary btn-sm" (click)="startEdit(order)">
+                                    Bearbeiten
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" (click)="deleteOrder(order.id)">
+                                    Löschen
+                                    </button>
+                                </div>
+                            </article>
+                        }
+                    </div>
                 </div>
             }
       </div>

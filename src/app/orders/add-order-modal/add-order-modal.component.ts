@@ -5,7 +5,7 @@ import { type OrderDraft, type OrderDrink, type OrderItemStatus } from '../model
 interface DrinkOption {
   key: string;
   label: string;
-  sizes: Array<'0.3L' | '0.5L'>;
+  sizes: Array<'0.3L' | '0.5L' | '0.75L'>;
 }
 
 @Component({
@@ -24,8 +24,27 @@ export class AddOrderModalComponent {
   readonly drinkOptions: DrinkOption[] = [
     { key: 'sprite', label: 'Sprite', sizes: ['0.3L', '0.5L'] },
     { key: 'cola', label: 'Cola', sizes: ['0.3L', '0.5L'] },
+    { key: 'colaZero', label: 'Cola Zero', sizes: ['0.3L', '0.5L'] },
+    { key: 'spezi', label: 'Spezi', sizes: ['0.3L', '0.5L'] },
     { key: 'fanta', label: 'Fanta', sizes: ['0.3L', '0.5L'] },
+    { key: 'apple', label: 'Apfelschorle', sizes: ['0.3L', '0.5L'] },
+    { key: 'wasser', label: 'Wasser', sizes: ['0.3L', '0.75L'] },
     { key: 'pils', label: 'Alkoholfreies Pils', sizes: ['0.3L', '0.5L'] },
+    { key: 'alcPils', label: 'Pils', sizes: ['0.3L', '0.5L'] }, 
+    { key: 'weizen', label: 'Alkoholfreies Weizen', sizes: ['0.3L', '0.5L'] }, 
+    { key: 'alcWeizen', label: 'Weizen', sizes: ['0.3L', '0.5L'] }, 
+    { key: 'krefelder', label: 'Krefelder', sizes: ['0.3L', '0.5L'] }, 
+    { key: 'altBier', label: 'Altbier', sizes: ['0.3L', '0.5L'] }, 
+    { key: 'radler', label: 'Radler', sizes: ['0.3L', '0.5L'] }, 
+    { key: 'lemon', label: 'Bitter Lemon', sizes: ['0.3L'] },
+    { key: 'gingerAle', label: 'Ginger Ale', sizes: ['0.3L'] },
+    { key: 'apfelsaft', label: 'Apfelsaft', sizes: ['0.3L'] },
+    { key: 'orangensaft', label: 'Orangensaft', sizes: ['0.3L'] },
+    { key: 'maracuja', label: 'Maracuja', sizes: ['0.3L'] },
+    { key: 'kaffee', label: 'Kaffee', sizes: ['0.3L'] },  
+    { key: 'espresso', label: 'Espresso', sizes: ['0.3L'] },
+    { key: 'rotWein', label: 'Rotwein', sizes: ['0.3L'] },  
+    { key: 'weissWein', label: 'Weisswein', sizes: ['0.3L'] },  
   ];
   readonly tableNumbers = Array.from({ length: 25 }, (_, index) => index + 1);
 
