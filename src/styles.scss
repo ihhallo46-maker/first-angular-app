@@ -1,4 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
-html {
-    font-family: sans-serif;
+:root {
+  --dk-walnut: #3a332c;
+  --dk-ivory: #efebe3;
+  --dk-wood: #8c8276;
+  --dk-card: #f5f2ec;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--dk-ivory);
+  font-family: 'Lato', system-ui, sans-serif;
+  color: var(--dk-walnut);
 }

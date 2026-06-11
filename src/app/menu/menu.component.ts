@@ -1,8 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
-  ViewChild,
   computed,
   signal,
 } from '@angular/core';
@@ -10,6 +8,7 @@ import { menuData, type MenuItem } from './menu-data';
 
 @Component({
   selector: 'app-menu',
+  standalone: true,
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,11 +19,7 @@ export class MenuComponent {
 
   readonly filteredSections = computed(() => {
     const term = this.searchTerm().trim().toLowerCase();
-
-    if (!term) {
-      return this.menuData.sections;
-    }
-
+    if (!term) return this.menuData.sections;
     return this.menuData.sections
       .map((section) => ({
         ...section,
@@ -32,6 +27,14 @@ export class MenuComponent {
       }))
       .filter((section) => section.items.length > 0);
   });
+
+  readonly totalFilteredItems = computed(() =>
+    this.filteredSections().reduce((sum, s) => sum + s.items.length, 0),
+  );
+
+  readonly totalItems = computed(() =>
+    this.menuData.sections.reduce((sum, s) => sum + s.items.length, 0),
+  );
 
   search(value: string): void {
     this.searchTerm.set(value);
@@ -47,27 +50,18 @@ export class MenuComponent {
 
   private matchesSearch(item: MenuItem, term: string): boolean {
     const haystack = [item.name, item.description ?? '', item.price].join(' ').toLowerCase();
-
-    if (haystack.includes(term)) {
-      return true;
-    }
-
+    if (haystack.includes(term)) return true;
     return this.fuzzyMatch(haystack, term);
   }
 
   private fuzzyMatch(haystack: string, term: string): boolean {
     let index = 0;
-
     for (const char of haystack) {
       if (char === term[index]) {
         index++;
-
-        if (index === term.length) {
-          return true;
-        }
+        if (index === term.length) return true;
       }
     }
-
     return false;
   }
 }

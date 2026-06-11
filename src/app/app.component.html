@@ -1,32 +1,106 @@
-<app-header/>
+<app-header
+  [activeView]="activeView()"
+  (viewSelected)="selectView($event)"
+  (homeClicked)="activeView.set(null)">
+</app-header>
 
-<main class="container page-main">
-  <div class="row g-4">
-    <div class="col-lg-3">
-      <aside class="navigation-card h-100">
-        <h2 class="h5 fw-bold mb-3">Quick Navigation</h2>
+<!-- ══════════════════════════════════════════════
+     HOME: Karten-Section
+     ══════════════════════════════════════════════ -->
+@if (!activeView()) {
 
-        <div class="list-group list-group-flush">
-          <a routerLink="/menu" [class.active]="activeView() === 'menu'" (click)="selectView('menu')"
-            routerLinkActive="active" class="list-group-item list-group-item-action">Speisekarte</a>
-          <a routerLink="/orders" [class.active]="activeView() === 'orders'" (click)="selectView('orders')"
-            routerLinkActive="active" class="list-group-item list-group-item-action">Bestellungen</a>
-          <a routerLink="/takeaway" [class.active]="activeView() === 'takeaway'" (click)="selectView('takeaway')"
-            routerLinkActive="active" class="list-group-item list-group-item-action">Take Away</a>
-        </div>
-      </aside>
+  <section class="cards-section" aria-label="Bereiche">
+    <div class="cards-inner">
+
+      <p class="cards-eyebrow">SCHNELL &amp; EINFACH</p>
+      <h2 class="cards-title">So kommen Sie an Ihr Essen</h2>
+
+      <div class="action-cards">
+
+        <button class="action-card" type="button" (click)="selectView('menu')">
+          <div class="card-icon-wrap">
+            <i class="bi bi-book-half" aria-hidden="true"></i>
+          </div>
+          <strong class="card-title">Speisekarte</strong>
+          <p class="card-desc">
+            Stöbern Sie durch Ente, Wok-Gerichte, Suppen und Vorspeisen —
+            alles frisch zubereitet.
+          </p>
+          <span class="card-link">Zur Karte →</span>
+        </button>
+
+        <button class="action-card" type="button" (click)="selectView('orders')">
+          <div class="card-icon-wrap">
+            <i class="bi bi-journal-check" aria-hidden="true"></i>
+          </div>
+          <strong class="card-title">Bestellungen</strong>
+          <p class="card-desc">
+            Tischbestellungen erfassen, Getränke hinzufügen und
+            den Service koordinieren.
+          </p>
+          <span class="card-link">Bestellen →</span>
+        </button>
+
+        <button class="action-card" type="button" (click)="selectView('takeaway')">
+          <div class="card-icon-wrap">
+            <i class="bi bi-bag" aria-hidden="true"></i>
+          </div>
+          <strong class="card-title">Take Away</strong>
+          <p class="card-desc">
+            Vorbestellen und selbst abholen — ohne Wartezeit,
+            direkt zur Wunschzeit bereit.
+          </p>
+          <span class="card-link">Abholen →</span>
+        </button>
+
+      </div>
     </div>
+  </section>
 
-    <div class="col-lg-9">
-      <section class="content-card h-300">
-            @if (activeView() === 'menu') {
-              <app-menu></app-menu>
-            } @else if (activeView() === 'orders') {
-              <app-orders></app-orders>
-            } @else {
-              <app-takeaway></app-takeaway>
-            }
-      </section>
+}
+
+<!-- ══════════════════════════════════════════════
+     AKTIVE ANSICHT: Tab-Leiste + Inhalts-Bereich
+     ══════════════════════════════════════════════ -->
+@if (activeView()) {
+  <!-- Inhalts-Bereich (schmal, zentriert) -->
+  <main id="main-content" class="content-section" tabindex="-1">
+    <div class="content-wrap">
+
+      @if (activeView() === 'menu') {
+        <app-menu />
+      }
+
+      @if (activeView() === 'orders') {
+        <app-orders />
+      }
+
+      @if (activeView() === 'takeaway') {
+        <app-takeaway />
+      }
     </div>
+  </main>
+}
+
+<!-- ══════════════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <svg class="footer-duck" viewBox="0 0 40 32" fill="none" stroke="currentColor"
+         stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <ellipse cx="24" cy="22" rx="12" ry="7"/>
+      <circle cx="12" cy="12" r="7"/>
+      <path d="M 5 14 L 1 12 L 5 10 Z" fill="currentColor" stroke="none"/>
+      <circle cx="9" cy="10" r="1.5" fill="currentColor" stroke="none"/>
+    </svg>
+    <span class="footer-brand">DUCK HOUSE</span>
+    <nav class="footer-nav" aria-label="Footer">
+      <a class="footer-link" href="#">Impressum</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a class="footer-link" href="#">Kontakt</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a class="footer-link" href="#">Datenschutz</a>
+    </nav>
   </div>
-</main>
+</footer>

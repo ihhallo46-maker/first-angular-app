@@ -1,92 +1,97 @@
-<div class="content-page">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-      <h2 class="h4 fw-bold mb-1">Speisekarte</h2>
-    </div>
+<div class="menu-page">
 
-    <div class="d-flex gap-3">
-      <a
-        class="btn btn-outline-dark btn-sm"
-        href="https://www.duckhouse.de/speisekarte.html"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        In neuem Tab öffnen
-      </a>
-
-      <button type="button" class="btn btn-dark btn-sm print" (click)="printMenu()">
-        Als PDF speichern
-      </button>
-    </div>
-  </div>
-
-  <div class="search-box mb-3">
-    <div class="input-group-text">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Suche nach Gerichten oder Zutaten..."
-        [value]="searchTerm()"
-        (input)="search($any($event.target).value)"
-      />
-
-      <button
-        class="btn btn-outline-primary"
-        type="button"
-        aria-label="Suche starten"
-        (click)="search(searchTerm())"
-      >
-      Suchen
-      </button>
-
-      @if (searchTerm()) {
-        <button class="btn btn-outline-danger" type="button" (click)="clearSearch()">
-          Löschen
-        </button>
-      }
-    </div>
-
-    @if (searchTerm()) {
-      <div class="search-info mt-2 text-muted small">
-        Suche nach: "{{ searchTerm() }}"
+  <!-- ── Seitenkopf ─────────────────────────────────────── -->
+  <header class="page-header">
+    <div class="page-header-left">
+      <div class="page-icon">
+        <i class="bi bi-book-half" aria-hidden="true"></i>
       </div>
+      <div>
+        <h1 class="page-title">Speisekarte</h1>
+        <p class="page-subtitle">
+          @if (searchTerm()) {
+            {{ totalFilteredItems() }} Ergebnis{{ totalFilteredItems() !== 1 ? 'se' : '' }}
+            für „{{ searchTerm() }}"
+          } @else {
+            {{ totalItems() }} Gerichte · {{ menuData.sections.length }} Kategorien
+          }
+        </p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <a class="btn-outline-action"
+         href="https://www.duckhouse.de/speisekarte.html"
+         target="_blank" rel="noopener noreferrer">
+        <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+        Öffnen
+      </a>
+      <button type="button" class="btn-new" (click)="printMenu()">
+        <i class="bi bi-printer" aria-hidden="true"></i>
+        Drucken
+      </button>
+    </div>
+  </header>
+
+  <!-- ── Suchleiste ─────────────────────────────────────── -->
+  <div class="search-bar">
+    <i class="bi bi-search search-icon" aria-hidden="true"></i>
+    <input
+      class="search-input"
+      type="text"
+      placeholder="Gerichte oder Zutaten suchen…"
+      [value]="searchTerm()"
+      (input)="search($any($event.target).value)"
+      aria-label="Speisekarte durchsuchen"
+    />
+    @if (searchTerm()) {
+      <button type="button" class="search-clear" aria-label="Suche zurücksetzen"
+              (click)="clearSearch()">
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+      </button>
     }
   </div>
 
-  <div class="menu-embed-wrapper">
-    <div class="menu-scroll-area">
-      <div class="menu-page">
-        @if (filteredSections().length === 0) {
-          <div class="empty-state">
-            <p class="mb-0">Keine Gerichte gefunden.</p>
-          </div>
-        } @else {
-          @for (section of filteredSections(); track section.title) {
-            <section class="menu-section">
-              <h3>{{ section.title }}</h3>
-
-              <div class="menu-list">
-                @for (item of section.items; track item.name) {
-                  <article class="menu-item">
-                    <div class="menu-item-head">
-                      <h4>{{ item.name }}</h4>
-                      <span>{{ item.price }}</span>
-                    </div>
-
-                    @if (item.description) {
-                      <p>{{ item.description }}</p>
-                    }
-                  </article>
-                }
-              </div>
-            </section>
-          }
-        }
-      </div>
+  <!-- ── Kein Ergebnis ──────────────────────────────────── -->
+  @if (filteredSections().length === 0) {
+    <div class="empty-state">
+      <i class="bi bi-search empty-icon" aria-hidden="true"></i>
+      <h2 class="empty-title">Keine Gerichte gefunden</h2>
+      <p class="empty-text">Versuche einen anderen Suchbegriff.</p>
+      <button type="button" class="btn-new" (click)="clearSearch()">
+        <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
+        Suche zurücksetzen
+      </button>
     </div>
+  }
+
+  <!-- ── Menü-Sektionen ─────────────────────────────────── -->
+  <div class="sections-list">
+    @for (section of filteredSections(); track section.title) {
+      <section class="menu-section">
+
+        <div class="section-header">
+          <h2 class="section-title">{{ section.title }}</h2>
+          <span class="section-rule"></span>
+          <span class="section-count">{{ section.items.length }}</span>
+        </div>
+
+        <div class="items-grid">
+          @for (item of section.items; track item.name) {
+            <article class="menu-item">
+              <div class="item-head">
+                <span class="item-name">{{ item.name }}</span>
+                <span class="item-price">{{ item.price }}</span>
+              </div>
+              @if (item.description) {
+                <p class="item-desc">{{ item.description }}</p>
+              }
+            </article>
+          }
+        </div>
+
+      </section>
+    }
   </div>
 
-  <p class="small text-muted mt-3 mb-0">
-    Falls die Speisekarte nicht angezeigt wird, liegt das meist an einer Embed-Sperre der Website.
-  </p>
 </div>
