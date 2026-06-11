@@ -35,7 +35,7 @@ $border: rgba(#8c8276, 0.22);
 .modal-dialog {
   width: min(100%, 700px);
   max-height: calc(100vh - 80px); // never taller than viewport minus nav
-  height: min(calc(100vh - 80px), 760px);
+  height: min(calc(100vh - 80px), 700px);
   background: #fff;
   border-radius: 1.25rem;
   display: flex;

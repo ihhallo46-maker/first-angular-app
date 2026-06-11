@@ -28,10 +28,20 @@ export class HeaderComponent {
   });
 
   select(view: View): void {
+    this.closeNav();
     this.viewSelected.emit(view);
   }
 
   goHome(): void {
+    this.closeNav();
     this.homeClicked.emit();
+  }
+
+  private closeNav(): void {
+    const el = document.getElementById('navbarMain');
+    if (el) {
+      const bsCollapse = (window as any).bootstrap?.Collapse?.getInstance(el);
+      bsCollapse?.hide();
+    }
   }
 }
