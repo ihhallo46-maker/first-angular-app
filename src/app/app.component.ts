@@ -1,24 +1,46 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { filter, map } from 'rxjs';
 import { HeaderComponent } from './header/header.component';
-import { MenuComponent } from './menu/menu.component';
-import { OrdersComponent } from './orders/orders.component';
-import { TakeawayComponent } from './takeaway/takeaway.component';
 
 type View = 'menu' | 'orders' | 'takeaway';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, MenuComponent, OrdersComponent, TakeawayComponent],
+  imports: [HeaderComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-  readonly activeView = signal<View | null>(null);
+  private readonly router = inject(Router);
+
+  private readonly currentUrl = toSignal(
+    this.router.events.pipe(
+      filter((e) => e instanceof NavigationEnd),
+      map((e) => (e as NavigationEnd).urlAfterRedirects),
+    ),
+    { initialValue: this.router.url },
+  );
+
+  readonly activeView = computed<View | null>(() => {
+    const url = this.currentUrl();
+    if (url.startsWith('/menu')) return 'menu';
+    if (url.startsWith('/orders')) return 'orders';
+    if (url.startsWith('/takeaway')) return 'takeaway';
+    return null;
+  });
 
   selectView(view: View): void {
-    this.activeView.set(view);
-    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 20);
+    this.router.navigate([view]);
+    if (typeof window !== 'undefined') {
+      setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 20);
+    }
+  }
+
+  goHome(): void {
+    this.router.navigate(['']);
   }
 }

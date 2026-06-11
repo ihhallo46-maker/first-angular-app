@@ -1,0 +1,47 @@
+<section class="cards-section" aria-label="Bereiche">
+  <div class="cards-inner">
+
+    <p class="cards-eyebrow">SCHNELL &amp; EINFACH</p>
+    <h2 class="cards-title">So kommen Sie an Ihr Essen</h2>
+
+    <div class="action-cards">
+
+      <button class="action-card" type="button" (click)="navigate('menu')">
+        <div class="card-icon-wrap">
+          <i class="bi bi-book-half" aria-hidden="true"></i>
+        </div>
+        <strong class="card-title">Speisekarte</strong>
+        <p class="card-desc">
+          Stöbern Sie durch Ente, Wok-Gerichte, Suppen und Vorspeisen —
+          alles frisch zubereitet.
+        </p>
+        <span class="card-link">Zur Karte →</span>
+      </button>
+
+      <button class="action-card" type="button" (click)="navigate('orders')">
+        <div class="card-icon-wrap">
+          <i class="bi bi-journal-check" aria-hidden="true"></i>
+        </div>
+        <strong class="card-title">Bestellungen</strong>
+        <p class="card-desc">
+          Tischbestellungen erfassen, Getränke hinzufügen und
+          den Service koordinieren.
+        </p>
+        <span class="card-link">Bestellen →</span>
+      </button>
+
+      <button class="action-card" type="button" (click)="navigate('takeaway')">
+        <div class="card-icon-wrap">
+          <i class="bi bi-bag" aria-hidden="true"></i>
+        </div>
+        <strong class="card-title">Take Away</strong>
+        <p class="card-desc">
+          Vorbestellen und selbst abholen — ohne Wartezeit,
+          direkt zur Wunschzeit bereit.
+        </p>
+        <span class="card-link">Abholen →</span>
+      </button>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,114 @@
+// ══════════════════════════════════════════════════════════
+// DUCK HOUSE – Shared Design Tokens, Keyframes & Patterns
+// Einbinden: @use 'shared' as *;
+// ══════════════════════════════════════════════════════════
+
+// ── Design Tokens ──────────────────────────────────────────
+$walnut:  #3a332c;
+$ivory:   #efebe3;
+$wood:    #8c8276;
+$card-bg: #f5f2ec;
+
+// ── Keyframes ──────────────────────────────────────────────
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+// ── Page Header (genutzt in Menu & Orders) ─────────────────
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.page-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.page-icon {
+  width: 46px;
+  height: 46px;
+  background: $walnut;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $ivory;
+  flex-shrink: 0;
+
+  i.bi { font-size: 1.2rem; line-height: 1; }
+}
+
+.page-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: $walnut;
+  margin: 0 0 0.1rem;
+  line-height: 1;
+}
+
+.page-subtitle {
+  font-size: 0.78rem;
+  color: $wood;
+  margin: 0;
+}
+
+// ── Empty State (genutzt in Menu & Orders) ─────────────────
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3.5rem 2rem;
+  text-align: center;
+  background: #fff;
+  border: 1.5px dashed rgba($wood, 0.3);
+  border-radius: 1rem;
+}
+
+.empty-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: $walnut;
+  margin: 0 0 0.4rem;
+}
+
+.empty-text {
+  font-size: 0.84rem;
+  color: $wood;
+  margin: 0 0 1.25rem;
+}
+
+// ── Primärer Aktions-Button ────────────────────────────────
+.btn-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: $walnut;
+  color: $ivory;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.15s;
+
+  &:hover { background: lighten($walnut, 8%); }
+
+  i.bi { font-size: 0.9rem; }
+}

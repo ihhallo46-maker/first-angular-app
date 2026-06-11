@@ -1,0 +1,126 @@
+@use 'shared' as *;
+
+:host { display: block; }
+
+.cards-section {
+  background: $ivory;
+  padding: 6rem 2rem 5rem;
+  flex: 1;
+}
+
+.cards-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.cards-eyebrow {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: $wood;
+  margin: 0;
+  animation: fadeIn 0.6s ease both 0.05s;
+}
+
+.cards-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 600;
+  color: $walnut;
+  margin: 0;
+  text-align: center;
+  letter-spacing: -0.01em;
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both 0.12s;
+}
+
+.action-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  align-items: stretch;
+}
+
+.action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.1rem;
+  padding: 2rem 1.75rem;
+  background: #fff;
+  border: 2px solid transparent;
+  outline: 1px solid rgba($walnut, 0.1);
+  outline-offset: -1px;
+  border-radius: 1rem;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.22s ease, box-shadow 0.25s ease,
+              transform 0.2s ease, outline-color 0.22s ease;
+
+  &:nth-child(1) { animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both 0.18s; }
+  &:nth-child(2) { animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both 0.28s; }
+  &:nth-child(3) { animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both 0.38s; }
+
+  &:hover {
+    border-color: $walnut;
+    outline-color: transparent;
+    box-shadow: 0 12px 40px rgba($walnut, 0.14);
+    transform: translateY(-4px);
+
+    .card-icon-wrap { background: $walnut; color: $ivory; }
+    .card-link { color: $wood; }
+  }
+
+  &:active { transform: translateY(-1px); }
+}
+
+.card-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 0.75rem;
+  background: rgba($walnut, 0.06);
+  color: rgba($walnut, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.25s, color 0.25s;
+
+  i.bi { font-size: 1.4rem; }
+}
+
+.card-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: $walnut;
+  display: block;
+}
+
+.card-desc {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.84rem;
+  color: rgba($walnut, 0.55);
+  line-height: 1.65;
+  margin: 0;
+  flex: 1;
+}
+
+.card-link {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: $walnut;
+  margin-top: 0.5rem;
+  transition: color 0.2s;
+}
+
+@media (max-width: 768px) {
+  .action-cards { grid-template-columns: 1fr; }
+  .cards-section { padding: 4rem 1.25rem 3.5rem; }
+}
