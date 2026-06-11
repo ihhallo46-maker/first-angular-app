@@ -1,18 +1,37 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
+
+type View = 'menu' | 'orders' | 'takeaway';
 
 @Component({
   selector: 'app-header',
+  standalone: true,
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  protected readonly today = signal(new Date());
-  protected readonly formattedDate = computed(() =>
-    new Intl.DateTimeFormat('de-DE', {
+  readonly activeView = input<View | null>(null);
+  readonly viewSelected = output<View>();
+  readonly homeClicked = output<void>();
+
+  private readonly today = signal(new Date());
+
+  readonly formattedDate = computed(() => {
+    const d = this.today();
+    const weekday = new Intl.DateTimeFormat('de-DE', { weekday: 'long' }).format(d);
+    const date = new Intl.DateTimeFormat('de-DE', {
       day: '2-digit',
       month: 'long',
       year: 'numeric',
-    }).format(this.today()),
-  );
+    }).format(d);
+    return `${weekday} · ${date}`.toUpperCase();
+  });
+
+  select(view: View): void {
+    this.viewSelected.emit(view);
+  }
+
+  goHome(): void {
+    this.homeClicked.emit();
+  }
 }

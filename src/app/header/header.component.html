@@ -1,20 +1,176 @@
-<header class="site-header py-4" aria-label="Duck House Header">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <div class="brand-card d-flex flex-column flex-md-row align-items-start align-md-items-center justify-content-between gap-3 p-3 p-md-4">
-          <div class="d-flex align-items-center gap-3">
-            <div>
-              <h1 class="brand-title mb-1">Duck House</h1>
-              <p class="brand-date mb-0">{{ formattedDate() }}</p>
+<!-- ══════════════════════════════════════════════
+     NAVIGATION
+     ══════════════════════════════════════════════ -->
+<nav class="top-nav navbar navbar-expand-md" aria-label="Hauptnavigation">
+  <div class="nav-inner">
+
+    <a class="nav-logo" href="#" (click)="$event.preventDefault(); goHome()">
+      <svg class="nav-duck" viewBox="0 0 60 48" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <ellipse cx="36" cy="32" rx="18" ry="11"/>
+        <circle cx="18" cy="18" r="11"/>
+        <path d="M 8 21 L 1 19 L 8 16 Z" fill="currentColor" stroke="none"/>
+        <circle cx="14" cy="15" r="2" fill="currentColor" stroke="none"/>
+        <path d="M 27 27 Q 37 21 51 26"/>
+        <path d="M 53 27 Q 60 19 57 37"/>
+      </svg>
+      <span class="nav-brand">DUCK HOUSE</span>
+    </a>
+
+    <button class="nav-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarMain"
+            aria-controls="navbarMain" aria-expanded="false" aria-label="Navigation öffnen">
+      <i class="bi bi-list" aria-hidden="true"></i>
+    </button>
+
+    <div class="collapse navbar-collapse text-right" id="navbarMain">
+      <ul class="nav-links" role="list">
+        <li>
+          <a class="nav-link" [class.nav-link--active]="activeView() === 'menu'"
+             href="#" (click)="$event.preventDefault(); select('menu')">
+               <i class="bi bi-book-half" aria-hidden="true"></i><span class="nav-link-text">SPEISEKARTE</span></a>
+        </li>
+        <li>
+          <a class="nav-link" [class.nav-link--active]="activeView() === 'orders'"
+             href="#" (click)="$event.preventDefault(); select('orders')">
+              <i class="bi bi-journal-check" aria-hidden="true"></i><span class="nav-link-text">BESTELLUNGEN</span></a>
+        </li>
+        <li>
+          <a class="nav-link" [class.nav-link--active]="activeView() === 'takeaway'"
+             href="#" (click)="$event.preventDefault(); select('takeaway')">
+               <i class="bi bi-bag" aria-hidden="true"></i><span class="nav-link-text">TAKE AWAY</span></a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     HERO — nur Startseite
+     ══════════════════════════════════════════════ -->
+@if (!activeView()) {
+  <section class="hero" aria-label="Duck House Startseite">
+
+    <div class="hero-inner">
+
+      <!-- ── Oben: zentriertes Branding ──────────── -->
+      <div class="hero-top">
+        <div class="hero-eyebrow" aria-hidden="true">
+          <span class="ey-line"></span>
+          <span class="ey-text">CHINESISCHE SPEZIALITÄTEN · BOCHUM</span>
+          <span class="ey-line"></span>
+        </div>
+        <h1 class="hero-title">Duck House</h1>
+        <p class="hero-sub">
+          Authentische Peking-Ente, frisch aus dem Wok &mdash; seit über zwanzig Jahren.
+        </p>
+        <p class="hero-meta">{{ formattedDate() }} &nbsp;•&nbsp; GEÖFFNET BIS 22:00</p>
+      </div>
+
+      <!-- ── Mitte: Paper-Karte LINKS schräg | Ente MITTE ── -->
+      <div class="hero-mid">
+
+        <!-- Paper-Karte (links, schräg) -->
+        <div class="paper-wrap" aria-label="Informationen">
+          <div class="paper-card">
+
+            <!-- Öffnungszeiten -->
+            <div class="paper-section">
+              <div class="paper-section-label">
+                <i class="bi bi-clock" aria-hidden="true"></i>
+                Öffnungszeiten
+              </div>
+              <div class="paper-rows">
+                <div class="paper-row">
+                  <span class="paper-row-val">12:00 – 15:00 | 17:30 – 22:00</span>
+                </div>
+              </div>
             </div>
+
+            <div class="paper-divider paper-divider--dashed"></div>
+
+            <!-- Ruhetag -->
+            <div class="paper-section">
+              <div class="paper-section-label">
+                <i class="bi bi-moon-stars" aria-hidden="true"></i>
+                Ruhetag
+              </div>
+              <p class="paper-closed-day">Dienstag geschlossen</p>
+            </div>
+
+            <div class="paper-divider paper-divider--dashed"></div>
+
+            <!-- Reservierungen -->
+            <div class="paper-section">
+              <div class="paper-section-label">
+                <i class="bi bi-telephone" aria-hidden="true"></i>
+                Reservierungen
+              </div>
+              <a class="paper-phone" href="tel:+492343389688">0234 – 33 89 688</a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Enten-Spalte (Mitte) -->
+        <div class="hero-duck-col">
+
+          <div class="hero-graphic" aria-hidden="true">
+            <div class="steam-container">
+              <svg class="steam steam--1" viewBox="0 0 16 70" fill="none"
+                   stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M 8 68 C 2 52 14 40 8 24 C 2 8 8 0 8 0"/>
+              </svg>
+              <svg class="steam steam--2" viewBox="0 0 16 70" fill="none"
+                   stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M 8 68 C 14 52 2 40 8 24 C 14 8 8 0 8 0"/>
+              </svg>
+              <svg class="steam steam--3" viewBox="0 0 16 70" fill="none"
+                   stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                <path d="M 8 68 C 2 52 14 40 8 24 C 2 8 8 0 8 0"/>
+              </svg>
+            </div>
+
+            <svg class="hero-duck" viewBox="0 0 280 165" fill="none" stroke="currentColor"
+                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="165" cy="122" rx="95" ry="40"/>
+              <circle cx="58" cy="62" r="33"/>
+              <path d="M 27 67 L 2 60 L 27 54 Z" fill="currentColor" stroke="none"/>
+              <circle cx="49" cy="57" r="5.5" fill="currentColor" stroke="none"/>
+              <path d="M 58 95 C 80 110 112 119 134 117"/>
+              <path d="M 120 112 Q 162 97 208 110"/>
+              <path d="M 254 98 Q 278 80 268 116"/>
+              <path d="M 35 150 Q 150 142 268 150"/>
+              <path d="M 58 157 Q 160 150 248 157" stroke-width="1.2" opacity="0.35"/>
+            </svg>
           </div>
 
-          <div class="text-bg-light fw-semibold px-3 py-2">
-              Fine Dining • Reservations • Takeaway 
-          </div> 
+          <p class="hero-address">
+            <i class="bi bi-geo-alt" aria-hidden="true"></i>
+            Harpener Hellweg 211a &nbsp;·&nbsp; 44805 Bochum
+          </p>
+
         </div>
+
       </div>
+
+      <!-- ── Unten: CTA-Buttons ──────────────────── -->
+      <div class="hero-actions">
+        <button class="btn-primary" type="button" (click)="select('orders')">
+          Jetzt bestellen &nbsp;→
+        </button>
+        <button class="btn-secondary" type="button" (click)="select('menu')">
+          Speisekarte ansehen
+        </button>
+      </div>
+
     </div>
-  </div>
-</header>
+
+    <div class="scroll-indicator" aria-hidden="true">
+      <span class="scroll-text">MEHR</span>
+      <div class="scroll-line"></div>
+    </div>
+
+  </section>
+}

@@ -10,27 +10,40 @@ $border: rgba(#8c8276, 0.22);
 // ══════════════════════════════════════════════════════════
 :host { display: block; }
 
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
   z-index: 1050;
   display: flex;
-  align-items: center;
+  align-items: center;          // center dialog in the area below nav
   justify-content: center;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.65);
+  padding: 64px 1.5rem 1.5rem;  // 64px top = nav height, dialog can't go higher
+  background: rgba(0, 0, 0, 0.6);
+  animation: fadeIn 0.2s ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .modal-dialog {
-  width: min(100%, 860px);
-  height: min(calc(100vh - 2rem), 960px);
+  width: min(100%, 700px);
+  max-height: calc(100vh - 80px); // never taller than viewport minus nav
+  height: min(calc(100vh - 80px), 760px);
   background: #fff;
   border-radius: 1.25rem;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.35);
   pointer-events: auto;
+  animation: modalIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 // ══════════════════════════════════════════════════════════
