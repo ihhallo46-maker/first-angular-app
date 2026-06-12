@@ -56,41 +56,57 @@
             <span class="section-rule"></span>
           </div>
 
-          <div class="drink-grid">
-            @for (option of drinkOptions; track option.key) {
-              <div class="drink-card">
-                <div class="drink-card-top">
-                  <span class="drink-name">{{ option.label }}</span>
-                  <span class="drink-avail">erhältlich</span>
-                </div>
+          <div class="drink-categories">
+            @for (cat of drinkCategories; track cat.key) {
+              <div class="drink-category" [class.drink-category--open]="isCategoryOpen(cat.key)">
 
-                <div class="drink-sizes">
-                  @for (se of getSizesForOption(option); track se.sizeKey) {
-                    <div class="size-row">
-                      @if (getConfirmedCount(option.key, se.size) > 0) {
-                        <span class="confirmed-pill">{{ getConfirmedCount(option.key, se.size) }}✓</span>
-                        <span class="size-label size-label-muted">{{ se.label }}</span>
-                        <span class="size-plus-sep">+</span>
-                      } @else {
-                        <span class="size-label">{{ se.label }}</span>
-                      }
-
-                      <div class="stepper">
-                        <button type="button" class="stepper-btn"
-                                (click)="decrement(option.key + se.sizeKey + 'Count', option.key + se.sizeKey)">
-                          −
-                        </button>
-                        <span class="stepper-val">
-                          {{ form.get(option.key + se.sizeKey + 'Count')?.value || 0 }}
-                        </span>
-                        <button type="button" class="stepper-btn"
-                                (click)="increment(option.key + se.sizeKey + 'Count', option.key + se.sizeKey)">
-                          +
-                        </button>
-                      </div>
-                    </div>
+                <!-- ── Kategorie-Header ─────────────────── -->
+                <button type="button" class="category-header"
+                        (click)="toggleCategory(cat.key)"
+                        [attr.aria-expanded]="isCategoryOpen(cat.key)">
+                  <i class="bi {{ cat.icon }} category-icon" aria-hidden="true"></i>
+                  <span class="category-label">{{ cat.label }}</span>
+                  @if (getCategoryTotal(cat) > 0) {
+                    <span class="category-badge">{{ getCategoryTotal(cat) }}</span>
                   }
-                </div>
+                  <i class="bi bi-chevron-down category-chevron" aria-hidden="true"></i>
+                </button>
+
+                <!-- ── Aufgeklappter Inhalt ─────────────── -->
+                @if (isCategoryOpen(cat.key)) {
+                  <div class="category-body">
+                    <div class="drink-grid">
+                      @for (option of getCategoryOptions(cat); track option.key) {
+                        <div class="drink-card">
+                          <div class="drink-card-top">
+                            <span class="drink-name">{{ option.label }}</span>
+                          </div>
+                          <div class="drink-sizes">
+                            @for (se of getSizesForOption(option); track se.sizeKey) {
+                              <div class="size-row">
+                                @if (getConfirmedCount(option.key, se.size) > 0) {
+                                  <span class="confirmed-pill">{{ getConfirmedCount(option.key, se.size) }}✓</span>
+                                  <span class="size-label size-label-muted">{{ se.label }}</span>
+                                  <span class="size-plus-sep">+</span>
+                                } @else {
+                                  <span class="size-label">{{ se.label }}</span>
+                                }
+                                <div class="stepper">
+                                  <button type="button" class="stepper-btn"
+                                          (click)="decrement(option.key + se.sizeKey + 'Count', option.key + se.sizeKey)">−</button>
+                                  <span class="stepper-val">{{ form.get(option.key + se.sizeKey + 'Count')?.value || 0 }}</span>
+                                  <button type="button" class="stepper-btn"
+                                          (click)="increment(option.key + se.sizeKey + 'Count', option.key + se.sizeKey)">+</button>
+                                </div>
+                              </div>
+                            }
+                          </div>
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+
               </div>
             }
           </div>

@@ -519,6 +519,88 @@ $border: rgba(#8c8276, 0.22);
 }
 
 // ══════════════════════════════════════════════════════════
+// GETRÄNKE-KATEGORIEN (Akkordeon)
+// ══════════════════════════════════════════════════════════
+.drink-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.drink-category {
+  background: #fff;
+  border: 1px solid rgba($wood, 0.2);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: border-color 0.15s;
+
+  &--open {
+    border-color: rgba($walnut, 0.25);
+  }
+}
+
+.category-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.8rem 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: background 0.15s;
+
+  &:hover { background: rgba($ivory, 0.7); }
+
+  .drink-category--open & { background: rgba($ivory, 0.5); }
+}
+
+.category-icon {
+  font-size: 1rem;
+  color: $wood;
+  flex-shrink: 0;
+}
+
+.category-label {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: $walnut;
+  flex: 1;
+}
+
+.category-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 0.4rem;
+  background: $walnut;
+  color: $ivory;
+  border-radius: 999px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.category-chevron {
+  font-size: 0.75rem;
+  color: $wood;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+
+  .drink-category--open & { transform: rotate(180deg); }
+}
+
+.category-body {
+  padding: 0.75rem;
+  border-top: 1px solid rgba($wood, 0.12);
+  background: rgba($ivory, 0.3);
+}
+
+// ══════════════════════════════════════════════════════════
 // RESPONSIVE
 // ══════════════════════════════════════════════════════════
 @media (max-width: 600px) {

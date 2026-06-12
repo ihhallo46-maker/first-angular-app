@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, effect, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, input, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { type OrderDraft, type OrderDrink, type OrderItemStatus } from '../models/order.model';
 
@@ -6,6 +6,13 @@ interface DrinkOption {
   key: string;
   label: string;
   sizes: Array<'0.3L' | '0.5L' | '0.75L'>;
+}
+
+interface DrinkCategory {
+  key: string;
+  label: string;
+  icon: string;
+  drinkKeys: string[];
 }
 
 interface SizeEntry {
@@ -34,7 +41,8 @@ export class AddOrderModalComponent {
     { key: 'spezi', label: 'Spezi', sizes: ['0.3L', '0.5L'] },
     { key: 'fanta', label: 'Fanta', sizes: ['0.3L', '0.5L'] },
     { key: 'apple', label: 'Apfelschorle', sizes: ['0.3L', '0.5L'] },
-    { key: 'wasser', label: 'Wasser', sizes: ['0.3L', '0.75L'] },
+    { key: 'wasserstill', label: 'Wasser still', sizes: ['0.3L', '0.75L'] },
+     { key: 'wassersprudel', label: 'Wasser sprudel', sizes: ['0.3L', '0.75L'] },
     { key: 'pils', label: 'Alkoholfreies Pils', sizes: ['0.3L', '0.5L'] },
     { key: 'alcPils', label: 'Pils', sizes: ['0.3L', '0.5L'] },
     { key: 'weizen', label: 'Alkoholfreies Weizen', sizes: ['0.3L', '0.5L'] },
@@ -49,6 +57,9 @@ export class AddOrderModalComponent {
     { key: 'maracuja', label: 'Maracuja', sizes: ['0.3L'] },
     { key: 'kaffee', label: 'Kaffee', sizes: ['0.3L'] },
     { key: 'espresso', label: 'Espresso', sizes: ['0.3L'] },
+    { key: 'doubleespresso', label: 'Doppelter Espresso', sizes: ['0.3L'] },
+    { key: 'chinatee', label: 'China Tee', sizes: ['0.3L'] },
+    { key: 'grüneTee', label: 'Grüner Tee', sizes: ['0.3L'] },
     { key: 'rotWein', label: 'Rotwein', sizes: ['0.3L'] },
     { key: 'weissWein', label: 'Weisswein', sizes: ['0.3L'] },
     { key: 'reisschnaps', label: 'Reisschnaps', sizes: ['0.3L'] },
@@ -59,6 +70,51 @@ export class AddOrderModalComponent {
     { sizeKey: '05', size: '0.5L', label: '0.5L' },
     { sizeKey: '075', size: '0.75L', label: '0.75L' },
   ];
+
+  readonly drinkCategories: DrinkCategory[] = [
+    { key: 'softdrinks', label: 'Softdrinks',      icon: 'bi-cup-straw',    drinkKeys: ['apple','sprite', 'cola', 'colaZero', 'spezi', 'fanta', 'lemon', 'gingerAle'] },
+    { key: 'bier',       label: 'Bier',             icon: 'bi-cup',          drinkKeys: ['pils', 'alcPils', 'weizen', 'alcWeizen', 'krefelder', 'altBier', 'radler'] },
+    { key: 'saefte',     label: 'Säfte',  icon: 'bi-droplet',      drinkKeys: ['apfelsaft', 'orangensaft', 'maracuja'] },
+    { key: 'wasser',     label: 'Wasser',            icon: 'bi-droplet-half', drinkKeys: ['wasserstill', 'wassersprudel'] },
+    { key: 'wein',       label: 'Wein & Schnaps',   icon: 'bi-cup-hot',      drinkKeys: ['rotWein', 'weissWein', 'reisschnaps'] },
+    { key: 'warm',       label: 'Kaffee und Tee',      icon: 'bi-cup-hot-fill', drinkKeys: ['kaffee', 'espresso', 'doubleespresso', 'chinatee', 'grüneTee'] },
+  ];
+
+  private readonly openCategories = signal<Set<string>>(new Set(['softdrinks']));
+
+  isCategoryOpen(key: string): boolean {
+    return this.openCategories().has(key);
+  }
+
+  toggleCategory(key: string): void {
+    this.openCategories.update((set) => {
+      const next = new Set(set);
+      if (next.has(key)) {
+        next.delete(key);
+      } else {
+        next.add(key);
+      }
+      return next;
+    });
+  }
+
+  getCategoryOptions(category: DrinkCategory): DrinkOption[] {
+    return this.drinkOptions.filter((o) => category.drinkKeys.includes(o.key));
+  }
+
+  getCategoryTotal(category: DrinkCategory): number {
+    let total = 0;
+    for (const opt of this.drinkOptions.filter((o) => category.drinkKeys.includes(o.key))) {
+      for (const se of this.allSizeEntries) {
+        if (!opt.sizes.includes(se.size)) continue;
+        const confirmed = this.getConfirmedCount(opt.key, se.size);
+        const isChecked = Boolean(this.form.get(`${opt.key}${se.sizeKey}`)?.value);
+        const newCount = Number(this.form.get(`${opt.key}${se.sizeKey}Count`)?.value || 0);
+        total += confirmed + (isChecked ? newCount : 0);
+      }
+    }
+    return total;
+  }
 
   readonly tableNumbers = Array.from({ length: 25 }, (_, i) => i + 1);
 
