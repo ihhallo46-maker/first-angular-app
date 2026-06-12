@@ -16,6 +16,7 @@ import { menuData, type MenuItem } from './menu-data';
 export class MenuComponent {
   readonly menuData = menuData;
   readonly searchTerm = signal('');
+  readonly openSectionTitle = signal<string | null>(null);
 
   readonly filteredSections = computed(() => {
     const term = this.searchTerm().trim().toLowerCase();
@@ -36,6 +37,17 @@ export class MenuComponent {
     this.menuData.sections.reduce((sum, s) => sum + s.items.length, 0),
   );
 
+  isSectionOpen(title: string): boolean {
+    // During search all matching sections are always visible
+    if (this.searchTerm().trim()) return true;
+    return this.openSectionTitle() === title;
+  }
+
+  toggleSection(title: string): void {
+    if (this.searchTerm().trim()) return;
+    this.openSectionTitle.update((current) => (current === title ? null : title));
+  }
+
   search(value: string): void {
     this.searchTerm.set(value);
   }
@@ -50,18 +62,6 @@ export class MenuComponent {
 
   private matchesSearch(item: MenuItem, term: string): boolean {
     const haystack = [item.name, item.description ?? '', item.price].join(' ').toLowerCase();
-    if (haystack.includes(term)) return true;
-    return this.fuzzyMatch(haystack, term);
-  }
-
-  private fuzzyMatch(haystack: string, term: string): boolean {
-    let index = 0;
-    for (const char of haystack) {
-      if (char === term[index]) {
-        index++;
-        if (index === term.length) return true;
-      }
-    }
-    return false;
+    return haystack.includes(term);
   }
 }

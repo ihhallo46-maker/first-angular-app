@@ -9,9 +9,9 @@
       <div>
         <h1 class="page-title">Bestellungen</h1>
         <p class="page-subtitle">
-          {{ orders().length }} {{ orders().length === 1 ? 'Tisch' : 'Tische' }}
-          @if (inProgressCount() > 0) {
-            · {{ inProgressCount() }} in Bearbeitung
+          {{ orderService.orders().length }} {{ orderService.orders().length === 1 ? 'Tisch' : 'Tische' }}
+          @if (orderService.inProgressCount() > 0) {
+            · {{ orderService.inProgressCount() }} in Bearbeitung
           }
         </p>
       </div>
@@ -36,7 +36,7 @@
   }
 
   <!-- ── Leerer Zustand ─────────────────────────────────────── -->
-  @if (orders().length === 0) {
+  @if (orderService.orders().length === 0) {
     <div class="empty-state">
       <div class="empty-duck" aria-hidden="true">
         <svg viewBox="0 0 160 120" fill="none" stroke="currentColor"
@@ -61,10 +61,10 @@
   }
 
   <!-- ── Bestellkarten ──────────────────────────────────────── -->
-  @if (orders().length > 0) {
+  @if (orderService.orders().length > 0) {
     <div class="orders-grid">
 
-      @for (order of orders(); track order.id) {
+      @for (order of orderService.orders(); track order.id) {
         <article class="order-card"
                  [class.order-card--completed]="order.status === 'completed'">
 

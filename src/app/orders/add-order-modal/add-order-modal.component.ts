@@ -73,29 +73,21 @@ export class AddOrderModalComponent {
 
   readonly drinkCategories: DrinkCategory[] = [
     { key: 'softdrinks', label: 'Softdrinks',      icon: 'bi-cup-straw',    drinkKeys: ['apple','sprite', 'cola', 'colaZero', 'spezi', 'fanta', 'lemon', 'gingerAle'] },
-    { key: 'bier',       label: 'Bier',             icon: 'bi-cup',          drinkKeys: ['pils', 'alcPils', 'weizen', 'alcWeizen', 'krefelder', 'altBier', 'radler'] },
-    { key: 'saefte',     label: 'Säfte',  icon: 'bi-droplet',      drinkKeys: ['apfelsaft', 'orangensaft', 'maracuja'] },
+    { key: 'bier',       label: 'Bier',             icon: 'bi-cup-fill',     drinkKeys: ['pils', 'alcPils', 'weizen', 'alcWeizen', 'krefelder', 'altBier', 'radler'] },
+    { key: 'saefte',     label: 'Säfte',            icon: 'bi-droplet-fill', drinkKeys: ['apfelsaft', 'orangensaft', 'maracuja'] },
     { key: 'wasser',     label: 'Wasser',            icon: 'bi-droplet-half', drinkKeys: ['wasserstill', 'wassersprudel'] },
-    { key: 'wein',       label: 'Wein & Schnaps',   icon: 'bi-cup-hot',      drinkKeys: ['rotWein', 'weissWein', 'reisschnaps'] },
+    { key: 'wein',       label: 'Wein & Schnaps',   icon: 'bi-stars',        drinkKeys: ['rotWein', 'weissWein', 'reisschnaps'] },
     { key: 'warm',       label: 'Kaffee und Tee',      icon: 'bi-cup-hot-fill', drinkKeys: ['kaffee', 'espresso', 'doubleespresso', 'chinatee', 'grüneTee'] },
   ];
 
-  private readonly openCategories = signal<Set<string>>(new Set(['softdrinks']));
+  private readonly openCategory = signal<string | null>(null);
 
   isCategoryOpen(key: string): boolean {
-    return this.openCategories().has(key);
+    return this.openCategory() === key;
   }
 
   toggleCategory(key: string): void {
-    this.openCategories.update((set) => {
-      const next = new Set(set);
-      if (next.has(key)) {
-        next.delete(key);
-      } else {
-        next.add(key);
-      }
-      return next;
-    });
+    this.openCategory.update((current) => (current === key ? null : key));
   }
 
   getCategoryOptions(category: DrinkCategory): DrinkOption[] {
