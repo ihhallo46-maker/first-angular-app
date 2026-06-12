@@ -53,6 +53,7 @@ export class AddOrderModalComponent {
     { key: 'alster', label: 'Alster', sizes: ['0.3L', '0.5L'] },
     { key: 'lemon', label: 'Bitter Lemon', sizes: ['0.3L'] },
     { key: 'gingerAle', label: 'Ginger Ale', sizes: ['0.3L'] },
+    { key: 'malzbier', label: 'Malzbier', sizes: ['0.3L'] },
     { key: 'apfelsaft', label: 'Apfelsaft', sizes: ['0.3L'] },
     { key: 'orangensaft', label: 'Orangensaft', sizes: ['0.3L'] },
     { key: 'maracuja', label: 'Maracuja', sizes: ['0.3L'] },
@@ -63,7 +64,8 @@ export class AddOrderModalComponent {
     { key: 'grüneTee', label: 'Grüner Tee', sizes: ['0.3L'] },
     { key: 'rotWein', label: 'Rotwein', sizes: ['0.3L'] },
     { key: 'weissWein', label: 'Weisswein', sizes: ['0.3L'] },
-    { key: 'reisschnaps', label: 'Reisschnaps', sizes: ['0.3L'] },
+      { key: 'reisschnaps', label: 'Reisschnaps', sizes: ['0.3L'] },
+      { key: 'plumwine', label: 'Pflaumenwein', sizes: ['0.3L'] },
   ];
 
   readonly allSizeEntries: SizeEntry[] = [
@@ -73,11 +75,11 @@ export class AddOrderModalComponent {
   ];
 
   readonly drinkCategories: DrinkCategory[] = [
-    { key: 'softdrinks', label: 'Softdrinks',      icon: 'bi-cup-straw',    drinkKeys: ['apple','sprite', 'cola', 'colaZero', 'spezi', 'fanta', 'lemon', 'gingerAle'] },
+    { key: 'softdrinks', label: 'Softdrinks',      icon: 'bi-cup-straw',    drinkKeys: ['apple','sprite', 'cola', 'colaZero', 'spezi', 'fanta', 'lemon', 'gingerAle', 'malzbier'] },
     { key: 'bier',       label: 'Bier',             icon: 'bi-cup-fill',     drinkKeys: ['pils', 'alcPils', 'weizen', 'alcWeizen', 'krefelder', 'altBier', 'radler', 'alster'] },
     { key: 'saefte',     label: 'Säfte',            icon: 'bi-droplet-fill', drinkKeys: ['apfelsaft', 'orangensaft', 'maracuja'] },
     { key: 'wasser',     label: 'Wasser',            icon: 'bi-droplet-half', drinkKeys: ['wasserstill', 'wassersprudel'] },
-    { key: 'wein',       label: 'Wein & Schnaps',   icon: 'bi-stars',        drinkKeys: ['rotWein', 'weissWein', 'reisschnaps'] },
+    { key: 'wein',       label: 'Wein & Schnaps',   icon: 'bi-stars',        drinkKeys: ['rotWein', 'weissWein', 'reisschnaps', 'plumwine'] },
     { key: 'warm',       label: 'Kaffee und Tee',      icon: 'bi-cup-hot-fill', drinkKeys: ['kaffee', 'espresso', 'doubleespresso', 'chinatee', 'grüneTee'] },
   ];
 
