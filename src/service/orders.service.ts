@@ -1,5 +1,5 @@
 import { Injectable, computed, effect, signal } from '@angular/core';
-import { type OrderDraft, type OrderDrink } from './models/order.model';
+import { type OrderDraft, type OrderDrink } from '../app/orders/models/order.model';
 
 const STORAGE_KEY = 'duck-house-orders';
 const isBrowser = typeof localStorage !== 'undefined';

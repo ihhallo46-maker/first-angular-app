@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { AddOrderModalComponent } from './add-order-modal/add-order-modal.component';
-import { OrdersService } from './orders.service';
+import { OrdersService } from '../../service/orders.service';
 import { type OrderDraft } from './models/order.model';
 
 @Component({
