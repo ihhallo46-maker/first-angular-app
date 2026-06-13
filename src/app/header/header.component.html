@@ -54,7 +54,11 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link nav-item-link" href="#">ANFAHRT</a>
+          <a class="nav-link nav-item-link"
+             [class.nav-item-link--active]="activeView() === 'anfahrt'"
+             href="#" (click)="$event.preventDefault(); select('anfahrt')">
+            ANFAHRT
+          </a>
         </li>
       </ul>
     </div>

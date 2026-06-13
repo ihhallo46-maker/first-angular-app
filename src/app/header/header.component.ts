@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
 
-type View = 'menu' | 'orders' | 'takeaway';
+type View = 'menu' | 'orders' | 'takeaway' | 'anfahrt';
 
 @Component({
   selector: 'app-header',

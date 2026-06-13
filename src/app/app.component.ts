@@ -4,7 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
 import { HeaderComponent } from './header/header.component';
 
-type View = 'menu' | 'orders' | 'takeaway';
+type View = 'menu' | 'orders' | 'takeaway' | 'anfahrt';
 
 @Component({
   selector: 'app-root',
@@ -27,9 +27,10 @@ export class AppComponent {
 
   readonly activeView = computed<View | null>(() => {
     const url = this.currentUrl();
-    if (url.startsWith('/menu')) return 'menu';
-    if (url.startsWith('/orders')) return 'orders';
+    if (url.startsWith('/menu'))     return 'menu';
+    if (url.startsWith('/orders'))   return 'orders';
     if (url.startsWith('/takeaway')) return 'takeaway';
+    if (url.startsWith('/anfahrt'))  return 'anfahrt';
     return null;
   });
 
