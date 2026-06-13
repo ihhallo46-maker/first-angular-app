@@ -52,7 +52,8 @@ $wood: #8c8276;
   justify-content: center;
   gap: 0;
   padding: 3rem 2rem;
-  background: $walnut;
+  background-color: var(--wood-bg-color);
+  background-image: var(--wood-bg-image);
 }
 
 .ta-step {

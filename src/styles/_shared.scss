@@ -38,7 +38,8 @@ $card-bg: #f5f2ec;
 .page-icon {
   width: 46px;
   height: 46px;
-  background: $walnut;
+  background-color: var(--wood-bg-color);
+  background-image: var(--wood-bg-image);
   border-radius: 0.75rem;
   display: flex;
   align-items: center;
@@ -95,7 +96,8 @@ $card-bg: #f5f2ec;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: $walnut;
+  background-color: var(--wood-bg-color);
+  background-image: var(--wood-bg-image);
   color: $ivory;
   border: none;
   border-radius: 0.5rem;
@@ -106,9 +108,9 @@ $card-bg: #f5f2ec;
   cursor: pointer;
   white-space: nowrap;
   text-decoration: none;
-  transition: background 0.15s;
+  transition: filter 0.15s;
 
-  &:hover { background: lighten($walnut, 8%); }
+  &:hover { filter: brightness(1.22); }
 
   i.bi { font-size: 0.9rem; }
 }

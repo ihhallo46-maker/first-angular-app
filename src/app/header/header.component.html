@@ -1,12 +1,16 @@
 <!-- ══════════════════════════════════════════════
-     NAVIGATION
+     NAVIGATION — Bootstrap 5.3 Navbar
      ══════════════════════════════════════════════ -->
-<nav class="top-nav navbar navbar-expand-md" aria-label="Hauptnavigation">
-  <div class="nav-inner">
+<nav class="navbar navbar-expand-lg fixed-top top-nav"
+     aria-label="Hauptnavigation">
+  <div class="container-xxl">
 
-    <a class="nav-logo" href="#" (click)="$event.preventDefault(); goHome()">
+    <!-- ── Logo ─────────────────────────────────── -->
+    <a class="navbar-brand nav-logo" href="#"
+       (click)="$event.preventDefault(); goHome()">
       <svg class="nav-duck" viewBox="0 0 60 48" fill="none" stroke="currentColor"
-           stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+           stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
         <ellipse cx="36" cy="32" rx="18" ry="11"/>
         <circle cx="18" cy="18" r="11"/>
         <path d="M 8 21 L 1 19 L 8 16 Z" fill="currentColor" stroke="none"/>
@@ -14,31 +18,43 @@
         <path d="M 27 27 Q 37 21 51 26"/>
         <path d="M 53 27 Q 60 19 57 37"/>
       </svg>
-      <span class="nav-brand">DUCK HOUSE</span>
+      <span class="nav-brand-text">DUCK HOUSE</span>
     </a>
 
-    <button class="nav-toggler" type="button"
-            data-bs-toggle="collapse" data-bs-target="#navbarMain"
-            aria-controls="navbarMain" aria-expanded="false" aria-label="Navigation öffnen">
+    <!-- ── Hamburger ─────────────────────────────── -->
+    <button class="navbar-toggler nav-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navMain"
+            aria-controls="navMain" aria-expanded="false"
+            aria-label="Navigation öffnen">
       <i class="bi bi-list" aria-hidden="true"></i>
     </button>
 
-    <div class="collapse navbar-collapse text-right" id="navbarMain">
-      <ul class="nav-links" role="list">
-        <li>
-          <a class="nav-link" [class.nav-link--active]="activeView() === 'menu'"
+    <!-- ── Collapsible links ──────────────────────── -->
+    <div class="collapse navbar-collapse" id="navMain">
+      <ul class="navbar-nav ms-auto gap-lg-1" role="list">
+        <li class="nav-item">
+          <a class="nav-link nav-item-link"
+             [class.nav-item-link--active]="activeView() === 'menu'"
              href="#" (click)="$event.preventDefault(); select('menu')">
-               <i class="bi bi-book-half" aria-hidden="true"></i><span class="nav-link-text">SPEISEKARTE</span></a>
+            SPEISEKARTE
+          </a>
         </li>
-        <li>
-          <a class="nav-link" [class.nav-link--active]="activeView() === 'orders'"
+        <li class="nav-item">
+          <a class="nav-link nav-item-link"
+             [class.nav-item-link--active]="activeView() === 'orders'"
              href="#" (click)="$event.preventDefault(); select('orders')">
-              <i class="bi bi-journal-check" aria-hidden="true"></i><span class="nav-link-text">BESTELLUNGEN</span></a>
+            BESTELLUNGEN
+          </a>
         </li>
-        <li>
-          <a class="nav-link" [class.nav-link--active]="activeView() === 'takeaway'"
+        <li class="nav-item">
+          <a class="nav-link nav-item-link"
+             [class.nav-item-link--active]="activeView() === 'takeaway'"
              href="#" (click)="$event.preventDefault(); select('takeaway')">
-               <i class="bi bi-bag" aria-hidden="true"></i><span class="nav-link-text">TAKE AWAY</span></a>
+            TAKE AWAY
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-item-link" href="#">ANFAHRT</a>
         </li>
       </ul>
     </div>
@@ -47,125 +63,154 @@
 </nav>
 
 <!-- ══════════════════════════════════════════════
-     HERO — nur Startseite
+     HERO — Bootstrap Grid, nur Startseite
      ══════════════════════════════════════════════ -->
 @if (!activeView()) {
   <section class="hero" aria-label="Duck House Startseite">
+    <div class="container-xl">
 
-    <div class="hero-inner">
-
-      <!-- ── Oben: zentriertes Branding ──────────── -->
-      <div class="hero-top">
-        <div class="hero-eyebrow" aria-hidden="true">
-          <span class="ey-line"></span>
-          <span class="ey-text">CHINESISCHE SPEZIALITÄTEN · BOCHUM</span>
-          <span class="ey-line"></span>
+      <!-- Ruhetag-Banner -->
+      @if (isTuesday()) {
+        <div class="row mb-lg-4 mb-3">
+          <div class="col-12">
+            <div class="ruhetag-banner" role="alert">
+              <i class="bi bi-moon-stars-fill flex-shrink-0"
+                 aria-hidden="true"></i>
+              <p class="mb-0">
+                <strong>Heute Ruhetag –</strong> Das Duck House hat dienstags
+                geschlossen. Wir freuen uns, Sie ab Mittwoch wieder begrüßen
+                zu dürfen.
+                <a href="tel:+492343389688">Reservierungen</a> sind
+                jederzeit möglich.
+              </p>
+            </div>
+          </div>
         </div>
-        <h1 class="hero-title">Duck House</h1>
-        <p class="hero-sub">
-          Authentische Peking-Ente und weitere chinesische Spezialitäten, frisch zubereitet und mit Liebe serviert.
-        </p>
-        <p class="hero-meta">{{ formattedDate() }} &nbsp;•&nbsp; GEÖFFNET BIS 22:00</p>
-      </div>
+      }
 
-      <!-- ── Mitte: Paper-Karte LINKS schräg | Ente MITTE ── -->
-      <div class="hero-mid">
+      <!-- ── Zweispaltig ────────────────────────── -->
+      <div class="row align-items-center g-4 g-lg-5">
 
-        <!-- Paper-Karte (links, schräg) -->
-        <div class="paper-wrap" aria-label="Informationen">
-          <div class="paper-card">
+        <!-- LINKS: Textspalte -->
+        <div class="col-12 col-lg-6">
+          <div class="hero-text">
 
-            <!-- Öffnungszeiten -->
-            <div class="paper-section">
-              <div class="paper-section-label">
-                <i class="bi bi-clock" aria-hidden="true"></i>
-                Öffnungszeiten
-              </div>
-              <div class="paper-rows">
-                <div class="paper-row">
-                  <span class="paper-row-val">12:00 – 15:00 | 17:30 – 22:00</span>
+            <div class="hero-eyebrow" aria-hidden="true">
+              <span class="ey-line"></span>
+              <span class="ey-text">CHINESISCHE SPEZIALITÄTEN · BOCHUM</span>
+            </div>
+
+            <h1 class="hero-title">Duck House</h1>
+            <p class="hero-sub">frisch aus dem Wok</p>
+
+            <p class="hero-desc">
+              Authentische Ente und feine Wok-Küche — seit über
+              zwanzig Jahren im Herzen von Bochum, zubereitet mit Sorgfalt
+              und serviert mit Wärme.
+            </p>
+
+            <div class="d-flex flex-wrap gap-3 hero-actions">
+              <button class="btn-duck" type="button" (click)="select('orders')">
+                Jetzt bestellen &nbsp;→
+              </button>
+              <button class="btn-duck btn-duck--flat" type="button"
+                      (click)="select('menu')">
+                Tisch reservieren
+              </button>
+            </div>
+
+            <p class="hero-meta">
+              {{ formattedDate() }}
+              @if (isOpen()) {
+                <span class="hero-meta-dot" aria-hidden="true"></span>
+                GEÖFFNET BIS 22:00
+              }
+            </p>
+
+          </div>
+        </div>
+
+        <!-- RECHTS: Empfehlungen-Karte -->
+        <div class="col-12 col-lg-6">
+          <div class="hero-card-col">
+            <div class="empfehlungen-card">
+
+              <div class="emp-card-header">
+                <div>
+                  <h2 class="emp-title">Empfehlungen</h2>
+                  <span class="emp-subtitle">AUS DER KÜCHE DES HAUSES</span>
                 </div>
+                <svg class="emp-duck-icon" viewBox="0 0 60 48" fill="none"
+                     stroke="currentColor" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                  <ellipse cx="36" cy="32" rx="18" ry="11"/>
+                  <circle cx="18" cy="18" r="11"/>
+                  <path d="M 8 21 L 1 19 L 8 16 Z" fill="currentColor"
+                        stroke="none"/>
+                  <circle cx="14" cy="15" r="2" fill="currentColor"
+                          stroke="none"/>
+                  <path d="M 27 27 Q 37 21 51 26"/>
+                  <path d="M 53 27 Q 60 19 57 37"/>
+                </svg>
               </div>
-            </div>
 
-            <div class="paper-divider paper-divider--dashed"></div>
+              <ul class="emp-list" aria-label="Empfehlungen des Hauses">
+                <li class="emp-item">
+                  <div class="emp-item-row">
+                    <span class="emp-item-name">Acht Schätze</span>
+                    <span class="emp-item-leader" aria-hidden="true"></span>
+                    <span class="emp-item-price">15,90 €</span>
+                  </div>
+                  <p class="emp-item-desc">(chinesische Zutaten in scharfer Sauce) Rind-, Schweine-, Enten- und Hühnerfleisch, mit Gemüse'</p>
+                </li>
+                <li class="emp-item">
+                  <div class="emp-item-row">
+                    <span class="emp-item-name">Sze-Chuan-Schätze</span>
+                    <span class="emp-item-leader" aria-hidden="true"></span>
+                    <span class="emp-item-price">15,90 €</span>
+                  </div>
+                  <p class="emp-item-desc">gebratenes Hühner-, Rind-, Schweine- und Entenfleisch, mit Gemüse in einer süß-sauren, leicht scharfen Sauce'</p>
+                </li>
+                <li class="emp-item">
+                  <div class="emp-item-row">
+                    <span class="emp-item-name">Gebackene Bananen</span>
+                    <span class="emp-item-leader" aria-hidden="true"></span>
+                    <span class="emp-item-price">3,50 €</span>
+                  </div>
+                  <p class="emp-item-desc">gebacken, mit Honig</p>
+                </li>
+                <li class="emp-item">
+                  <div class="emp-item-row">
+                    <span class="emp-item-name">Frühlingsrolle</span>
+                    <span class="emp-item-leader" aria-hidden="true"></span>
+                    <span class="emp-item-price">3,50 €</span>
+                  </div>
+                  <p class="emp-item-desc">Loempia</p>
+                </li>
+              </ul>
 
-            <!-- Ruhetag -->
-            <div class="paper-section">
-              <div class="paper-section-label">
-                <i class="bi bi-moon-stars" aria-hidden="true"></i>
-                Ruhetag
+              <div class="emp-footer">
+                <span class="emp-hours">
+                  Heute: <strong>12–15 · 17:30–22 Uhr</strong>
+                </span>
+                <button class="emp-cta" type="button" (click)="select('menu')">
+                  Ganze Karte →
+                </button>
               </div>
-              <p class="paper-closed-day">Dienstag geschlossen</p>
+
+              @if (isOpen()) {
+                <div class="emp-open-badge">
+                  <span class="emp-open-dot" aria-hidden="true"></span>
+                  Jetzt geöffnet
+                </div>
+              }
+
             </div>
-
-            <div class="paper-divider paper-divider--dashed"></div>
-
-            <!-- Reservierungen -->
-            <div class="paper-section">
-              <div class="paper-section-label">
-                <i class="bi bi-telephone" aria-hidden="true"></i>
-                Reservierungen
-              </div>
-              <a class="paper-phone" href="tel:+492343389688">0234 – 33 89 688</a>
-            </div>
-
           </div>
         </div>
 
-        <!-- Enten-Spalte (Mitte) -->
-        <div class="hero-duck-col">
-
-          <div class="hero-graphic" aria-hidden="true">
-            <div class="steam-container">
-              <svg class="steam steam--1" viewBox="0 0 16 70" fill="none"
-                   stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-                <path d="M 8 68 C 2 52 14 40 8 24 C 2 8 8 0 8 0"/>
-              </svg>
-              <svg class="steam steam--2" viewBox="0 0 16 70" fill="none"
-                   stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-                <path d="M 8 68 C 14 52 2 40 8 24 C 14 8 8 0 8 0"/>
-              </svg>
-              <svg class="steam steam--3" viewBox="0 0 16 70" fill="none"
-                   stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-                <path d="M 8 68 C 2 52 14 40 8 24 C 2 8 8 0 8 0"/>
-              </svg>
-            </div>
-
-            <svg class="hero-duck" viewBox="0 0 280 165" fill="none" stroke="currentColor"
-                 stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <ellipse cx="165" cy="122" rx="95" ry="40"/>
-              <circle cx="58" cy="62" r="33"/>
-              <path d="M 27 67 L 2 60 L 27 54 Z" fill="currentColor" stroke="none"/>
-              <circle cx="49" cy="57" r="5.5" fill="currentColor" stroke="none"/>
-              <path d="M 58 95 C 80 110 112 119 134 117"/>
-              <path d="M 120 112 Q 162 97 208 110"/>
-              <path d="M 254 98 Q 278 80 268 116"/>
-              <path d="M 35 150 Q 150 142 268 150"/>
-              <path d="M 58 157 Q 160 150 248 157" stroke-width="1.2" opacity="0.35"/>
-            </svg>
-          </div>
-
-          <p class="hero-address">
-            <i class="bi bi-geo-alt" aria-hidden="true"></i>
-            Harpener Hellweg 211a &nbsp;·&nbsp; 44805 Bochum
-          </p>
-
-        </div>
-
       </div>
-
-      <!-- ── Unten: CTA-Buttons ──────────────────── -->
-      <div class="hero-actions">
-        <button class="btn-primary" type="button" (click)="select('orders')">
-          Jetzt bestellen &nbsp;→
-        </button>
-        <button class="btn-secondary" type="button" (click)="select('menu')">
-          Speisekarte ansehen
-        </button>
-      </div>
-
     </div>
-
   </section>
 }

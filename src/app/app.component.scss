@@ -8,7 +8,7 @@ $wood: #8c8276;
   flex-direction: column;
   min-height: 100vh;
   padding-top: 52px; // reserve space for fixed nav (~50px tall)
-  background: #1a1511; // same as nav — prevents white gap between nav and hero
+  background: $ivory;
 }
 
 // ══════════════════════════════════════════════════════════
@@ -97,7 +97,7 @@ $wood: #8c8276;
     box-shadow: 0 12px 40px rgba($walnut, 0.14);
     transform: translateY(-4px);
 
-    .card-icon-wrap { background: $walnut; color: $ivory; }
+    .card-icon-wrap { background-color: var(--wood-bg-color); background-image: var(--wood-bg-image); color: $ivory; }
     .card-link { color: $wood; }
   }
 
@@ -261,33 +261,31 @@ $wood: #8c8276;
 // FOOTER
 // ══════════════════════════════════════════════════════════
 .site-footer {
-  background: #1a1511;
+  background-color: var(--wood-bg-color);
+  background-image: var(--wood-bg-image);
   border-top: 1px solid rgba($wood, 0.15);
   padding: 1.2rem 2rem;
 }
 
 .footer-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+  // Bootstrap utilities (d-flex, align-items-center, flex-wrap, gap-3)
+  // handeln das Layout — kein extra CSS nötig
+  padding: 0;
 }
 
 .footer-duck {
-  width: 22px;
-  height: 18px;
-  color: rgba($wood, 0.5);
+  width: 26px;
+  height: 21px;
+  color: rgba($ivory, 0.5);
   flex-shrink: 0;
 }
 
 .footer-brand {
   font-family: 'Lato', sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.88rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
-  color: rgba($ivory, 0.3);
+  letter-spacing: 0.22em;
+  color: rgba($ivory, 0.5);
   flex-shrink: 0;
 }
 
@@ -300,15 +298,17 @@ $wood: #8c8276;
 
 .footer-link {
   font-family: 'Lato', sans-serif;
-  font-size: 0.7rem;
-  color: rgba($ivory, 0.4);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba($ivory, 0.5);
   text-decoration: none;
-  transition: color 0.18s;
+  transition: color 0.2s;
 
-  &:hover { color: rgba($ivory, 0.8); }
+  &:hover { color: $ivory; }
 }
 
-.footer-sep { color: rgba($wood, 0.35); font-size: 0.75rem; }
+.footer-sep { color: rgba($wood, 0.35); font-size: 0.9rem; }
 
 // ══════════════════════════════════════════════════════════
 // RESPONSIVE

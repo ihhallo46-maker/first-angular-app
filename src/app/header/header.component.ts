@@ -16,6 +16,15 @@ export class HeaderComponent {
 
   private readonly today = signal(new Date());
 
+  readonly isTuesday = computed(() => this.today().getDay() === 2);
+
+  readonly isOpen = computed(() => {
+    const d = this.today();
+    if (d.getDay() === 2) return false;
+    const mins = d.getHours() * 60 + d.getMinutes();
+    return (mins >= 12 * 60 && mins < 15 * 60) || (mins >= 17 * 60 + 30 && mins < 22 * 60);
+  });
+
   readonly formattedDate = computed(() => {
     const d = this.today();
     const weekday = new Intl.DateTimeFormat('de-DE', { weekday: 'long' }).format(d);

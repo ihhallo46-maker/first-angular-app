@@ -1,7 +1,7 @@
 // ── Tokens ─────────────────────────────────────────────────
 $walnut: #3a332c;
-$ivory: #efebe3;
-$wood: #8c8276;
+$ivory:  #efebe3;
+$wood:   #8c8276;
 
 :host { display: block; }
 
@@ -9,7 +9,7 @@ $wood: #8c8276;
 // KEYFRAMES
 // ══════════════════════════════════════════════════════════
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(22px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -18,142 +18,117 @@ $wood: #8c8276;
   to   { opacity: 1; }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-10px); }
-}
-
-@keyframes steamRise {
-  0%   { transform: translateY(8px) scaleX(1);    opacity: 0; }
-  18%  { opacity: 0.6; }
-  78%  { opacity: 0.2; }
-  100% { transform: translateY(-56px) scaleX(1.6); opacity: 0; }
-}
-
-@keyframes scrollPulse {
-  0%   { transform-origin: top; transform: scaleY(0); opacity: 0; }
-  50%  { transform: scaleY(1); opacity: 1; }
-  100% { transform: scaleY(1); opacity: 0; }
-}
-
-@keyframes dropInTilted {
-  from {
-    opacity: 0;
-    transform: translateY(-50px) rotate(-16deg) scale(0.88);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) rotate(-6deg) scale(1);
-  }
-}
-
 @keyframes lineGrow {
   from { transform: scaleX(0); }
   to   { transform: scaleX(1); }
 }
 
+@keyframes dotPulse {
+  0%, 100% { opacity: 1;    transform: scale(1);   }
+  50%       { opacity: 0.55; transform: scale(0.75); }
+}
+
 // ══════════════════════════════════════════════════════════
-// NAVIGATION
+// NAVIGATION — Walnut/Ivory
 // ══════════════════════════════════════════════════════════
 .top-nav {
-  background: rgba(#1a1511, 0.97);
-  backdrop-filter: blur(8px);
-  position: fixed !important; // fixed is 100% reliable — sticky can fail in flex containers
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1100 !important;
-  border-bottom: 1px solid rgba($wood, 0.18);
-  padding: 0;
+  background-color: var(--wood-bg-color);
+  background-image:  var(--wood-bg-image);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.22);
+  // Bootstrap's fixed-top handles position: fixed + z-index
 }
 
-.nav-inner {
-  width: 100%;
-  padding: 0.9rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
+// ── Logo ─────────────────────────────────────────────────
 .nav-logo {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  text-decoration: none;
-  color: $ivory;
-  flex-shrink: 0;
+  text-decoration: none !important;
+  color: $ivory !important;
   transition: opacity 0.2s;
 
   &:hover { opacity: 0.75; }
 }
 
-.nav-duck { width: 26px; height: 21px; }
+.nav-duck { width: 26px; height: 21px; flex-shrink: 0; }
 
-.nav-brand {
+.nav-brand-text {
   font-family: 'Lato', sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0.22em;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  list-style: none;
-  margin: 0 0 0 auto; // push links to the right within the collapse container
-  padding: 0;
-}
-
-// ── Mobile hamburger toggler ──────────────────────────────
-.nav-toggler {
-  display: none;
-  background: none;
-  border: 1px solid rgba($ivory, 0.3);
-  border-radius: 0.4rem;
   color: $ivory;
-  padding: 0.3rem 0.55rem;
-  cursor: pointer;
+}
+
+// ── Hamburger ─────────────────────────────────────────────
+.nav-toggler {
+  color: $ivory;
+  background: none;
+  border: 1px solid rgba($ivory, 0.35) !important;
+  border-radius: 0.4rem;
+  padding: 0.28rem 0.5rem;
   line-height: 1;
   transition: border-color 0.15s, background 0.15s;
 
-  &:focus { outline: none; box-shadow: none; }
-  &:hover { border-color: rgba($ivory, 0.55); background: rgba($ivory, 0.07); }
+  &:focus { box-shadow: none !important; outline: none; }
+  &:hover { border-color: rgba($ivory, 0.6) !important; background: rgba($ivory, 0.07); }
 
-  i.bi { font-size: 1.35rem; display: block; }
+  i.bi { font-size: 1.45rem; display: block; }
 }
 
-.nav-link {
-  position: relative;
+// ── Nav-Links ─────────────────────────────────────────────
+.nav-item-link {
   font-family: 'Lato', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  color: rgba($ivory, 0.5);
+  letter-spacing: 0.1em;
+  color: rgba($ivory, 0.6) !important;
   text-decoration: none;
-  padding: 0.4rem 0.85rem;
+  padding: 0.5rem 0.9rem;
+  position: relative;
   transition: color 0.2s;
 
   &::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 0.85rem;
-    right: 0.85rem;
+    left: 0.9rem;
+    right: 0.9rem;
     height: 1px;
-    background: rgba($ivory, 0.5);
+    background: $ivory;
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.25s ease;
+    transition: transform 0.22s ease;
   }
 
-  &:hover { color: $ivory; &::after { transform: scaleX(1); } }
-
-  &.nav-link--active {
-    color: $ivory;
+  &:hover {
+    color: $ivory !important;
     &::after { transform: scaleX(1); }
+  }
+
+  &.nav-item-link--active {
+    color: $ivory !important;
+    &::after { transform: scaleX(1); }
+  }
+}
+
+// ── Mobile collapse: inherit walnut background ─────────────
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background-color: var(--wood-bg-color);
+    background-image:  var(--wood-bg-image);
+    margin-top: 0.6rem;
+    padding: 0.5rem 0.25rem 0.75rem;
+    border-top: 1px solid rgba($ivory, 0.1);
+    border-radius: 0 0 0.6rem 0.6rem;
+  }
+
+  .nav-item-link {
+    padding: 0.65rem 0.75rem;
+    border-radius: 0.35rem;
+
+    &::after { display: none; }
+    &:hover { background: rgba($ivory, 0.07); }
   }
 }
 
@@ -161,417 +136,394 @@ $wood: #8c8276;
 // HERO
 // ══════════════════════════════════════════════════════════
 .hero {
-  background: radial-gradient(ellipse at 50% 25%, #3a3028 0%, #1e1914 60%, #141009 100%);
-  min-height: calc(100vh - 64px);
+  background: $ivory;
+  padding-top: 6.5rem;
+  padding-bottom: 5rem;
+  min-height: 100svh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 3.5rem 2rem 5rem;
-  position: relative;
-  overflow: hidden;
-  color: $ivory;
+  color: $walnut;
 }
 
-.hero-inner {
-  max-width: 1060px;
-  width: 100%;
+// ── Ruhetag-Banner ────────────────────────────────────────
+.ruhetag-banner {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2.8rem;
-  position: relative;
-  z-index: 1;
+  align-items: flex-start;
+  gap: 0.8rem;
+  background: #fef3c7;
+  border: 1px solid #f4b942;
+  border-radius: 0.75rem;
+  padding: 1rem 1.35rem;
+  color: #78350f;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  animation: fadeIn 0.4s ease both;
+
+  i.bi { font-size: 1.15rem; margin-top: 0.15rem; color: #d97706; }
+
+  strong { font-weight: 700; }
+  a { color: #92400e; font-weight: 600; text-decoration: underline; }
 }
 
-// ── Oben: zentriertes Branding ────────────────────────────
-.hero-top {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.1rem;
-  text-align: center;
-}
-
+// ── Eyebrow ───────────────────────────────────────────────
 .hero-eyebrow {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  animation: fadeIn 0.8s ease both 0.05s;
+  gap: 0.85rem;
+  margin-bottom: 0.85rem;
+  animation: fadeIn 0.6s ease both 0.05s;
 }
 
 .ey-line {
   display: block;
-  width: 50px;
+  width: 36px;
   height: 1px;
-  background: rgba($wood, 0.5);
-  transform-origin: center;
+  flex-shrink: 0;
+  background: rgba($walnut, 0.28);
+  transform-origin: left;
   animation: lineGrow 0.7s ease both 0.15s;
 }
 
 .ey-text {
   font-family: 'Lato', sans-serif;
-  font-size: 0.62rem;
+  font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.2em;
-  color: rgba($ivory, 0.45);
-  white-space: nowrap;
+  color: rgba($walnut, 0.42);
 }
 
+// ── Titel ─────────────────────────────────────────────────
 .hero-title {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(3.5rem, 10vw, 6rem);
+  font-size: clamp(3.5rem, 8vw, 6rem);
   font-weight: 700;
-  font-style: normal;
   line-height: 1;
-  color: $ivory;
-  margin: 0;
+  color: $walnut;
   letter-spacing: -0.02em;
-  animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both 0.2s;
+  margin: 0 0 0.4rem;
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both 0.1s;
 }
 
+// ── Italic Subtitle ───────────────────────────────────────
 .hero-sub {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  font-weight: 400;
+  color: #9a7840;
+  margin: 0 0 1.35rem;
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both 0.17s;
+}
+
+// ── Beschreibung ──────────────────────────────────────────
+.hero-desc {
   font-family: 'Lato', sans-serif;
-  font-size: clamp(0.88rem, 1.8vw, 1rem);
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
   font-weight: 300;
-  color: rgba($ivory, 0.68);
-  max-width: 460px;
-  line-height: 1.65;
-  margin: 0;
-  animation: fadeUp 0.7s ease both 0.35s;
+  color: rgba($walnut, 0.68);
+  line-height: 1.72;
+  max-width: 480px;
+  margin: 0 0 1.75rem;
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both 0.22s;
 }
 
-.hero-meta {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.63rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
-  color: rgba($ivory, 0.38);
-  margin: 0;
-  animation: fadeUp 0.7s ease both 0.48s;
-}
+// ── CTA-Buttons — Walnut/Ivory ─────────────────────────────
+.hero-actions { animation: fadeUp 0.7s ease both 0.28s; }
 
-// ── Mitte: Ente links | Karte rechts ─────────────────────
-.hero-mid {
-  display: flex;
+.btn-duck {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 3.5rem;
-  width: 100%;
-}
-
-// ── Enten-Spalte ──────────────────────────────────────────
-.hero-duck-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.1rem;
-  animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both 0.25s;
-}
-
-.hero-graphic {
-  position: relative;
-  width: min(300px, 50vw);
-}
-
-.hero-duck {
-  width: 100%;
-  height: auto;
-  display: block;
-  color: rgba($ivory, 0.58);
-  animation: float 7s ease-in-out infinite 1.5s;
-}
-
-.steam-container {
-  position: absolute;
-  bottom: 46%;
-  left: 52%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 18px;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.steam {
-  width: 14px;
-  height: 58px;
-  color: rgba($ivory, 0.22);
-  flex-shrink: 0;
-
-  &--1 { animation: steamRise 3.6s ease-in-out infinite 0s; }
-  &--2 { animation: steamRise 3.6s ease-in-out infinite 1.2s; }
-  &--3 { animation: steamRise 3.6s ease-in-out infinite 2.4s; }
-}
-
-.hero-address {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: 'Lato', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: rgba($ivory, 0.38);
-  margin: 0;
-
-  i.bi { font-size: 0.78rem; }
-}
-
-// ── Paper-Karte (links, schräg) ───────────────────────────
-.paper-wrap {
-  flex-shrink: 0;
-  filter: drop-shadow(0 10px 32px rgba(0, 0, 0, 0.45));
-  transform: rotate(-6deg);
-  transform-origin: bottom center;
-  animation: dropInTilted 0.85s cubic-bezier(0.34, 1.4, 0.64, 1) both 0.25s;
-  transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1), filter 0.3s;
-  cursor: default;
-
-  &:hover {
-    transform: rotate(-1.5deg) translateY(-4px);
-    filter: drop-shadow(0 14px 40px rgba(0, 0, 0, 0.5));
-  }
-}
-
-.paper-card {
-  background: #faf6ee;
-  border-radius: 4px;
-  width: 218px;
-  padding: 1.35rem 1.2rem 1.1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-  position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 4px;
-    background: linear-gradient(150deg, rgba(255,255,255,0.3) 0%, transparent 55%);
-    pointer-events: none;
-  }
-}
-
-.paper-top {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.paper-duck-logo {
-  width: 30px;
-  height: 24px;
-  color: $walnut;
-  flex-shrink: 0;
-}
-
-.paper-eyebrow-text {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: $walnut;
-  margin: 0 0 0.1em;
-}
-
-.paper-place {
-  font-size: 0.62rem;
-  color: $wood;
-  margin: 0;
-  font-style: italic;
-}
-
-.paper-divider {
-  height: 1px;
-  background: rgba($walnut, 0.14);
-
-  &.paper-divider--dashed {
-    background: none;
-    border-top: 1px dashed rgba($walnut, 0.18);
-  }
-}
-
-.paper-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4em;
-}
-
-.paper-section-label {
-  display: flex;
-  align-items: center;
-  gap: 0.35em;
-  font-family: 'Lato', sans-serif;
-  font-size: 0.59rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: $wood;
-
-  i.bi { font-size: 0.85em; }
-}
-
-.paper-rows { display: flex; flex-direction: column; gap: 0.28em; }
-
-.paper-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 0.5em;
-  font-size: 0.76rem;
-  color: $walnut;
-}
-
-.paper-row-day { font-size: 0.88em; color: rgba($walnut, 0.6); }
-.paper-row-val { font-weight: 600; white-space: nowrap; }
-
-.paper-closed-day {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.76rem;
-  color: rgba($walnut, 0.55);
-  margin: 0;
-  font-style: italic;
-}
-
-.paper-phone {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: $walnut;
-  text-decoration: none;
-  letter-spacing: 0.02em;
-  transition: color 0.2s;
-
-  &:hover { text-decoration: underline; }
-}
-
-// ── CTA-Buttons ───────────────────────────────────────────
-.hero-actions {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-  animation: fadeUp 0.7s ease both 0.55s;
-}
-
-.btn-primary {
-  background: $wood;
+  background-color: var(--wood-bg-color);
+  background-image:  var(--wood-bg-image);
   color: $ivory;
   border: none;
   border-radius: 100px;
-  padding: 0.85rem 2.1rem;
+  padding: 0.9rem 2.1rem;
   font-family: 'Lato', sans-serif;
-  font-size: 0.88rem;
+  font-size: 1rem;
   font-weight: 600;
+  line-height: 1;
   cursor: pointer;
-  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-  box-shadow: 0 4px 16px rgba($wood, 0.3);
+  white-space: nowrap;
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+  transition: filter 0.2s, transform 0.15s, box-shadow 0.2s;
 
   &:hover {
-    background: #9e9289;
+    color: $ivory;
+    filter: brightness(1.22);
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba($wood, 0.35);
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.3);
   }
-  &:active { transform: translateY(0); }
+
+  &:active { transform: translateY(0); filter: brightness(1); }
+
+  // Flachere Variante (sekundär) — gleiche Farbe, kein Gradient, kein Schatten
+  &--flat {
+    background-image: none;
+    background-color: $walnut;
+    box-shadow: none;
+
+    &:hover {
+      background-color: $walnut;
+      filter: brightness(1.28);
+      box-shadow: none;
+    }
+  }
 }
 
-.btn-secondary {
-  background: transparent;
-  color: rgba($ivory, 0.85);
-  border: 1px solid rgba($ivory, 0.28);
-  border-radius: 100px;
-  padding: 0.85rem 2.1rem;
+// ── Meta-Zeile ────────────────────────────────────────────
+.hero-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
   font-family: 'Lato', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, transform 0.15s;
-
-  &:hover {
-    background: rgba($ivory, 0.08);
-    border-color: rgba($ivory, 0.5);
-    transform: translateY(-2px);
-  }
-  &:active { transform: translateY(0); }
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: rgba($walnut, 0.38);
+  margin: 0.4rem 0 0;
+  animation: fadeUp 0.7s ease both 0.34s;
 }
 
-// ── Scroll-Indikator ──────────────────────────────────────
-.scroll-indicator {
-  position: absolute;
-  bottom: 1.75rem;
-  left: 50%;
-  transform: translateX(-50%);
+.hero-meta-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  flex-shrink: 0;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+// ══════════════════════════════════════════════════════════
+// EMPFEHLUNGEN-KARTE
+// ══════════════════════════════════════════════════════════
+.hero-card-col {
+  padding-bottom: 2.5rem; // Platz für den "Jetzt geöffnet"-Badge
+  animation: fadeUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) both 0.25s;
+}
+
+.empfehlungen-card {
+  background: #faf8f3;
+  border: 1px solid rgba($walnut, 0.11);
+  border-radius: 1.4rem;
+  overflow: visible;
+  box-shadow:
+    0 4px 8px rgba($walnut, 0.04),
+    0 24px 64px rgba($walnut, 0.11);
+  padding: 2rem 2rem 1.6rem;
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  animation: fadeIn 1s ease both 1.2s;
+  gap: 1.25rem;
 }
 
-.scroll-text {
+// ── Kartenkopf ────────────────────────────────────────────
+.emp-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.emp-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: $walnut;
+  margin: 0 0 0.3rem;
+  line-height: 1.1;
+}
+
+.emp-subtitle {
+  display: block;
   font-family: 'Lato', sans-serif;
-  font-size: 0.58rem;
+  font-size: 0.64rem;
   font-weight: 700;
-  letter-spacing: 0.22em;
-  color: rgba($ivory, 0.32);
+  letter-spacing: 0.18em;
+  color: $wood;
 }
 
-.scroll-line {
-  width: 1px;
-  height: 38px;
-  background: rgba($ivory, 0.22);
-  animation: scrollPulse 2.2s ease-in-out infinite 1.5s;
+.emp-duck-icon {
+  width: 36px;
+  height: 29px;
+  color: rgba($walnut, 0.2);
+  flex-shrink: 0;
+  margin-top: 0.4rem;
+}
+
+// ── Gerichte-Liste ────────────────────────────────────────
+.emp-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.emp-item {
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba($walnut, 0.1);
+
+  &:first-child { padding-top: 0; }
+  &:last-child  { border-bottom: none; padding-bottom: 0; }
+}
+
+.emp-item-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.emp-item-name {
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: $walnut;
+  white-space: nowrap;
+}
+
+.emp-item-leader {
+  flex: 1;
+  height: 0;
+  border-bottom: 1px dotted rgba($walnut, 0.28);
+  margin-bottom: 0.18rem;
+  min-width: 0.75rem;
+}
+
+.emp-item-price {
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: $walnut;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.emp-item-desc {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.82rem;
+  color: rgba($walnut, 0.5);
+  margin: 0.22rem 0 0;
+  line-height: 1.4;
+}
+
+// ── Karten-Footer ─────────────────────────────────────────
+.emp-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba($walnut, 0.1);
+}
+
+.emp-hours {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.84rem;
+  color: rgba($walnut, 0.55);
+
+  strong { color: $walnut; font-weight: 700; }
+}
+
+.emp-cta {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: $walnut;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+
+  &:hover { opacity: 0.6; }
+}
+
+// ── "Jetzt geöffnet" Badge — Walnut/Ivory ─────────────────
+.emp-open-badge {
+  position: absolute;
+  bottom: -1.5rem;
+  left: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--wood-bg-color);
+  background-image:  var(--wood-bg-image);
+  color: $ivory;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 0.55rem 1.2rem;
+  border-radius: 999px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
+  white-space: nowrap;
+}
+
+.emp-open-dot {
+  width: 8px;
+  height: 8px;
+  background: #4ade80;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: dotPulse 2s ease-in-out infinite;
 }
 
 // ══════════════════════════════════════════════════════════
-// RESPONSIVE
+// RESPONSIVE (Bootstrap handelt die meisten Breakpoints)
 // ══════════════════════════════════════════════════════════
 
-// ── Bootstrap collapse breakpoint (< 768 px) ─────────────
-@media (max-width: 767.98px) {
-  .nav-toggler { display: flex; align-items: center; }
-
-  .nav-inner {
-    padding: 0.75rem 1rem;
-    row-gap: 0;
+// ── Unterhalb lg (< 992 px): einspaltig → alles mittig ───
+@media (max-width: 991.98px) {
+  .hero-text {
+    text-align: center;
   }
 
-  .navbar-collapse {
-    flex-basis: 100%;
-    padding-bottom: 0.6rem;
+  .hero-eyebrow {
+    justify-content: center;
   }
 
-  .nav-links {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
-    width: 100%;
-    margin-left: 0;
+  .hero-desc {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .nav-link {
-    width: 100%;
-    padding: 0.7rem 0.5rem;
-    border-bottom: 1px solid rgba($ivory, 0.06);
+  .hero-actions {
+    justify-content: center;
+  }
 
-    &::after { display: none; }
+  .hero-meta {
+    justify-content: center;
+  }
+
+  .hero-card-col {
+    max-width: 480px;
+    margin: 0 auto;
   }
 }
 
-@media (max-width: 720px) {
-  .hero-mid {
-    flex-direction: column;
-    gap: 2rem;
+// ── sm (< 576 px): kompaktere Abstände + full-width Buttons ─
+@media (max-width: 575.98px) {
+  .hero { padding-top: 5.5rem; padding-bottom: 3.5rem; }
+
+  .btn-duck {
+    padding: 0.8rem 1.6rem;
+    font-size: 0.92rem;
+    width: 100%;
+    justify-content: center;
   }
 
-  .hero-graphic { width: min(260px, 70vw); }
+  .empfehlungen-card { padding: 1.5rem 1.25rem 1.35rem; }
+  .emp-title { font-size: 1.7rem; }
+  .ruhetag-banner { font-size: 0.84rem; padding: 0.85rem 1rem; }
+  .emp-open-badge { left: 50%; transform: translateX(-50%); font-size: 0.82rem; }
 }
 
-@media (max-width: 600px) {
-  .hero { padding: 2.5rem 1rem 4.5rem; }
-  .hero-actions { flex-direction: column; align-items: center; }
-  .btn-primary, .btn-secondary { width: 100%; max-width: 280px; }
-  .paper-card { width: min(240px, 85vw); }
+// ── lg+ (≥ 992 px): zweispaltig, Text linksbündig ──────────
+@media (min-width: 992px) {
+  .hero-text { padding-right: 1.5rem; }
 }

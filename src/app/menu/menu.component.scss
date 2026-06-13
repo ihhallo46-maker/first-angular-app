@@ -34,7 +34,8 @@ $wood: #8c8276;
 .page-icon {
   width: 46px;
   height: 46px;
-  background: $walnut;
+  background-color: var(--wood-bg-color);
+  background-image: var(--wood-bg-image);
   border-radius: 0.75rem;
   display: flex;
   align-items: center;
@@ -71,7 +72,8 @@ $wood: #8c8276;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: $walnut;
+  background-color: var(--wood-bg-color);
+  background-image: var(--wood-bg-image);
   color: $ivory;
   border: none;
   border-radius: 0.5rem;
@@ -82,9 +84,9 @@ $wood: #8c8276;
   cursor: pointer;
   white-space: nowrap;
   text-decoration: none;
-  transition: background 0.15s;
+  transition: filter 0.15s;
 
-  &:hover { background: lighten($walnut, 8%); }
+  &:hover { filter: brightness(1.22); }
 
   i.bi { font-size: 0.9rem; }
 }
@@ -273,7 +275,8 @@ $wood: #8c8276;
   font-size: 0.68rem;
   font-weight: 700;
   color: $ivory;
-  background: $walnut;
+  background-color: var(--wood-bg-color);
+  background-image: var(--wood-bg-image);
   border-radius: 999px;
   padding: 0.1rem 0.5rem;
   flex-shrink: 0;

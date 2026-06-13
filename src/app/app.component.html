@@ -11,30 +11,38 @@
       <router-outlet />
     </div>
   </main>
-} @else {
-  <!-- Startseite (HomeComponent) -->
-  <router-outlet />
 }
 
 <!-- ══════════════════════════════════════════════
      FOOTER
      ══════════════════════════════════════════════ -->
 <footer class="site-footer">
-  <div class="footer-inner">
-    <svg class="footer-duck" viewBox="0 0 40 32" fill="none" stroke="currentColor"
-         stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <ellipse cx="24" cy="22" rx="12" ry="7"/>
-      <circle cx="12" cy="12" r="7"/>
-      <path d="M 5 14 L 1 12 L 5 10 Z" fill="currentColor" stroke="none"/>
-      <circle cx="9" cy="10" r="1.5" fill="currentColor" stroke="none"/>
-    </svg>
-    <span class="footer-brand">DUCK HOUSE</span>
-    <nav class="footer-nav" aria-label="Footer">
-      <a class="footer-link" href="#">Impressum</a>
-      <span class="footer-sep" aria-hidden="true">·</span>
-      <a class="footer-link" href="#">Kontakt</a>
-      <span class="footer-sep" aria-hidden="true">·</span>
-      <a class="footer-link" href="#">Datenschutz</a>
-    </nav>
+  <div class="container-xxl">
+    <div class="footer-inner d-flex align-items-center flex-wrap gap-3">
+
+      <!-- Markenzeichen -->
+      <svg class="footer-duck flex-shrink-0" viewBox="0 0 60 48" fill="none"
+           stroke="currentColor" stroke-width="1.8"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <ellipse cx="36" cy="32" rx="18" ry="11"/>
+        <circle cx="18" cy="18" r="11"/>
+        <path d="M 8 21 L 1 19 L 8 16 Z" fill="currentColor" stroke="none"/>
+        <circle cx="14" cy="15" r="2" fill="currentColor" stroke="none"/>
+        <path d="M 27 27 Q 37 21 51 26"/>
+        <path d="M 53 27 Q 60 19 57 37"/>
+      </svg>
+      <span class="footer-brand flex-shrink-0">DUCK HOUSE</span>
+
+      <!-- Footer-Navigation -->
+      <nav class="footer-nav ms-auto d-flex align-items-center flex-wrap gap-2"
+           aria-label="Footer-Navigation">
+        <a class="footer-link" href="#">Impressum</a>
+        <span class="footer-sep" aria-hidden="true">·</span>
+        <a class="footer-link" href="#">Kontakt</a>
+        <span class="footer-sep" aria-hidden="true">·</span>
+        <a class="footer-link" href="#">Datenschutz</a>
+      </nav>
+
+    </div>
   </div>
 </footer>
