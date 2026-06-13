@@ -20,7 +20,7 @@ $border: rgba(#8c8276, 0.22);
   inset: 0;
   z-index: 1050;
   display: flex;
-  top: -5px; // visually center dialog better (accounting for nav height)
+  top: -40px; // visually center dialog better (accounting for nav height)
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.6);
