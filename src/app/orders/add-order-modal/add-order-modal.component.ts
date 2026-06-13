@@ -174,16 +174,19 @@ export class AddOrderModalComponent {
     if (next === 0) check?.setValue(false);
   }
 
-  incrementService(key: 'buffetCount' | 'carteCount'): void {
+  incrementService(key: 'buffetAdults' | 'buffetChildren' | 'carteCount'): void {
     const ctrl = this.form.get(key);
     if (!ctrl) return;
-    ctrl.setValue(Math.max(1, (Number(ctrl.value) || 1) + 1));
+    const min = key === 'carteCount' ? 1 : 0;
+    ctrl.setValue((Number(ctrl.value) || 0) + 1);
+    void min;
   }
 
-  decrementService(key: 'buffetCount' | 'carteCount'): void {
+  decrementService(key: 'buffetAdults' | 'buffetChildren' | 'carteCount'): void {
     const ctrl = this.form.get(key);
     if (!ctrl) return;
-    ctrl.setValue(Math.max(1, (Number(ctrl.value) || 1) - 1));
+    const min = key === 'carteCount' ? 1 : 0;
+    ctrl.setValue(Math.max(min, (Number(ctrl.value) || 0) - 1));
   }
 
   toggleService(service: 'buffet' | 'carte'): void {
@@ -213,9 +216,9 @@ export class AddOrderModalComponent {
       return drinks;
     });
 
-    const selectedBuffetCount = this.form.get('buffet')?.value
-      ? Number(this.form.get('buffetCount')?.value ?? 1)
-      : 0;
+    const buffetAdults   = this.form.get('buffet')?.value ? Number(this.form.get('buffetAdults')?.value   ?? 1) : 0;
+    const buffetChildren = this.form.get('buffet')?.value ? Number(this.form.get('buffetChildren')?.value ?? 0) : 0;
+    const selectedBuffetCount = buffetAdults + buffetChildren;
 
     const selectedCarteCount = this.form.get('carte')?.value
       ? Number(this.form.get('carteCount')?.value ?? 1)
@@ -226,6 +229,8 @@ export class AddOrderModalComponent {
       tableNumber: Number(this.form.get('tableNumber')?.value ?? 1),
       drinks: selectedDrinks,
       buffetCount: selectedBuffetCount,
+      buffetAdults,
+      buffetChildren,
       buffetStatus: this.getItemStatus(
         existingOrder?.buffetCount ?? 0,
         existingOrder?.buffetStatus,
@@ -249,11 +254,12 @@ export class AddOrderModalComponent {
 
   private createForm(): FormGroup {
     return this.fb.nonNullable.group({
-      tableNumber: [1, [Validators.required, Validators.min(1), Validators.max(25)]],
-      buffet: [false],
-      carte: [false],
-      buffetCount: [1, [Validators.min(1)]],
-      carteCount: [1, [Validators.min(1)]],
+      tableNumber:    [1, [Validators.required, Validators.min(1), Validators.max(25)]],
+      buffet:         [false],
+      carte:          [false],
+      buffetAdults:   [0, [Validators.min(1)]],
+      buffetChildren: [0, [Validators.min(0)]],
+      carteCount:     [0, [Validators.min(1)]],
       comment: [''],
       ...Object.fromEntries(
         this.drinkOptions.flatMap((option) => [
@@ -273,7 +279,9 @@ export class AddOrderModalComponent {
       tableNumber: order?.tableNumber ?? 1,
       buffet: (order?.buffetCount ?? 0) > 0,
       carte: (order?.carteCount ?? 0) > 0,
-      buffetCount: (order?.buffetCount ?? 0) > 0 ? order!.buffetCount : 1,
+      // Rückwärtskompatibel: alte Bestellungen ohne adults/children → alles als Erwachsene
+      buffetAdults:   (order?.buffetCount ?? 0) > 0 ? (order?.buffetAdults   ?? order!.buffetCount) : 1,
+      buffetChildren: (order?.buffetCount ?? 0) > 0 ? (order?.buffetChildren ?? 0)                  : 0,
       carteCount: (order?.carteCount ?? 0) > 0 ? order!.carteCount : 1,
       comment: order?.carteComment ?? '',
       ...Object.fromEntries(

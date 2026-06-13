@@ -12,7 +12,9 @@ export interface OrderDraft {
   id: string;
   tableNumber: number;
   drinks: OrderDrink[];
-  buffetCount: number;
+  buffetCount: number;       // Summe: Erwachsene + Kinder
+  buffetAdults: number;      // davon Erwachsene
+  buffetChildren: number;    // davon Kinder
   buffetStatus?: OrderItemStatus;
   carteCount: number;
   carteStatus?: OrderItemStatus;

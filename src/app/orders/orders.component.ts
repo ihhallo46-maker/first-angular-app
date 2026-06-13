@@ -18,6 +18,7 @@ export class OrdersComponent {
   readonly isModalOpen = signal(false);
   readonly editingOrder = signal<OrderDraft | null>(null);
   readonly warningMessage = signal<string | null>(null);
+  readonly confirmDeleteId = signal<string | null>(null);
 
   openModal(order: OrderDraft | null = null): void {
     this.editingOrder.set(order);
@@ -48,8 +49,18 @@ export class OrdersComponent {
     this.orderService.markCompleted(orderId);
   }
 
-  deleteOrder(orderId: string): void {
-    this.orderService.delete(orderId);
+  requestDelete(orderId: string): void {
+    this.confirmDeleteId.set(orderId);
+  }
+
+  confirmDelete(): void {
+    const id = this.confirmDeleteId();
+    if (id) this.orderService.delete(id);
+    this.confirmDeleteId.set(null);
+  }
+
+  cancelDelete(): void {
+    this.confirmDeleteId.set(null);
   }
 
   dismissWarning(): void {

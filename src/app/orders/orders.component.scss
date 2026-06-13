@@ -375,6 +375,111 @@ $wood: #8c8276;
 }
 
 // ══════════════════════════════════════════════════════════
+// DELETE CONFIRMATION DIALOG
+// ══════════════════════════════════════════════════════════
+.delete-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 15vh;
+  z-index: 9999;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+}
+
+.delete-dialog {
+  background: #fff;
+  border-radius: 1rem;
+  padding: 2rem 1.75rem 1.5rem;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 24px 60px rgba($walnut, 0.22);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.delete-dialog-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: #fff3cd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #c67c00;
+  margin-bottom: 0.25rem;
+}
+
+.delete-dialog-title {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: $walnut;
+  margin: 0;
+}
+
+.delete-dialog-msg {
+  font-size: 0.82rem;
+  color: $wood;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.delete-dialog-actions {
+  display: flex;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+.btn-del-cancel {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  border: 1.5px solid rgba($wood, 0.4);
+  background: transparent;
+  color: $walnut;
+  font-size: 0.84rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.13s, background 0.13s;
+
+  &:hover {
+    border-color: $walnut;
+    background: rgba($ivory, 0.6);
+  }
+}
+
+.btn-del-confirm {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: #dc3545;
+  color: #fff;
+  font-size: 0.84rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: filter 0.13s;
+
+  &:hover { filter: brightness(0.88); }
+}
+
+// ══════════════════════════════════════════════════════════
 // RESPONSIVE
 // ══════════════════════════════════════════════════════════
 @media (max-width: 600px) {

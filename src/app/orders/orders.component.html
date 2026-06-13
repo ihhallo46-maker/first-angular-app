@@ -114,7 +114,15 @@
                         [class.service-pill--confirmed]="order.buffetStatus === 'confirmed'"
                         [class.service-pill--new]="order.buffetStatus === 'new'">
                     <i class="bi bi-egg-fried" aria-hidden="true"></i>
-                    Buffet · {{ order.buffetCount }}P
+                    Buffet
+                    @if (order.buffetAdults > 0 || order.buffetChildren > 0) {
+                      &nbsp;·&nbsp;<i class="bi bi-person-fill" aria-hidden="true"></i> {{ order.buffetAdults }} Erw.
+                      @if (order.buffetChildren > 0) {
+                        <i class="bi bi-person" aria-hidden="true"></i> {{ order.buffetChildren }} Kind.
+                      }
+                    } @else {
+                      · {{ order.buffetCount }}P
+                    }
                   </span>
                 }
                 @if (order.carteCount > 0) {
@@ -148,7 +156,7 @@
               <i class="bi bi-pencil" aria-hidden="true"></i>
             </button>
             <button type="button" class="btn-action btn-action--delete"
-                    (click)="deleteOrder(order.id)"
+                    (click)="requestDelete(order.id)"
                     [attr.aria-label]="'Tisch ' + order.tableNumber + ' löschen'">
               <i class="bi bi-trash3" aria-hidden="true"></i>
             </button>
@@ -161,6 +169,35 @@
   }
 
 </div>
+
+<!-- ── Lösch-Sicherheitsabfrage ───────────────────────────── -->
+@if (confirmDeleteId()) {
+  <div class="delete-overlay" role="dialog" aria-modal="true"
+       aria-labelledby="del-dialog-title" (click)="cancelDelete()">
+    <div class="delete-dialog" (click)="$event.stopPropagation()">
+      <div class="delete-dialog-icon" aria-hidden="true">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+      </div>
+       @for (order of orderService.orders(); track order.id) {
+         @if (order.id === confirmDeleteId()) {
+           <h3 id="del-dialog-title" class="delete-dialog-title">Tisch {{ order.tableNumber }} löschen?</h3>
+         }
+       }
+      <p class="delete-dialog-msg">
+        Diese Bestellung wird endgültig entfernt und kann nicht
+        wiederhergestellt werden.
+      </p>
+      <div class="delete-dialog-actions">
+        <button type="button" class="btn-del-cancel" (click)="cancelDelete()">
+          Abbrechen
+        </button>
+        <button type="button" class="btn-del-confirm" (click)="confirmDelete()">
+          <i class="bi bi-trash3" aria-hidden="true"></i> Löschen
+        </button>
+      </div>
+    </div>
+  </div>
+}
 
 @if (isModalOpen()) {
   <app-add-order-modal

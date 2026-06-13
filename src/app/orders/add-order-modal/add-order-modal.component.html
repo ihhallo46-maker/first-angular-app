@@ -85,7 +85,7 @@
                             @for (se of getSizesForOption(option); track se.sizeKey) {
                               <div class="size-row">
                                 @if (getConfirmedCount(option.key, se.size) > 0) {
-                                  <span class="confirmed-pill">{{ getConfirmedCount(option.key, se.size) }}✓</span>
+                                  <span class="confirmed-pill">{{ getConfirmedCount(option.key, se.size) }}</span>
                                   <span class="size-label size-label-muted">{{ se.label }}</span>
                                   <span class="size-plus-sep">+</span>
                                 } @else {
@@ -150,12 +150,46 @@
 
               @if (form.get('buffet')?.value) {
                 <div class="service-count" (click)="$event.stopPropagation()">
-                  <span class="count-label">Anzahl Personen</span>
-                  <div class="count-stepper">
-                    <button type="button" class="stepper-btn" (click)="decrementService('buffetCount')">−</button>
-                    <span class="stepper-val count-val">{{ form.get('buffetCount')?.value || 1 }}</span>
-                    <button type="button" class="stepper-btn" (click)="incrementService('buffetCount')">+</button>
+                  <!-- Erwachsene -->
+                  <div class="person-row">
+                    <span class="count-label person-label">
+                      <i class="bi bi-person-fill" aria-hidden="true"></i>
+                      Erwachsene
+                    </span>
+                    <div class="count-stepper">
+                      <button type="button" class="stepper-btn"
+                              (click)="decrementService('buffetAdults')">−</button>
+                      <span class="stepper-val count-val">
+                        {{ form.get('buffetAdults')?.value ?? 0 }}
+                      </span>
+                      <button type="button" class="stepper-btn"
+                              (click)="incrementService('buffetAdults')">+</button>
+                    </div>
                   </div>
+                  <!-- Kinder -->
+                  <div class="person-row">
+                    <span class="count-label person-label">
+                      <i class="bi bi-person" aria-hidden="true"></i>
+                      Kinder
+                    </span>
+                    <div class="count-stepper">
+                      <button type="button" class="stepper-btn"
+                              (click)="decrementService('buffetChildren')">−</button>
+                      <span class="stepper-val count-val">
+                        {{ form.get('buffetChildren')?.value ?? 0 }}
+                      </span>
+                      <button type="button" class="stepper-btn"
+                              (click)="incrementService('buffetChildren')">+</button>
+                    </div>
+                  </div>
+                  <!-- Summe -->
+                  <p class="person-total">
+                    Gesamt:
+                    <strong>
+                      {{ (form.get('buffetAdults')?.value ?? 0) + (form.get('buffetChildren')?.value ?? 0) }}
+                      Personen
+                    </strong>
+                  </p>
                 </div>
               }
             </div>
