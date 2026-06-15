@@ -75,7 +75,7 @@ export class AddOrderModalComponent {
     { key: 'bottleWine', label: 'Flasche Wein', sizes: ['0.75L'] },
     { key: 'reisschnaps', label: 'Reisschnaps', sizes: ['0.1L'] },
     { key: 'plumwine', label: 'Pflaumenwein', sizes: ['0.1L'] },
-     { key: 'rose', label: 'Rose', sizes: ['0.2L'] },
+     { key: 'rose', label: 'Rose', sizes: ['0.1L', '0.2L'] },
   ];
 
   readonly allSizeEntries: SizeEntry[] = [
@@ -91,7 +91,7 @@ export class AddOrderModalComponent {
     { key: 'bier',       label: 'Bier',             icon: 'bi-cup-fill',     drinkKeys: ['pils', 'alcPils', 'weizen', 'alcWeizen', 'krefelder', 'altBier', 'radler', 'alster'] },
     { key: 'saefte',     label: 'Säfte',            icon: 'bi-droplet-fill', drinkKeys: ['apfelsaft', 'orangensaft', 'maracuja'] },
     { key: 'wasser',     label: 'Wasser',            icon: 'bi-droplet-half', drinkKeys: ['wasserstill', 'wassersprudel'] },
-    { key: 'wein',       label: 'Wein & Schnaps',   icon: 'bi-stars',        drinkKeys: ['rotWein', 'weissWein', 'bottleWine', 'reisschnaps', 'plumwine'] },
+    { key: 'wein',       label: 'Wein & Schnaps',   icon: 'bi-stars',        drinkKeys: ['rotWein', 'weissWein', 'bottleWine', 'reisschnaps', 'plumwine', 'rose'] },
     { key: 'warm',       label: 'Kaffee und Tee',      icon: 'bi-cup-hot-fill', drinkKeys: ['kaffee', 'espresso', 'doubleespresso', 'chinatee', 'grüneTee'] },
   ];
 
