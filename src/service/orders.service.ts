@@ -7,8 +7,6 @@ import {
   setDoc,
   deleteDoc,
   updateDoc,
-  query,
-  orderBy,
 } from '@angular/fire/firestore';
 import { type OrderDraft, type OrderDrink } from '../app/orders/models/order.model';
 
@@ -25,10 +23,19 @@ export class OrdersService {
   );
 
   constructor() {
-    // Echtzeit-Listener: Aktualisiert automatisch auf allen Geräten
-    const q = query(this.ordersCol, orderBy('createdAt', 'desc'));
-    collectionData(q, { idField: 'id' }).subscribe((data) => {
-      this._orders.set(data as OrderDraft[]);
+    // Echtzeit-Listener: Aktualisiert automatisch auf allen Geräten.
+    // Ohne orderBy, damit auch Einträge ohne createdAt-Feld erscheinen –
+    // sortiert wird im Browser (neueste zuerst).
+    collectionData(this.ordersCol, { idField: 'id' }).subscribe({
+      next: (data) => {
+        const orders = (data as OrderDraft[]).slice().sort((a, b) =>
+          (b.createdAt ?? '').localeCompare(a.createdAt ?? ''),
+        );
+        this._orders.set(orders);
+      },
+      error: (err) => {
+        console.error('[OrdersService] Firestore-Lesefehler:', err);
+      },
     });
   }
 
