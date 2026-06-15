@@ -39,13 +39,11 @@
       <span class="footer-brand flex-shrink-0">DUCK HOUSE</span>
 
       <!-- Footer-Navigation -->
-      <nav class="footer-nav ms-auto d-flex align-items-center flex-wrap gap-2"
+      <nav class="footer-nav d-flex align-items-center flex-wrap gap-2"
            aria-label="Footer-Navigation">
-        <a class="footer-link" href="#">{{ ts.translator().footerImprint }}</a>
+        <a class="footer-link" routerLink="/impressum">{{ ts.translator().footerImprint }}</a>
         <span class="footer-sep" aria-hidden="true">·</span>
-        <a class="footer-link" href="#">{{ ts.translator().footerContact }}</a>
-        <span class="footer-sep" aria-hidden="true">·</span>
-        <a class="footer-link" href="#">{{ ts.translator().footerPrivacy }}</a>
+        <a class="footer-link" routerLink="/datenschutz">{{ ts.translator().footerPrivacy }}</a>
       </nav>
 
     </div>

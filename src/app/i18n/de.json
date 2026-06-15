@@ -17,6 +17,8 @@
   "heroOrder": "Jetzt bestellen  →",
   "heroReserve": "Tisch reservieren",
   "heroOpen": "GEÖFFNET BIS 22:00",
+  "heroReserveLabel": "Jetzt reservieren:",
+  "heroTuesdayClosed": "Di: Ruhetag",
 
   "ruhetagTitle": "Heute Ruhetag –",
   "ruhetagBody": "Das Duck House hat dienstags geschlossen. Wir freuen uns, Sie ab Mittwoch wieder begrüßen zu dürfen.",
@@ -73,6 +75,7 @@
   "modalCommentPh": "Was wurde aus der Karte bestellt?",
   "modalCancelBtn": "Abbrechen",
   "modalSaveBtn": "Bestellung anlegen",
+  "modalServiceRequired": "Bitte Buffet oder À la carte auswählen.",
   "modalNoDrinks": "Noch keine Getränke gewählt",
   "modalDrinkItems": "{n} Positionen ausgewählt",
   "modalTableLabel": "Tisch {n}",

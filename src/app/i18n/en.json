@@ -17,6 +17,8 @@
   "heroOrder": "Order Now  →",
   "heroReserve": "Reserve Table",
   "heroOpen": "OPEN UNTIL 22:00",
+  "heroReserveLabel": "Reserve now:",
+  "heroTuesdayClosed": "Tue: Closed",
 
   "ruhetagTitle": "Closed Today –",
   "ruhetagBody": "Duck House is closed on Tuesdays. We look forward to welcoming you back from Wednesday.",
@@ -73,6 +75,7 @@
   "modalCommentPh": "What was ordered from the menu?",
   "modalCancelBtn": "Cancel",
   "modalSaveBtn": "Create Order",
+  "modalServiceRequired": "Please select Buffet or À la carte.",
   "modalNoDrinks": "No drinks selected yet",
   "modalDrinkItems": "{n} items selected",
   "modalTableLabel": "Table {n}",

@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 // ── Tokens ─────────────────────────────────────────────────
 $walnut: #3a332c;
 $ivory:  #efebe3;
@@ -385,7 +387,7 @@ $wood:   #8c8276;
   color: rgba($walnut, 0.68);
   line-height: 1.72;
   max-width: 480px;
-  margin: 0 0 1.75rem;
+  margin: 0 0 1rem;
   animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both 0.22s;
 }
 
@@ -431,6 +433,36 @@ $wood:   #8c8276;
       filter: brightness(1.28);
       box-shadow: none;
     }
+  }
+}
+
+// ── Reservierungszeile ────────────────────────────────────
+.hero-reserve-line {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  color: rgba($walnut, 0.72);
+  animation: fadeUp 0.7s ease both 0.3s;
+
+  i.bi { font-size: 0.82rem; color: rgba($walnut, 0.45); }
+}
+
+.hero-reserve-label {
+  font-weight: 600;
+}
+
+.hero-reserve-phone {
+  font-weight: 700;
+  color: $walnut;
+  text-decoration: none;
+  border-bottom: 1px solid rgba($walnut, 0.25);
+  transition: border-color 0.15s, color 0.15s;
+
+  &:hover {
+    color: color.adjust($walnut, $lightness: -5%);
+    border-color: $walnut;
   }
 }
 

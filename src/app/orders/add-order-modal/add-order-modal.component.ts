@@ -1,5 +1,11 @@
 import { ChangeDetectionStrategy, Component, effect, inject, input, output, signal } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
+
+const requiresService: ValidatorFn = (group: AbstractControl) => {
+  const buffet = group.get('buffet')?.value;
+  const carte  = group.get('carte')?.value;
+  return buffet || carte ? null : { serviceRequired: true };
+};
 import { type OrderDraft, type OrderDrink, type OrderItemStatus } from '../models/order.model';
 import { TranslationService } from '../../i18n/translation.service';
 
@@ -221,10 +227,8 @@ export class AddOrderModalComponent {
   }
 
   submit(): void {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
+    this.form.markAllAsTouched();
+    if (this.form.invalid) return;
 
     const existingOrder = this.orderToEdit();
 
@@ -293,7 +297,7 @@ export class AddOrderModalComponent {
           [`${option.key}075Count`, 0],
         ]),
       ),
-    });
+    }, { validators: requiresService });
   }
 
   private applyOrderToForm(order: OrderDraft | null): void {

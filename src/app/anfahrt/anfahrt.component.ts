@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TranslationService } from '../i18n/translation.service';
 
-const GOOGLE_MAPS_API_KEY = '';
-const ADDRESS = 'Harpener+Hellweg+211a,+44805+Bochum,+Deutschland';
+const PLACE_QUERY   = 'Duck+House+Chinesisches+Restaurant,+Harpener+Hellweg+211a,+44805+Bochum';
+const PLACE_ENCODED = encodeURIComponent('Duck House Chinesisches Restaurant, Harpener Hellweg 211a, 44805 Bochum');
 
 @Component({
   selector: 'app-anfahrt',
@@ -17,11 +17,12 @@ export class AnfahrtComponent {
   readonly ts = inject(TranslationService);
 
   readonly mapUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-    GOOGLE_MAPS_API_KEY
-      ? `https://www.google.com/maps/embed/v1/place?key=${GOOGLE_MAPS_API_KEY}&q=${ADDRESS}&zoom=16&language=de`
-      : `https://maps.google.com/maps?q=${ADDRESS}&output=embed&hl=de&z=16`,
+    `https://maps.google.com/maps?q=${PLACE_QUERY}&output=embed&hl=de&z=17`,
   );
 
-  readonly directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${ADDRESS}`;
-  readonly mapsUrl       = `https://www.google.com/maps/search/?api=1&query=${ADDRESS}`;
+  readonly directionsUrl =
+    `https://www.google.com/maps/dir/?api=1&destination=${PLACE_ENCODED}&travelmode=driving`;
+
+  readonly mapsUrl =
+    `https://www.google.com/maps/search/?api=1&query=${PLACE_ENCODED}`;
 }
