@@ -51,7 +51,7 @@ $card-bg: #f5f2ec;
 }
 
 .page-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: inherit;
   font-size: 1.8rem;
   font-weight: 700;
   color: $walnut;
@@ -78,7 +78,7 @@ $card-bg: #f5f2ec;
 }
 
 .empty-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: inherit;
   font-size: 1.4rem;
   font-weight: 700;
   color: $walnut;

@@ -102,16 +102,11 @@
           }
         </div>
 
-        <!-- Login / Logout -->
+        <!-- Abmelden nur wenn eingeloggt -->
         @if (auth.isAuthenticated()) {
           <button class="btn-nav-auth btn-nav-auth--out" type="button" (click)="logout()">
             <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
             {{ ts.translator().navLogout }}
-          </button>
-        } @else {
-          <button class="btn-nav-auth" type="button" (click)="openLogin()">
-            <i class="bi bi-lock" aria-hidden="true"></i>
-            {{ ts.translator().navLogin }}
           </button>
         }
       </div>
@@ -119,11 +114,6 @@
 
   </div>
 </nav>
-
-<!-- ── Login-Modal ──────────────────────────────────── -->
-@if (isLoginOpen()) {
-  <app-login-modal (closed)="closeLogin()" />
-}
 
 <!-- ══════════════════════════════════════════════
      HERO — Bootstrap Grid, nur Startseite

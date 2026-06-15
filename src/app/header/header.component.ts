@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { LoginModalComponent } from '../auth/login-modal/login-modal.component';
 import { TranslationService } from '../i18n/translation.service';
 import { type Lang } from '../i18n/translations';
 
@@ -9,7 +8,7 @@ type View = 'menu' | 'orders' | 'takeaway' | 'anfahrt';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [LoginModalComponent],
+  imports: [],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,7 +21,6 @@ export class HeaderComponent {
   readonly viewSelected = output<View>();
   readonly homeClicked  = output<void>();
 
-  readonly isLoginOpen = signal(false);
   readonly isLangOpen  = signal(false);
 
   private readonly today = signal(new Date());
@@ -57,9 +55,7 @@ export class HeaderComponent {
     this.homeClicked.emit();
   }
 
-  openLogin(): void  { this.isLoginOpen.set(true); }
-  closeLogin(): void { this.isLoginOpen.set(false); }
-  logout(): void     { this.auth.logout(); }
+  logout(): void { this.auth.logout(); }
   toggleLang(): void { this.isLangOpen.update(v => !v); }
 
   setLang(lang: Lang): void {

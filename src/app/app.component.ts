@@ -27,6 +27,9 @@ export class AppComponent {
     { initialValue: this.router.url },
   );
 
+  readonly isInternRoute = computed(() => this.currentUrl().startsWith('/intern'));
+
+ readonly activeView = computed<View | null>(() => {
   readonly activeView = computed<string | null>(() => {
     const url = this.currentUrl();
     if (url.startsWith('/menu'))        return 'menu';

@@ -4,6 +4,7 @@ import { MenuComponent } from './menu/menu.component';
 import { OrdersComponent } from './orders/orders.component';
 import { TakeawayComponent } from './takeaway/takeaway.component';
 import { AnfahrtComponent } from './anfahrt/anfahrt.component';
+import { InternLoginComponent } from './auth/intern-login/intern-login.component';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { DatenschutzComponent } from './datenschutz/datenschutz.component';
 import { authGuard } from './auth/auth.guard';
@@ -14,6 +15,7 @@ export const routes: Routes = [
   { path: 'orders', component: OrdersComponent, canActivate: [authGuard] },
   { path: 'takeaway', component: TakeawayComponent },
   { path: 'anfahrt', component: AnfahrtComponent },
+  { path: 'intern', component: InternLoginComponent },
   { path: 'impressum', component: ImpressumComponent },
   { path: 'datenschutz', component: DatenschutzComponent },
   { path: '**', redirectTo: '' },
