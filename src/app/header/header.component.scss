@@ -18,6 +18,11 @@ $wood:   #8c8276;
   to   { opacity: 1; }
 }
 
+@keyframes heroZoom {
+  from { transform: scale(1.06); }
+  to   { transform: scale(1); }
+}
+
 @keyframes lineGrow {
   from { transform: scaleX(0); }
   to   { transform: scaleX(1); }
@@ -53,7 +58,7 @@ $wood:   #8c8276;
 .nav-duck { width: 26px; height: 21px; flex-shrink: 0; }
 
 .nav-brand-text {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0.22em;
@@ -78,7 +83,7 @@ $wood:   #8c8276;
 
 // ── Nav-Links ─────────────────────────────────────────────
 .nav-item-link {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -122,7 +127,7 @@ $wood:   #8c8276;
   border-radius: 999px;
   background: transparent;
   color: $ivory;
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -170,7 +175,7 @@ $wood:   #8c8276;
   border-radius: 999px;
   background: transparent;
   color: $ivory;
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -219,7 +224,7 @@ $wood:   #8c8276;
   background: transparent;
   border: none;
   color: rgba($ivory, 0.7);
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
@@ -261,6 +266,7 @@ $wood:   #8c8276;
 // HERO
 // ══════════════════════════════════════════════════════════
 .hero {
+  position: relative;
   background: $ivory;
   padding-top: 6.5rem;
   padding-bottom: 5rem;
@@ -268,6 +274,37 @@ $wood:   #8c8276;
   display: flex;
   align-items: center;
   color: $walnut;
+  overflow: hidden;
+
+  // Hintergrundbild mit Zoom-Animation — Foto in src/app/assets/images/restaurant.jpg ablegen
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -6%;
+    background-image: url('/assets/images/restaurant.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    animation: heroZoom 12s ease-out both;
+    z-index: 0;
+  }
+
+  // Elfenbein-Overlay — links dicht (Text lesbar), rechts transparent (Foto sichtbar)
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      rgba($ivory, 0.96) 0%,
+      rgba($ivory, 0.82) 42%,
+      rgba($ivory, 0.38) 100%
+    );
+    z-index: 1;
+  }
+
+  // Alle Kinder über dem Overlay
+  .container-xl { position: relative; z-index: 2; }
 }
 
 // ── Ruhetag-Banner ────────────────────────────────────────
@@ -310,7 +347,7 @@ $wood:   #8c8276;
 }
 
 .ey-text {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -319,7 +356,7 @@ $wood:   #8c8276;
 
 // ── Titel ─────────────────────────────────────────────────
 .hero-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: inherit;
   font-size: clamp(3.5rem, 8vw, 6rem);
   font-weight: 700;
   line-height: 1;
@@ -331,7 +368,7 @@ $wood:   #8c8276;
 
 // ── Italic Subtitle ───────────────────────────────────────
 .hero-sub {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: inherit;
   font-style: italic;
   font-size: clamp(1.4rem, 2.6vw, 2rem);
   font-weight: 400;
@@ -342,7 +379,7 @@ $wood:   #8c8276;
 
 // ── Beschreibung ──────────────────────────────────────────
 .hero-desc {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: clamp(0.95rem, 1.4vw, 1.1rem);
   font-weight: 300;
   color: rgba($walnut, 0.68);
@@ -364,7 +401,7 @@ $wood:   #8c8276;
   border: none;
   border-radius: 100px;
   padding: 0.9rem 2.1rem;
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 1rem;
   font-weight: 600;
   line-height: 1;
@@ -403,7 +440,7 @@ $wood:   #8c8276;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.45rem;
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -454,7 +491,7 @@ $wood:   #8c8276;
 }
 
 .emp-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: inherit;
   font-size: 2rem;
   font-weight: 600;
   color: $walnut;
@@ -464,7 +501,7 @@ $wood:   #8c8276;
 
 .emp-subtitle {
   display: block;
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.64rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -503,7 +540,7 @@ $wood:   #8c8276;
 }
 
 .emp-item-name {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 1rem;
   font-weight: 700;
   color: $walnut;
@@ -519,7 +556,7 @@ $wood:   #8c8276;
 }
 
 .emp-item-price {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 1rem;
   font-weight: 400;
   color: $walnut;
@@ -528,7 +565,7 @@ $wood:   #8c8276;
 }
 
 .emp-item-desc {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.82rem;
   color: rgba($walnut, 0.5);
   margin: 0.22rem 0 0;
@@ -546,7 +583,7 @@ $wood:   #8c8276;
 }
 
 .emp-hours {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.84rem;
   color: rgba($walnut, 0.55);
 
@@ -554,7 +591,7 @@ $wood:   #8c8276;
 }
 
 .emp-cta {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.88rem;
   font-weight: 700;
   color: $walnut;
@@ -579,7 +616,7 @@ $wood:   #8c8276;
   background-color: var(--wood-bg-color);
   background-image:  var(--wood-bg-image);
   color: $ivory;
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.88rem;
   font-weight: 600;
   padding: 0.55rem 1.2rem;

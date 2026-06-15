@@ -20,7 +20,7 @@ $wood: #8c8276;
 }
 
 .ta-eyebrow {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.22em;
@@ -29,7 +29,7 @@ $wood: #8c8276;
 }
 
 .ta-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: inherit;
   font-size: clamp(1.8rem, 4vw, 2.6rem);
   font-weight: 700;
   color: $walnut;
@@ -37,7 +37,7 @@ $wood: #8c8276;
 }
 
 .ta-sub {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.88rem;
   color: rgba($walnut, 0.6);
   line-height: 1.65;
@@ -80,7 +80,7 @@ $wood: #8c8276;
   border-radius: 50%;
   border: 1.5px solid rgba($ivory, 0.3);
   color: rgba($ivory, 0.5);
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.72rem;
   font-weight: 700;
   display: flex;
@@ -96,7 +96,7 @@ $wood: #8c8276;
 }
 
 .ta-step-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: inherit;
   font-size: 1.2rem;
   font-weight: 700;
   color: $ivory;
@@ -104,7 +104,7 @@ $wood: #8c8276;
 }
 
 .ta-step-desc {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.8rem;
   color: rgba($ivory, 0.5);
   line-height: 1.6;
@@ -112,7 +112,7 @@ $wood: #8c8276;
 }
 
 .ta-step-cta {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.85rem;
   font-weight: 700;
   color: $ivory;
@@ -165,7 +165,7 @@ $wood: #8c8276;
 }
 
 .ta-info-label {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -176,7 +176,7 @@ $wood: #8c8276;
 }
 
 .ta-info-text {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.82rem;
   color: rgba($walnut, 0.65);
   margin: 0;
@@ -186,7 +186,7 @@ $wood: #8c8276;
 .ta-closed { color: rgba($walnut, 0.4); font-style: italic; }
 
 .ta-phone-link {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 1.05rem;
   font-weight: 700;
   color: $walnut;

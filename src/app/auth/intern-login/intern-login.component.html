@@ -1,0 +1,82 @@
+<div class="intern-page">
+
+  <div class="intern-card">
+
+    <!-- Logo -->
+    <div class="intern-logo">
+      <svg viewBox="0 0 60 48" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+           aria-hidden="true">
+        <ellipse cx="36" cy="32" rx="18" ry="11"/>
+        <circle cx="18" cy="18" r="11"/>
+        <path d="M 8 21 L 1 19 L 8 16 Z" fill="currentColor" stroke="none"/>
+        <circle cx="14" cy="15" r="2" fill="currentColor" stroke="none"/>
+        <path d="M 27 27 Q 37 21 51 26"/>
+        <path d="M 53 27 Q 60 19 57 37"/>
+      </svg>
+    </div>
+
+    <h1 class="intern-title">Duck House</h1>
+    <p class="intern-subtitle">Interner Bereich · Bestellverwaltung</p>
+
+    <form class="intern-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+
+      <div class="field-group">
+        <label class="field-label" for="i-user">
+          <i class="bi bi-person" aria-hidden="true"></i> Benutzername
+        </label>
+        <input id="i-user" class="field-input"
+               type="text"
+               formControlName="username"
+               autocomplete="username"
+               placeholder="admin"
+               spellcheck="false"
+               autocapitalize="off" />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="i-pass">
+          <i class="bi bi-lock" aria-hidden="true"></i> Passwort
+        </label>
+        <div class="password-wrap">
+          <input id="i-pass" class="field-input"
+                 [type]="showPassword() ? 'text' : 'password'"
+                 formControlName="password"
+                 autocomplete="current-password"
+                 placeholder="••••••••" />
+          <button type="button" class="toggle-pass"
+                  (click)="togglePassword()"
+                  [attr.aria-label]="showPassword() ? 'Passwort verbergen' : 'Passwort anzeigen'">
+            <i class="bi"
+               [class.bi-eye]="!showPassword()"
+               [class.bi-eye-slash]="showPassword()"
+               aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+
+      @if (error()) {
+        <div class="intern-error" role="alert">
+          <i class="bi bi-shield-exclamation" aria-hidden="true"></i>
+          @if (error() === 'locked') {
+            {{ lockedMsg() }}
+          } @else {
+            Benutzername oder Passwort falsch.
+          }
+        </div>
+      }
+
+      <button type="submit" class="btn-intern" [disabled]="loading()">
+        @if (loading()) {
+          <span class="btn-spinner" aria-hidden="true"></span>
+        } @else {
+          <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i>
+        }
+        Anmelden
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

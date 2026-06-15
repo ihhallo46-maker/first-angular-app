@@ -67,7 +67,7 @@ $wood:   #8c8276;
 }
 
 .ey-text {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.63rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -76,7 +76,7 @@ $wood:   #8c8276;
 }
 
 .info-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: inherit;
   font-size: clamp(1.9rem, 3vw, 2.6rem);
   font-weight: 700;
   color: $walnut;
@@ -109,7 +109,7 @@ $wood:   #8c8276;
 }
 
 .info-block-label {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -118,7 +118,7 @@ $wood:   #8c8276;
 }
 
 .info-block-body {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 1rem;
   font-weight: 400;
   color: $walnut;
@@ -141,7 +141,7 @@ $wood:   #8c8276;
 }
 
 .hours-days {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.88rem;
   font-weight: 700;
   color: $walnut;
@@ -150,7 +150,7 @@ $wood:   #8c8276;
 }
 
 .hours-time {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.88rem;
   font-weight: 400;
   color: rgba($walnut, 0.7);
@@ -165,7 +165,7 @@ $wood:   #8c8276;
 
 // ── Telefon ───────────────────────────────────────────────
 .info-phone {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 1.25rem;
   font-weight: 700;
   color: $walnut;
@@ -177,7 +177,7 @@ $wood:   #8c8276;
 }
 
 .info-note {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.82rem;
   color: rgba($walnut, 0.5);
   margin: 0;
@@ -204,7 +204,7 @@ $wood:   #8c8276;
   border: none;
   border-radius: 100px;
   padding: 0.78rem 1.65rem;
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.92rem;
   font-weight: 600;
   line-height: 1;
@@ -239,7 +239,7 @@ $wood:   #8c8276;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.8rem;
   font-weight: 600;
   color: $wood;

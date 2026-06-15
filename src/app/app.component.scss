@@ -43,7 +43,7 @@ $wood: #8c8276;
 }
 
 .cards-eyebrow {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.22em;
@@ -53,7 +53,7 @@ $wood: #8c8276;
 }
 
 .cards-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: inherit;
   font-size: clamp(2rem, 4.5vw, 3rem);
   font-weight: 600;
   color: $walnut;
@@ -120,7 +120,7 @@ $wood: #8c8276;
 }
 
 .card-title {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 1.05rem;
   font-weight: 700;
   color: $walnut;
@@ -128,7 +128,7 @@ $wood: #8c8276;
 }
 
 .card-desc {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.84rem;
   color: rgba($walnut, 0.55);
   line-height: 1.65;
@@ -137,7 +137,7 @@ $wood: #8c8276;
 }
 
 .card-link {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.82rem;
   font-weight: 700;
   color: $walnut;
@@ -170,7 +170,7 @@ $wood: #8c8276;
   align-items: center;
   gap: 0.5rem;
   padding: 1rem 1.5rem;
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -242,7 +242,7 @@ $wood: #8c8276;
 }
 
 .placeholder-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: inherit;
   font-size: 1.8rem;
   font-weight: 600;
   font-style: italic;
@@ -251,7 +251,7 @@ $wood: #8c8276;
 }
 
 .placeholder-desc {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.85rem;
   color: rgba($walnut, 0.5);
   margin: 0;
@@ -281,7 +281,7 @@ $wood: #8c8276;
 }
 
 .footer-brand {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0.22em;
@@ -297,7 +297,7 @@ $wood: #8c8276;
 }
 
 .footer-link {
-  font-family: 'Lato', sans-serif;
+  font-family: inherit;
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.1em;
