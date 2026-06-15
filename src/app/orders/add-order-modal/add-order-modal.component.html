@@ -13,15 +13,15 @@
           <path d="M 16 15 Q 22 11 29 14"/>
           <path d="M 29 14 Q 33 8 31 20"/>
         </svg>
-        {{ ts.t().modalBadge }}
+        {{ ts.translator().modalBadge }}
       </div>
-      <button type="button" class="modal-close-btn" [attr.aria-label]="ts.t().modalCancelBtn" (click)="close()">×</button>
+      <button type="button" class="modal-close-btn" [attr.aria-label]="ts.translator().modalCancelBtn" (click)="close()">×</button>
     </div>
 
     <!-- ── Title ─────────────────────────────────────────── -->
     <div class="modal-title-area">
       <h3 id="modal-title" class="modal-heading">
-        {{ orderToEdit() ? ts.t().modalEditTitle : ts.t().modalNewTitle }}
+        {{ orderToEdit() ? ts.translator().modalEditTitle : ts.translator().modalNewTitle }}
       </h3>
     </div>
 
@@ -34,13 +34,13 @@
         <div class="form-section">
           <div class="section-header">
             <span class="section-badge">1</span>
-            <span class="section-label">{{ ts.t().modalSec1 }}</span>
+            <span class="section-label">{{ ts.translator().modalSec1 }}</span>
             <span class="section-rule"></span>
           </div>
-          <label class="field-label" for="tableNumber">{{ ts.t().modalSelectTable }}</label>
+          <label class="field-label" for="tableNumber">{{ ts.translator().modalSelectTable }}</label>
           <select id="tableNumber" class="table-select" formControlName="tableNumber">
             @for (n of tableNumbers; track n) {
-              <option [value]="n">{{ ts.t().modalTableOption.replace('{n}', n.toString()) }}</option>
+              <option [value]="n">{{ ts.translator().modalTableOption.replace('{n}', n.toString()) }}</option>
             }
           </select>
         </div>
@@ -49,7 +49,7 @@
         <div class="form-section">
           <div class="section-header">
             <span class="section-badge">2</span>
-            <span class="section-label">{{ ts.t().modalSec2 }}</span>
+            <span class="section-label">{{ ts.translator().modalSec2 }}</span>
             <span class="section-rule"></span>
           </div>
 
@@ -113,7 +113,7 @@
         <div class="form-section">
           <div class="section-header">
             <span class="section-badge">3</span>
-            <span class="section-label">{{ ts.t().modalSec3 }}</span>
+            <span class="section-label">{{ ts.translator().modalSec3 }}</span>
             <span class="section-rule"></span>
           </div>
 
@@ -141,8 +141,8 @@
                 </svg>
               </div>
 
-              <h4 class="service-title">{{ ts.t().modalBuffetTitle }}</h4>
-              <p class="service-desc">{{ ts.t().modalBuffetDesc }}</p>
+              <h4 class="service-title">{{ ts.translator().modalBuffetTitle }}</h4>
+              <p class="service-desc">{{ ts.translator().modalBuffetDesc }}</p>
 
               @if (form.get('buffet')?.value) {
                 <div class="service-count" (click)="$event.stopPropagation()">
@@ -150,7 +150,7 @@
                   <div class="person-row">
                     <span class="count-label person-label">
                       <i class="bi bi-person-fill" aria-hidden="true"></i>
-                      {{ ts.t().modalAdults }}
+                      {{ ts.translator().modalAdults }}
                     </span>
                     <div class="count-stepper">
                       <button type="button" class="stepper-btn"
@@ -166,7 +166,7 @@
                   <div class="person-row">
                     <span class="count-label person-label">
                       <i class="bi bi-person" aria-hidden="true"></i>
-                      {{ ts.t().modalChildren }}
+                      {{ ts.translator().modalChildren }}
                     </span>
                     <div class="count-stepper">
                       <button type="button" class="stepper-btn"
@@ -180,10 +180,10 @@
                   </div>
                   <!-- Summe -->
                   <p class="person-total">
-                    {{ ts.t().modalTotal }}
+                    {{ ts.translator().modalTotal }}
                     <strong>
                       {{ (form.get('buffetAdults')?.value ?? 0) + (form.get('buffetChildren')?.value ?? 0) }}
-                      {{ ts.t().modalPersons }}
+                      {{ ts.translator().modalPersons }}
                     </strong>
                   </p>
                 </div>
@@ -213,20 +213,20 @@
                 </svg>
               </div>
 
-              <h4 class="service-title">{{ ts.t().modalCarteTitle }}</h4>
-              <p class="service-desc">{{ ts.t().modalCarteDesc }}</p>
+              <h4 class="service-title">{{ ts.translator().modalCarteTitle }}</h4>
+              <p class="service-desc">{{ ts.translator().modalCarteDesc }}</p>
 
               @if (form.get('carte')?.value) {
                 <div class="service-count" (click)="$event.stopPropagation()">
-                  <span class="count-label">{{ ts.t().modalPersonCount }}</span>
+                  <span class="count-label">{{ ts.translator().modalPersonCount }}</span>
                   <div class="count-stepper">
                     <button type="button" class="stepper-btn" (click)="decrementService('carteCount')">−</button>
                     <span class="stepper-val count-val">{{ form.get('carteCount')?.value || 1 }}</span>
                     <button type="button" class="stepper-btn" (click)="incrementService('carteCount')">+</button>
                   </div>
-                  <label class="count-label comment-label" for="carte-comment">{{ ts.t().modalComment }}</label>
+                  <label class="count-label comment-label" for="carte-comment">{{ ts.translator().modalComment }}</label>
                   <textarea id="carte-comment" class="comment-input" formControlName="comment"
-                            [placeholder]="ts.t().modalCommentPh"
+                            [placeholder]="ts.translator().modalCommentPh"
                             (click)="$event.stopPropagation()"></textarea>
                 </div>
               }
@@ -243,9 +243,9 @@
           {{ drinkSummary }} · {{ tableLabel }}
         </span>
         <div class="footer-actions">
-          <button type="button" class="btn-cancel" (click)="close()">{{ ts.t().modalCancelBtn }}</button>
+          <button type="button" class="btn-cancel" (click)="close()">{{ ts.translator().modalCancelBtn }}</button>
           <button type="submit" class="btn-save">
-            <span class="btn-plus">+</span> {{ ts.t().modalSaveBtn }}
+            <span class="btn-plus">+</span> {{ ts.translator().modalSaveBtn }}
           </button>
         </div>
       </div>

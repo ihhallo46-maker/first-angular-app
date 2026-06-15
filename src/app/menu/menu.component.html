@@ -7,14 +7,14 @@
         <i class="bi bi-book-half" aria-hidden="true"></i>
       </div>
       <div>
-        <h1 class="page-title">{{ ts.t().menuTitle }}</h1>
+        <h1 class="page-title">{{ ts.translator().menuTitle }}</h1>
         <p class="page-subtitle">
           @if (searchTerm()) {
             {{ totalFilteredItems() }}
-            {{ totalFilteredItems() !== 1 ? ts.t().menuResultPl : ts.t().menuResultSg }}
-            {{ ts.t().menuFor }} „{{ searchTerm() }}"
+            {{ totalFilteredItems() !== 1 ? ts.translator().menuResultPl : ts.translator().menuResultSg }}
+            {{ ts.translator().menuFor }} „{{ searchTerm() }}"
           } @else {
-            {{ totalItems() }} {{ ts.t().menuDishes }} · {{ menuData.sections.length }} {{ ts.t().menuCategories }}
+            {{ totalItems() }} {{ ts.translator().menuDishes }} · {{ menuData.sections.length }} {{ ts.translator().menuCategories }}
           }
         </p>
       </div>
@@ -25,11 +25,11 @@
          href="https://www.duckhouse.de/speisekarte.html"
          target="_blank" rel="noopener noreferrer">
         <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
-        {{ ts.t().menuOpen }}
+        {{ ts.translator().menuOpen }}
       </a>
       <button type="button" class="btn-new" (click)="printMenu()">
         <i class="bi bi-printer" aria-hidden="true"></i>
-        {{ ts.t().menuPrint }}
+        {{ ts.translator().menuPrint }}
       </button>
     </div>
   </header>
@@ -40,13 +40,13 @@
     <input
       class="search-input"
       type="text"
-      [placeholder]="ts.t().menuSearchPh"
+      [placeholder]="ts.translator().menuSearchPh"
       [value]="searchTerm()"
       (input)="search($any($event.target).value)"
-      [attr.aria-label]="ts.t().menuSearchPh"
+      [attr.aria-label]="ts.translator().menuSearchPh"
     />
     @if (searchTerm()) {
-      <button type="button" class="search-clear" [attr.aria-label]="ts.t().menuClear"
+      <button type="button" class="search-clear" [attr.aria-label]="ts.translator().menuClear"
               (click)="clearSearch()">
         <i class="bi bi-x-lg" aria-hidden="true"></i>
       </button>
@@ -57,11 +57,11 @@
   @if (filteredSections().length === 0) {
     <div class="empty-state">
       <i class="bi bi-search empty-icon" aria-hidden="true"></i>
-      <h2 class="empty-title">{{ ts.t().menuNoResults }}</h2>
-      <p class="empty-text">{{ ts.t().menuNoResultsHint }}</p>
+      <h2 class="empty-title">{{ ts.translator().menuNoResults }}</h2>
+      <p class="empty-text">{{ ts.translator().menuNoResultsHint }}</p>
       <button type="button" class="btn-new" (click)="clearSearch()">
         <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
-        {{ ts.t().menuClear }}
+        {{ ts.translator().menuClear }}
       </button>
     </div>
   }
