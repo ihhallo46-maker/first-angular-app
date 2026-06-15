@@ -1,4 +1,5 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject, signal, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import {
   Auth,
@@ -11,14 +12,23 @@ import {
 export class AuthService {
   private readonly firebaseAuth = inject(Auth);
   private readonly router       = inject(Router);
+  private readonly isBrowser    = isPlatformBrowser(inject(PLATFORM_ID));
 
   private readonly _authenticated = signal(false);
   readonly isAuthenticated = this._authenticated.asReadonly();
 
+  // Wird aufgelöst, sobald Firebase den Login-Status das erste Mal kennt.
+  readonly ready: Promise<void>;
+
   constructor() {
-    // Firebase prüft automatisch ob der User eingeloggt ist (auch nach Reload)
-    onAuthStateChanged(this.firebaseAuth, (user) => {
-      this._authenticated.set(!!user);
+    this.ready = new Promise<void>((resolve) => {
+      if (!this.isBrowser) { resolve(); return; }
+      let first = true;
+      // Firebase prüft automatisch ob der User eingeloggt ist (auch nach Reload)
+      onAuthStateChanged(this.firebaseAuth, (user) => {
+        this._authenticated.set(!!user);
+        if (first) { first = false; resolve(); }
+      });
     });
   }
 
