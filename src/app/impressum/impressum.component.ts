@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { TranslationService } from '../i18n/translation.service';
 
 @Component({
   selector: 'app-impressum',
@@ -7,4 +8,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './impressum.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ImpressumComponent {}
+export class ImpressumComponent {
+  readonly ts = inject(TranslationService);
+}

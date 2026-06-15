@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { TranslationService } from '../i18n/translation.service';
 
 @Component({
   selector: 'app-datenschutz',
@@ -7,4 +8,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './datenschutz.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DatenschutzComponent {}
+export class DatenschutzComponent {
+  readonly ts = inject(TranslationService);
+}

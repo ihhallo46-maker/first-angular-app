@@ -1,35 +1,108 @@
-<div class="legal-page">
+@switch (ts.currentLang()) {
 
-  <div class="legal-eyebrow" aria-hidden="true">
-    <span class="ey-line"></span>
-    <span class="ey-text">RECHTLICHES</span>
-  </div>
+  @case ('en') {
+    <div class="legal-page">
+      <div class="legal-eyebrow" aria-hidden="true">
+        <span class="ey-line"></span>
+        <span class="ey-text">LEGAL</span>
+      </div>
+      <h1 class="legal-title">Legal Notice</h1>
+      <div class="legal-body">
 
-  <h1 class="legal-title">Impressum</h1>
+        <section class="legal-section">
+          <h2 class="legal-h2">Company Information (§ 5 TMG)</h2>
+          <p>
+            Chinesisches Restaurant Duck House<br>
+            Thing Koa Liv<br>
+            Harpener Hellweg 211a<br>
+            44805 Bochum
+          </p>
+        </section>
 
-  <div class="legal-body">
+        <section class="legal-section">
+          <h2 class="legal-h2">Contact</h2>
+          <p>
+            Telephone: <a href="tel:+492343389688">0234 – 33 89 688</a>
+          </p>
+        </section>
 
-    <section class="legal-section">
-      <h2 class="legal-h2">Angaben gemäß § 5 TMG</h2>
-      <p>
-        Chinesisches Restaurant Duck House<br>
-        Thing Koa Liv<br>
-        Harpener Hellweg 211a<br>
-        44805 Bochum
-      </p>
-    </section>
+        <section class="legal-section">
+          <h2 class="legal-h2">Tax Information</h2>
+          <p>Tax Number: 306/5143/1921</p>
+        </section>
 
-    <section class="legal-section">
-      <h2 class="legal-h2">Kontakt</h2>
-      <p>
-        Telefon: <a href="tel:+492343389688">0234 – 33 89 688</a>
-      </p>
-    </section>
+      </div>
+    </div>
+  }
 
-    <section class="legal-section">
-      <h2 class="legal-h2">Steuerliche Angaben</h2>
-      <p>Steuernummer: 306/5143/1921</p>
-    </section>
+  @case ('zh') {
+    <div class="legal-page">
+      <div class="legal-eyebrow" aria-hidden="true">
+        <span class="ey-line"></span>
+        <span class="ey-text">法律</span>
+      </div>
+      <h1 class="legal-title">法律声明</h1>
+      <div class="legal-body">
 
-  </div>
-</div>
+        <section class="legal-section">
+          <h2 class="legal-h2">公司信息（依据德国电子媒体法第5条）</h2>
+          <p>
+            鸭屋中国餐厅<br>
+            Thing Koa Liv<br>
+            Harpener Hellweg 211a<br>
+            44805 Bochum
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2 class="legal-h2">联系方式</h2>
+          <p>
+            电话：<a href="tel:+492343389688">0234 – 33 89 688</a>
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2 class="legal-h2">税务信息</h2>
+          <p>税号：306/5143/1921</p>
+        </section>
+
+      </div>
+    </div>
+  }
+
+  @default {
+    <div class="legal-page">
+      <div class="legal-eyebrow" aria-hidden="true">
+        <span class="ey-line"></span>
+        <span class="ey-text">RECHTLICHES</span>
+      </div>
+      <h1 class="legal-title">Impressum</h1>
+      <div class="legal-body">
+
+        <section class="legal-section">
+          <h2 class="legal-h2">Angaben gemäß § 5 TMG</h2>
+          <p>
+            Chinesisches Restaurant Duck House<br>
+            Thing Koa Liv<br>
+            Harpener Hellweg 211a<br>
+            44805 Bochum
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2 class="legal-h2">Kontakt</h2>
+          <p>
+            Telefon: <a href="tel:+492343389688">0234 – 33 89 688</a>
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <h2 class="legal-h2">Steuerliche Angaben</h2>
+          <p>Steuernummer: 306/5143/1921</p>
+        </section>
+
+      </div>
+    </div>
+  }
+
+}
