@@ -55,7 +55,7 @@ export class HeaderComponent {
     this.homeClicked.emit();
   }
 
-  logout(): void { this.auth.logout(); }
+  logout(): void { void this.auth.logout(); }
   toggleLang(): void { this.isLangOpen.update(v => !v); }
 
   setLang(lang: Lang): void {

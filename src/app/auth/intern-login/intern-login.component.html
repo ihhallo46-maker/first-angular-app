@@ -22,14 +22,14 @@
     <form class="intern-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
 
       <div class="field-group">
-        <label class="field-label" for="i-user">
-          <i class="bi bi-person" aria-hidden="true"></i> Benutzername
+        <label class="field-label" for="i-email">
+          <i class="bi bi-envelope" aria-hidden="true"></i> E-Mail
         </label>
-        <input id="i-user" class="field-input"
-               type="text"
-               formControlName="username"
-               autocomplete="username"
-               placeholder="admin"
+        <input id="i-email" class="field-input"
+               type="email"
+               formControlName="email"
+               autocomplete="email"
+               placeholder="admin@duckhouse.de"
                spellcheck="false"
                autocapitalize="off" />
       </div>
@@ -58,11 +58,7 @@
       @if (error()) {
         <div class="intern-error" role="alert">
           <i class="bi bi-shield-exclamation" aria-hidden="true"></i>
-          @if (error() === 'locked') {
-            {{ lockedMsg() }}
-          } @else {
-            Benutzername oder Passwort falsch.
-          }
+          E-Mail oder Passwort falsch.
         </div>
       }
 

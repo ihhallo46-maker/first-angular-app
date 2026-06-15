@@ -1,13 +1,23 @@
-import { Injectable, computed, effect, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  collectionData,
+  doc,
+  setDoc,
+  deleteDoc,
+  updateDoc,
+  query,
+  orderBy,
+} from '@angular/fire/firestore';
 import { type OrderDraft, type OrderDrink } from '../app/orders/models/order.model';
-
-const STORAGE_KEY = 'duck-house-orders';
-const isBrowser = typeof localStorage !== 'undefined';
 
 @Injectable({ providedIn: 'root' })
 export class OrdersService {
-  private readonly _orders = signal<OrderDraft[]>(this.loadFromStorage());
+  private readonly firestore = inject(Firestore);
+  private readonly ordersCol = collection(this.firestore, 'orders');
 
+  private readonly _orders = signal<OrderDraft[]>([]);
   readonly orders = this._orders.asReadonly();
 
   readonly inProgressCount = computed(
@@ -15,58 +25,42 @@ export class OrdersService {
   );
 
   constructor() {
-    // Persist every state change to localStorage automatically
-    effect(() => {
-      if (!isBrowser) return;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(this._orders()));
+    // Echtzeit-Listener: Aktualisiert automatisch auf allen Geräten
+    const q = query(this.ordersCol, orderBy('createdAt', 'desc'));
+    collectionData(q, { idField: 'id' }).subscribe((data) => {
+      this._orders.set(data as OrderDraft[]);
     });
   }
 
-  save(order: OrderDraft): 'duplicate' | 'saved' {
+  async save(order: OrderDraft): Promise<'duplicate' | 'saved'> {
     const duplicate = this._orders().find(
       (o) => o.tableNumber === order.tableNumber && o.id !== order.id,
     );
     if (duplicate) return 'duplicate';
 
     const isExisting = this._orders().some((o) => o.id === order.id);
-    if (isExisting) {
-      this._orders.update((items) =>
-        items.map((item) => (item.id === order.id ? { ...item, ...order } : item)),
-      );
-    } else {
-      const newOrder = { ...order, createdAt: new Date().toISOString() };
-      this._orders.update((items) => [newOrder, ...items]);
-    }
+    const data: OrderDraft = isExisting
+      ? order
+      : { ...order, createdAt: new Date().toISOString() };
+
+    await setDoc(doc(this.ordersCol, data.id), data);
     return 'saved';
   }
 
-  delete(orderId: string): void {
-    this._orders.update((items) => items.filter((item) => item.id !== orderId));
+  async delete(orderId: string): Promise<void> {
+    await deleteDoc(doc(this.ordersCol, orderId));
   }
 
-  markCompleted(orderId: string): void {
-    this._orders.update((items) =>
-      items.map((item) => {
-        if (item.id !== orderId) return item;
-        return {
-          ...item,
-          drinks: this.mergeConfirmedDrinks(item.drinks),
-          buffetStatus: 'confirmed' as const,
-          carteStatus: 'confirmed' as const,
-          status: 'completed' as const,
-        };
-      }),
-    );
-  }
+  async markCompleted(orderId: string): Promise<void> {
+    const order = this._orders().find((o) => o.id === orderId);
+    if (!order) return;
 
-  private loadFromStorage(): OrderDraft[] {
-    if (!isBrowser) return [];
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? (JSON.parse(raw) as OrderDraft[]) : [];
-    } catch {
-      return [];
-    }
+    await updateDoc(doc(this.ordersCol, orderId), {
+      drinks: this.mergeConfirmedDrinks(order.drinks),
+      buffetStatus: 'confirmed',
+      carteStatus: 'confirmed',
+      status: 'completed',
+    });
   }
 
   private mergeConfirmedDrinks(drinks: OrderDrink[]): OrderDrink[] {
@@ -75,11 +69,7 @@ export class OrdersService {
       const key = `${drink.name}-${drink.size}`;
       const existing = merged.get(key);
       if (existing) {
-        merged.set(key, {
-          ...existing,
-          quantity: existing.quantity + drink.quantity,
-          status: 'confirmed',
-        });
+        merged.set(key, { ...existing, quantity: existing.quantity + drink.quantity, status: 'confirmed' });
       } else {
         merged.set(key, { ...drink, status: 'confirmed' });
       }
