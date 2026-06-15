@@ -112,6 +112,43 @@ $wood:   #8c8276;
   }
 }
 
+// ── Anmelden / Abmelden Button ────────────────────────────
+.btn-nav-auth {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 1rem;
+  border: 1.5px solid rgba($ivory, 0.45);
+  border-radius: 999px;
+  background: transparent;
+  color: $ivory;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+
+  i.bi { font-size: 0.85rem; }
+
+  &:hover {
+    background: rgba($ivory, 0.12);
+    border-color: rgba($ivory, 0.7);
+  }
+
+  &--out {
+    border-color: rgba($ivory, 0.25);
+    color: rgba($ivory, 0.65);
+
+    &:hover {
+      background: rgba($ivory, 0.08);
+      border-color: rgba($ivory, 0.45);
+      color: $ivory;
+    }
+  }
+}
+
 // ── Mobile collapse: inherit walnut background ─────────────
 @media (max-width: 991.98px) {
   .navbar-collapse {

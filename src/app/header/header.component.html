@@ -39,13 +39,15 @@
             SPEISEKARTE
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link nav-item-link"
-             [class.nav-item-link--active]="activeView() === 'orders'"
-             href="#" (click)="$event.preventDefault(); select('orders')">
-            BESTELLUNGEN
-          </a>
-        </li>
+        @if (auth.isAuthenticated()) {
+          <li class="nav-item">
+            <a class="nav-link nav-item-link"
+               [class.nav-item-link--active]="activeView() === 'orders'"
+               href="#" (click)="$event.preventDefault(); select('orders')">
+              BESTELLUNGEN
+            </a>
+          </li>
+        }
         <li class="nav-item">
           <a class="nav-link nav-item-link"
              [class.nav-item-link--active]="activeView() === 'takeaway'"
@@ -61,10 +63,30 @@
           </a>
         </li>
       </ul>
+
+      <!-- ── Login / Logout Button ─────────────────── -->
+      <div class="ms-lg-3 mt-2 mt-lg-0">
+        @if (auth.isAuthenticated()) {
+          <button class="btn-nav-auth btn-nav-auth--out" type="button" (click)="logout()">
+            <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+            Abmelden
+          </button>
+        } @else {
+          <button class="btn-nav-auth" type="button" (click)="openLogin()">
+            <i class="bi bi-lock" aria-hidden="true"></i>
+            Anmelden
+          </button>
+        }
+      </div>
     </div>
 
   </div>
 </nav>
+
+<!-- ── Login-Modal ──────────────────────────────────── -->
+@if (isLoginOpen()) {
+  <app-login-modal (closed)="closeLogin()" />
+}
 
 <!-- ══════════════════════════════════════════════
      HERO — Bootstrap Grid, nur Startseite

@@ -1,0 +1,101 @@
+<div class="login-backdrop" role="presentation" (click)="close()">
+  <div class="login-dialog" role="dialog" aria-modal="true"
+       aria-labelledby="login-title" (click)="$event.stopPropagation()">
+
+    <!-- ── Top-Bar ──────────────────────────────────────────── -->
+    <div class="login-top-bar">
+      <div class="login-badge">
+        <svg class="badge-duck" viewBox="0 0 32 26" fill="none" stroke="currentColor"
+             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <ellipse cx="20" cy="18" rx="11" ry="7"/>
+          <circle cx="10" cy="10" r="7"/>
+          <path d="M 4 12 L 0 10 L 4 8 Z" fill="currentColor" stroke="none"/>
+          <circle cx="7" cy="8" r="1.5" fill="currentColor" stroke="none"/>
+          <path d="M 16 15 Q 22 11 29 14"/>
+          <path d="M 29 14 Q 33 8 31 20"/>
+        </svg>
+        ZUGANG GESICHERT
+      </div>
+      <button type="button" class="login-close-btn" aria-label="Schließen"
+              (click)="close()">×</button>
+    </div>
+
+    <!-- ── Titel ────────────────────────────────────────────── -->
+    <div class="login-title-area">
+      <h3 id="login-title" class="login-heading">Anmelden</h3>
+      <p class="login-subheading">
+        Bitte melden Sie sich an, um auf den Bestellbereich zuzugreifen.
+      </p>
+    </div>
+
+    <!-- ── Formular ─────────────────────────────────────────── -->
+    <form class="login-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="login-body">
+
+        <!-- Benutzername -->
+        <div class="field-group">
+          <label class="field-label" for="login-user">
+            <i class="bi bi-person" aria-hidden="true"></i> Benutzername
+          </label>
+          <input id="login-user" class="field-input"
+                 type="text"
+                 formControlName="username"
+                 autocomplete="username"
+                 placeholder="Benutzername eingeben"
+                 spellcheck="false"
+                 autocapitalize="off" />
+        </div>
+
+        <!-- Passwort -->
+        <div class="field-group">
+          <label class="field-label" for="login-pass">
+            <i class="bi bi-lock" aria-hidden="true"></i> Passwort
+          </label>
+          <div class="password-wrap">
+            <input id="login-pass" class="field-input"
+                   [type]="showPassword() ? 'text' : 'password'"
+                   formControlName="password"
+                   autocomplete="current-password"
+                   placeholder="Passwort eingeben" />
+            <button type="button" class="toggle-pass"
+                    (click)="togglePassword()"
+                    [attr.aria-label]="showPassword() ? 'Passwort verbergen' : 'Passwort anzeigen'">
+              <i class="bi"
+                 [class.bi-eye]="!showPassword()"
+                 [class.bi-eye-slash]="showPassword()"
+                 aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Fehlermeldung -->
+        @if (error()) {
+          <div class="login-error" role="alert">
+            <i class="bi bi-shield-exclamation" aria-hidden="true"></i>
+            @if (error() === 'locked') {
+              Zu viele Fehlversuche — bitte {{ lockoutSeconds }} Sekunden warten.
+            } @else {
+              Benutzername oder Passwort falsch.
+            }
+          </div>
+        }
+
+      </div>
+
+      <!-- ── Footer ──────────────────────────────────────────── -->
+      <div class="login-footer">
+        <button type="button" class="btn-cancel" (click)="close()">Abbrechen</button>
+        <button type="submit" class="btn-login" [disabled]="loading()">
+          @if (loading()) {
+            <span class="btn-spinner" aria-hidden="true"></span>
+          } @else {
+            <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i>
+          }
+          Anmelden
+        </button>
+      </div>
+    </form>
+
+  </div>
+</div>

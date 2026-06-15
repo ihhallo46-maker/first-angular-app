@@ -1,18 +1,25 @@
-import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { LoginModalComponent } from '../auth/login-modal/login-modal.component';
 
 type View = 'menu' | 'orders' | 'takeaway' | 'anfahrt';
 
 @Component({
   selector: 'app-header',
   standalone: true,
+  imports: [LoginModalComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  readonly activeView = input<View | null>(null);
+  readonly auth = inject(AuthService);
+
+  readonly activeView   = input<View | null>(null);
   readonly viewSelected = output<View>();
-  readonly homeClicked = output<void>();
+  readonly homeClicked  = output<void>();
+
+  readonly isLoginOpen = signal(false);
 
   private readonly today = signal(new Date());
 
@@ -28,11 +35,7 @@ export class HeaderComponent {
   readonly formattedDate = computed(() => {
     const d = this.today();
     const weekday = new Intl.DateTimeFormat('de-DE', { weekday: 'long' }).format(d);
-    const date = new Intl.DateTimeFormat('de-DE', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-    }).format(d);
+    const date    = new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: 'long', year: 'numeric' }).format(d);
     return `${weekday} · ${date}`.toUpperCase();
   });
 
@@ -46,8 +49,12 @@ export class HeaderComponent {
     this.homeClicked.emit();
   }
 
+  openLogin(): void  { this.isLoginOpen.set(true); }
+  closeLogin(): void { this.isLoginOpen.set(false); }
+  logout(): void     { this.auth.logout(); }
+
   private closeNav(): void {
-    const el = document.getElementById('navbarMain');
+    const el = document.getElementById('navMain');
     if (el) {
       const bsCollapse = (window as any).bootstrap?.Collapse?.getInstance(el);
       bsCollapse?.hide();
