@@ -16,9 +16,9 @@ export class OrdersComponent {
   readonly orderService = inject(OrdersService);
   readonly ts           = inject(TranslationService);
 
-  readonly isModalOpen    = signal(false);
-  readonly editingOrder   = signal<OrderDraft | null>(null);
-  readonly warningMessage = signal<string | null>(null);
+  readonly isModalOpen     = signal(false);
+  readonly editingOrder    = signal<OrderDraft | null>(null);
+  readonly warningMessage  = signal<string | null>(null);
   readonly confirmDeleteId = signal<string | null>(null);
 
   openModal(order: OrderDraft | null = null): void {
@@ -36,8 +36,8 @@ export class OrdersComponent {
     this.openModal({ ...order, status: 'in-progress' });
   }
 
-  saveOrder(order: OrderDraft): void {
-    const result = this.orderService.save(order);
+  async saveOrder(order: OrderDraft): Promise<void> {
+    const result = await this.orderService.save(order);
     if (result === 'duplicate') {
       this.warningMessage.set(
         this.ts.translator().ordersDuplicate.replace('{n}', String(order.tableNumber)),
@@ -46,17 +46,17 @@ export class OrdersComponent {
     this.closeModal();
   }
 
-  markCompleted(orderId: string): void {
-    this.orderService.markCompleted(orderId);
+  async markCompleted(orderId: string): Promise<void> {
+    await this.orderService.markCompleted(orderId);
   }
 
   requestDelete(orderId: string): void {
     this.confirmDeleteId.set(orderId);
   }
 
-  confirmDelete(): void {
+  async confirmDelete(): Promise<void> {
     const id = this.confirmDeleteId();
-    if (id) this.orderService.delete(id);
+    if (id) await this.orderService.delete(id);
     this.confirmDeleteId.set(null);
   }
 

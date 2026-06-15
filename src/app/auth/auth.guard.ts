@@ -2,11 +2,13 @@ import { inject } from '@angular/core';
 import { Router, type CanActivateFn } from '@angular/router';
 import { AuthService } from './auth.service';
 
-export const authGuard: CanActivateFn = () => {
+export const authGuard: CanActivateFn = async () => {
   const auth   = inject(AuthService);
   const router = inject(Router);
 
+  // Warten bis Firebase den Login-Status nach dem Neuladen wiederhergestellt hat
+  await auth.ready;
+
   if (auth.isAuthenticated()) return true;
-  void router.navigate(['/intern']);
-  return false;
+  return router.createUrlTree(['/intern']);
 };
