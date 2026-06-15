@@ -173,13 +173,21 @@
                 </button>
               </div>
             }
-
+            @else {
+              <p class="hero-reserve-line justify-content-lg-start justify-content-center">
+              <i class="bi bi-telephone-fill" aria-hidden="true"></i>
+              <span class="hero-reserve-label">{{ ts.translator().heroReserveLabel }}</span>
+              <a class="hero-reserve-phone" href="tel:+492343389688">0234 – 33 89 688</a>
+            </p>
+            }
             <p class="hero-meta">
               {{ formattedDate() }}
               @if (isOpen()) {
                 <span class="hero-meta-dot" aria-hidden="true"></span>
                 {{ ts.translator().heroOpen }}
               }
+              <span class="" aria-hidden="true"></span>
+              {{ ts.translator().heroTuesdayClosed }}
             </p>
 
           </div>

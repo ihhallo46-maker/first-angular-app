@@ -17,6 +17,8 @@
   "heroOrder": "立即点餐  →",
   "heroReserve": "预订餐位",
   "heroOpen": "营业至22:00",
+  "heroReserveLabel": "立即预订：",
+  "heroTuesdayClosed": "周二：休息",
 
   "ruhetagTitle": "今日休息 —",
   "ruhetagBody": "Duck House 每周二休息。欢迎您周三起再度光临。",

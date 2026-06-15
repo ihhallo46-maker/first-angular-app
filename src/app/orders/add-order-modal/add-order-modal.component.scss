@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 // ── Tokens ────────────────────────────────────────────────
 $walnut: #3a332c;
 $ivory: #efebe3;
@@ -314,7 +316,7 @@ $border: rgba(#8c8276, 0.22);
   transition: background 0.12s;
 
   &:hover { background: $ivory; }
-  &:active { background: darken($ivory, 4%); }
+  &:active { background: color.adjust($ivory, $lightness: -4%); }
 }
 
 .stepper-val {
@@ -544,7 +546,7 @@ $border: rgba(#8c8276, 0.22);
   font-family: inherit;
   transition: background 0.15s;
 
-  &:hover { background: lighten($walnut, 8%); }
+  &:hover { background: color.adjust($walnut, $lightness: 8%); }
 }
 
 .btn-plus {
