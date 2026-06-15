@@ -3,7 +3,7 @@ export type OrderItemStatus = 'confirmed' | 'new';
 
 export interface OrderDrink {
   name: string;
-  size: '0.3L' | '0.5L' | '0.75L';
+  size: '0.1L' | '0.2L' | '0.3L' | '0.5L' | '0.75L';
   quantity: number;
   status: OrderItemStatus;
 }

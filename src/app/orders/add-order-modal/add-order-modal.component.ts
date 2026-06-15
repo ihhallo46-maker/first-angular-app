@@ -5,7 +5,7 @@ import { type OrderDraft, type OrderDrink, type OrderItemStatus } from '../model
 interface DrinkOption {
   key: string;
   label: string;
-  sizes: Array<'0.3L' | '0.5L' | '0.75L'>;
+  sizes: Array<'0.1L' | '0.2L' | '0.3L' | '0.5L' | '0.75L'>;
 }
 
 interface DrinkCategory {
@@ -16,8 +16,8 @@ interface DrinkCategory {
 }
 
 interface SizeEntry {
-  sizeKey: '03' | '05' | '075';
-  size: '0.3L' | '0.5L' | '0.75L';
+  sizeKey: '01' | '02' | '03' | '05' | '075';
+  size: '0.1L' | '0.2L' | '0.3L' | '0.5L' | '0.75L';
   label: string;
 }
 
@@ -62,13 +62,16 @@ export class AddOrderModalComponent {
     { key: 'doubleespresso', label: 'Doppelter Espresso', sizes: ['0.3L'] },
     { key: 'chinatee', label: 'China Tee', sizes: ['0.3L'] },
     { key: 'grüneTee', label: 'Grüner Tee', sizes: ['0.3L'] },
-    { key: 'rotWein', label: 'Rotwein', sizes: ['0.3L'] },
-    { key: 'weissWein', label: 'Weisswein', sizes: ['0.3L'] },
-      { key: 'reisschnaps', label: 'Reisschnaps', sizes: ['0.3L'] },
-      { key: 'plumwine', label: 'Pflaumenwein', sizes: ['0.3L'] },
+    { key: 'rotWein', label: 'Rotwein', sizes: ['0.1L', '0.2L'] },
+    { key: 'weissWein', label: 'Weisswein', sizes: ['0.1L', '0.2L'] },
+    { key: 'bottleWine', label: 'Flasche Wein', sizes: ['0.75L'] },
+    { key: 'reisschnaps', label: 'Reisschnaps', sizes: ['0.1L'] },
+    { key: 'plumwine', label: 'Pflaumenwein', sizes: ['0.1L'] },
   ];
 
   readonly allSizeEntries: SizeEntry[] = [
+    { sizeKey: '01', size: '0.1L', label: '0.1L' },
+    { sizeKey: '02', size: '0.2L', label: '0.2L' },
     { sizeKey: '03', size: '0.3L', label: '0.3L' },
     { sizeKey: '05', size: '0.5L', label: '0.5L' },
     { sizeKey: '075', size: '0.75L', label: '0.75L' },
@@ -79,7 +82,7 @@ export class AddOrderModalComponent {
     { key: 'bier',       label: 'Bier',             icon: 'bi-cup-fill',     drinkKeys: ['pils', 'alcPils', 'weizen', 'alcWeizen', 'krefelder', 'altBier', 'radler', 'alster'] },
     { key: 'saefte',     label: 'Säfte',            icon: 'bi-droplet-fill', drinkKeys: ['apfelsaft', 'orangensaft', 'maracuja'] },
     { key: 'wasser',     label: 'Wasser',            icon: 'bi-droplet-half', drinkKeys: ['wasserstill', 'wassersprudel'] },
-    { key: 'wein',       label: 'Wein & Schnaps',   icon: 'bi-stars',        drinkKeys: ['rotWein', 'weissWein', 'reisschnaps', 'plumwine'] },
+    { key: 'wein',       label: 'Wein & Schnaps',   icon: 'bi-stars',        drinkKeys: ['rotWein', 'weissWein', 'bottleWine', 'reisschnaps', 'plumwine'] },
     { key: 'warm',       label: 'Kaffee und Tee',      icon: 'bi-cup-hot-fill', drinkKeys: ['kaffee', 'espresso', 'doubleespresso', 'chinatee', 'grüneTee'] },
   ];
 
@@ -125,7 +128,7 @@ export class AddOrderModalComponent {
 
   // ── Template helpers ──────────────────────────────────────
 
-  getConfirmedCount(optionKey: string, size: '0.3L' | '0.5L' | '0.75L'): number {
+  getConfirmedCount(optionKey: string, size: '0.1L' | '0.2L' | '0.3L' | '0.5L' | '0.75L'): number {
     const label = this.drinkOptions.find((o) => o.key === optionKey)?.label ?? '';
     return this.getConfirmedDrinkQuantity(this.orderToEdit(), label, size);
   }
@@ -210,6 +213,8 @@ export class AddOrderModalComponent {
 
     const selectedDrinks: OrderDrink[] = this.drinkOptions.flatMap((option) => {
       const drinks: OrderDrink[] = [];
+      this.addDrinkBySize(drinks, option, '0.1L', '01', existingOrder);
+      this.addDrinkBySize(drinks, option, '0.2L', '02', existingOrder);
       this.addDrinkBySize(drinks, option, '0.3L', '03', existingOrder);
       this.addDrinkBySize(drinks, option, '0.5L', '05', existingOrder);
       this.addDrinkBySize(drinks, option, '0.75L', '075', existingOrder);
@@ -288,17 +293,25 @@ export class AddOrderModalComponent {
         this.drinkOptions.flatMap((option) => {
           const drinksForOption = order?.drinks.filter((d) => d.name === option.label) ?? [];
 
+          const confirmed01 = this.getConfirmedDrinkQuantity(order, option.label, '0.1L');
+          const confirmed02 = this.getConfirmedDrinkQuantity(order, option.label, '0.2L');
           const confirmed03 = this.getConfirmedDrinkQuantity(order, option.label, '0.3L');
           const confirmed05 = this.getConfirmedDrinkQuantity(order, option.label, '0.5L');
           const confirmed075 = this.getConfirmedDrinkQuantity(order, option.label, '0.75L');
+          const new01 = this.getNewDrinkQuantity(drinksForOption, '0.1L');
+          const new02 = this.getNewDrinkQuantity(drinksForOption, '0.2L');
           const new03 = this.getNewDrinkQuantity(drinksForOption, '0.3L');
           const new05 = this.getNewDrinkQuantity(drinksForOption, '0.5L');
           const new075 = this.getNewDrinkQuantity(drinksForOption, '0.75L');
 
           return [
+            [`${option.key}01`, confirmed01 > 0 || new01 > 0],
+            [`${option.key}02`, confirmed02 > 0 || new02 > 0],
             [`${option.key}03`, confirmed03 > 0 || new03 > 0],
             [`${option.key}05`, confirmed05 > 0 || new05 > 0],
             [`${option.key}075`, confirmed075 > 0 || new075 > 0],
+            [`${option.key}01Count`, new01],
+            [`${option.key}02Count`, new02],
             [`${option.key}03Count`, new03],
             [`${option.key}05Count`, new05],
             [`${option.key}075Count`, new075],
@@ -313,8 +326,8 @@ export class AddOrderModalComponent {
   private addDrinkBySize(
     drinks: OrderDrink[],
     option: DrinkOption,
-    size: '0.3L' | '0.5L' | '0.75L',
-    sizeKey: '03' | '05' | '075',
+    size: '0.1L' | '0.2L' | '0.3L' | '0.5L' | '0.75L',
+    sizeKey: '01' | '02' | '03' | '05' | '075',
     existingOrder: OrderDraft | null,
   ): void {
     const confirmedQuantity = this.getConfirmedDrinkQuantity(existingOrder, option.label, size);
@@ -342,7 +355,7 @@ export class AddOrderModalComponent {
       : 'new';
   }
 
-  private getNewDrinkQuantity(drinks: OrderDrink[], size: '0.3L' | '0.5L' | '0.75L'): number {
+  private getNewDrinkQuantity(drinks: OrderDrink[], size: '0.1L' | '0.2L' | '0.3L' | '0.5L' | '0.75L'): number {
     return drinks
       .filter((d) => d.size === size && d.status === 'new')
       .reduce((sum, d) => sum + d.quantity, 0);
@@ -351,7 +364,7 @@ export class AddOrderModalComponent {
   private getConfirmedDrinkQuantity(
     order: OrderDraft | null,
     drinkName: string,
-    size: '0.3L' | '0.5L' | '0.75L',
+    size: '0.1L' | '0.2L' | '0.3L' | '0.5L' | '0.75L',
   ): number {
     return (
       order?.drinks
