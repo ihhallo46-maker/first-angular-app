@@ -75,6 +75,7 @@ export class AddOrderModalComponent {
     { key: 'bottleWine', label: 'Flasche Wein', sizes: ['0.75L'] },
     { key: 'reisschnaps', label: 'Reisschnaps', sizes: ['0.1L'] },
     { key: 'plumwine', label: 'Pflaumenwein', sizes: ['0.1L'] },
+     { key: 'rose', label: 'Rose', sizes: ['0.2L'] },
   ];
 
   readonly allSizeEntries: SizeEntry[] = [
