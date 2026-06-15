@@ -75,6 +75,7 @@
   "modalCommentPh": "What was ordered from the menu?",
   "modalCancelBtn": "Cancel",
   "modalSaveBtn": "Create Order",
+  "modalServiceRequired": "Please select Buffet or À la carte.",
   "modalNoDrinks": "No drinks selected yet",
   "modalDrinkItems": "{n} items selected",
   "modalTableLabel": "Table {n}",

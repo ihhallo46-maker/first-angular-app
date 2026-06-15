@@ -233,6 +233,13 @@
             </div>
 
           </div>
+
+          @if (form.touched && form.hasError('serviceRequired')) {
+            <p class="service-error" role="alert">
+              <i class="bi bi-exclamation-circle-fill" aria-hidden="true"></i>
+              {{ ts.translator().modalServiceRequired }}
+            </p>
+          }
         </div>
 
       </div><!-- /form-body -->

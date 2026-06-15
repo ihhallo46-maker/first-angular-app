@@ -75,6 +75,7 @@
   "modalCommentPh": "请输入点餐内容",
   "modalCancelBtn": "取消",
   "modalSaveBtn": "创建订单",
+  "modalServiceRequired": "请选择自助餐或单点。",
   "modalNoDrinks": "暂未选择饮料",
   "modalDrinkItems": "已选 {n} 项",
   "modalTableLabel": "第 {n} 桌",

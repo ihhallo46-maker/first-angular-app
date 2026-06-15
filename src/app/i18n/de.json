@@ -75,6 +75,7 @@
   "modalCommentPh": "Was wurde aus der Karte bestellt?",
   "modalCancelBtn": "Abbrechen",
   "modalSaveBtn": "Bestellung anlegen",
+  "modalServiceRequired": "Bitte Buffet oder À la carte auswählen.",
   "modalNoDrinks": "Noch keine Getränke gewählt",
   "modalDrinkItems": "{n} Positionen ausgewählt",
   "modalTableLabel": "Tisch {n}",
