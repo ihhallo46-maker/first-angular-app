@@ -7,13 +7,14 @@
         <i class="bi bi-book-half" aria-hidden="true"></i>
       </div>
       <div>
-        <h1 class="page-title">Speisekarte</h1>
+        <h1 class="page-title">{{ ts.t().menuTitle }}</h1>
         <p class="page-subtitle">
           @if (searchTerm()) {
-            {{ totalFilteredItems() }} Ergebnis{{ totalFilteredItems() !== 1 ? 'se' : '' }}
-            für „{{ searchTerm() }}"
+            {{ totalFilteredItems() }}
+            {{ totalFilteredItems() !== 1 ? ts.t().menuResultPl : ts.t().menuResultSg }}
+            {{ ts.t().menuFor }} „{{ searchTerm() }}"
           } @else {
-            {{ totalItems() }} Gerichte · {{ menuData.sections.length }} Kategorien
+            {{ totalItems() }} {{ ts.t().menuDishes }} · {{ menuData.sections.length }} {{ ts.t().menuCategories }}
           }
         </p>
       </div>
@@ -24,11 +25,11 @@
          href="https://www.duckhouse.de/speisekarte.html"
          target="_blank" rel="noopener noreferrer">
         <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
-        Öffnen
+        {{ ts.t().menuOpen }}
       </a>
       <button type="button" class="btn-new" (click)="printMenu()">
         <i class="bi bi-printer" aria-hidden="true"></i>
-        Drucken
+        {{ ts.t().menuPrint }}
       </button>
     </div>
   </header>
@@ -39,13 +40,13 @@
     <input
       class="search-input"
       type="text"
-      placeholder="Gerichte oder Zutaten suchen…"
+      [placeholder]="ts.t().menuSearchPh"
       [value]="searchTerm()"
       (input)="search($any($event.target).value)"
-      aria-label="Speisekarte durchsuchen"
+      [attr.aria-label]="ts.t().menuSearchPh"
     />
     @if (searchTerm()) {
-      <button type="button" class="search-clear" aria-label="Suche zurücksetzen"
+      <button type="button" class="search-clear" [attr.aria-label]="ts.t().menuClear"
               (click)="clearSearch()">
         <i class="bi bi-x-lg" aria-hidden="true"></i>
       </button>
@@ -56,11 +57,11 @@
   @if (filteredSections().length === 0) {
     <div class="empty-state">
       <i class="bi bi-search empty-icon" aria-hidden="true"></i>
-      <h2 class="empty-title">Keine Gerichte gefunden</h2>
-      <p class="empty-text">Versuche einen anderen Suchbegriff.</p>
+      <h2 class="empty-title">{{ ts.t().menuNoResults }}</h2>
+      <p class="empty-text">{{ ts.t().menuNoResultsHint }}</p>
       <button type="button" class="btn-new" (click)="clearSearch()">
         <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
-        Suche zurücksetzen
+        {{ ts.t().menuClear }}
       </button>
     </div>
   }

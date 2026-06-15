@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { TranslationService } from '../../i18n/translation.service';
 
 @Component({
   selector: 'app-login-modal',
@@ -13,6 +14,7 @@ import { AuthService } from '../auth.service';
 export class LoginModalComponent {
   private readonly auth = inject(AuthService);
   private readonly fb   = inject(FormBuilder);
+  readonly ts           = inject(TranslationService);
 
   readonly closed = output<void>();
 
@@ -26,6 +28,10 @@ export class LoginModalComponent {
   readonly showPassword = signal(false);
 
   get lockoutSeconds(): number { return this.auth.lockoutSecondsLeft; }
+
+  lockedMsg(): string {
+    return this.ts.translator().loginLocked.replace('{n}', String(this.lockoutSeconds));
+  }
 
   async submit(): Promise<void> {
     if (this.form.invalid || this.loading()) return;

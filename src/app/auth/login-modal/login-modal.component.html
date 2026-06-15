@@ -15,18 +15,16 @@
           <path d="M 16 15 Q 22 11 29 14"/>
           <path d="M 29 14 Q 33 8 31 20"/>
         </svg>
-        ZUGANG GESICHERT
+        {{ ts.translator().loginBadge }}
       </div>
-      <button type="button" class="login-close-btn" aria-label="Schließen"
+      <button type="button" class="login-close-btn" [attr.aria-label]="ts.translator().deleteCancelBtn"
               (click)="close()">×</button>
     </div>
 
     <!-- ── Titel ────────────────────────────────────────────── -->
     <div class="login-title-area">
-      <h3 id="login-title" class="login-heading">Anmelden</h3>
-      <p class="login-subheading">
-        Bitte melden Sie sich an, um auf den Bestellbereich zuzugreifen.
-      </p>
+      <h3 id="login-title" class="login-heading">{{ ts.translator().loginTitle }}</h3>
+      <p class="login-subheading">{{ ts.translator().loginSubtitle }}</p>
     </div>
 
     <!-- ── Formular ─────────────────────────────────────────── -->
@@ -36,13 +34,13 @@
         <!-- Benutzername -->
         <div class="field-group">
           <label class="field-label" for="login-user">
-            <i class="bi bi-person" aria-hidden="true"></i> Benutzername
+            <i class="bi bi-person" aria-hidden="true"></i> {{ ts.translator().loginUsername }}
           </label>
           <input id="login-user" class="field-input"
                  type="text"
                  formControlName="username"
                  autocomplete="username"
-                 placeholder="Benutzername eingeben"
+                 [placeholder]="ts.translator().loginUsernamePh"
                  spellcheck="false"
                  autocapitalize="off" />
         </div>
@@ -50,17 +48,17 @@
         <!-- Passwort -->
         <div class="field-group">
           <label class="field-label" for="login-pass">
-            <i class="bi bi-lock" aria-hidden="true"></i> Passwort
+            <i class="bi bi-lock" aria-hidden="true"></i> {{ ts.translator().loginPassword }}
           </label>
           <div class="password-wrap">
             <input id="login-pass" class="field-input"
                    [type]="showPassword() ? 'text' : 'password'"
                    formControlName="password"
                    autocomplete="current-password"
-                   placeholder="Passwort eingeben" />
+                   [placeholder]="ts.translator().loginPasswordPh" />
             <button type="button" class="toggle-pass"
                     (click)="togglePassword()"
-                    [attr.aria-label]="showPassword() ? 'Passwort verbergen' : 'Passwort anzeigen'">
+                    [attr.aria-label]="showPassword() ? ts.translator().loginHidePass : ts.translator().loginShowPass">
               <i class="bi"
                  [class.bi-eye]="!showPassword()"
                  [class.bi-eye-slash]="showPassword()"
@@ -74,9 +72,9 @@
           <div class="login-error" role="alert">
             <i class="bi bi-shield-exclamation" aria-hidden="true"></i>
             @if (error() === 'locked') {
-              Zu viele Fehlversuche — bitte {{ lockoutSeconds }} Sekunden warten.
+              {{ lockedMsg() }}
             } @else {
-              Benutzername oder Passwort falsch.
+              {{ ts.translator().loginInvalid }}
             }
           </div>
         }
@@ -85,14 +83,14 @@
 
       <!-- ── Footer ──────────────────────────────────────────── -->
       <div class="login-footer">
-        <button type="button" class="btn-cancel" (click)="close()">Abbrechen</button>
+        <button type="button" class="btn-cancel" (click)="close()">{{ ts.translator().loginCancelBtn }}</button>
         <button type="submit" class="btn-login" [disabled]="loading()">
           @if (loading()) {
             <span class="btn-spinner" aria-hidden="true"></span>
           } @else {
             <i class="bi bi-box-arrow-in-right" aria-hidden="true"></i>
           }
-          Anmelden
+          {{ ts.translator().loginSubmitBtn }}
         </button>
       </div>
     </form>

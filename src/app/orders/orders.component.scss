@@ -244,6 +244,19 @@ $wood: #8c8276;
   }
 }
 
+// ── Erstellungsdatum ──────────────────────────────────────
+.card-date {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 1.1rem 0.5rem;
+  font-size: 0.68rem;
+  color: rgba($wood, 0.75);
+  font-style: italic;
+
+  i.bi { font-size: 0.7rem; }
+}
+
 // ── Card section ──────────────────────────────────────────
 .card-section {
   padding: 0.8rem 1.1rem;

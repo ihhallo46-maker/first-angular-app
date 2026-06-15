@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { AddOrderModalComponent } from './add-order-modal/add-order-modal.component';
 import { OrdersService } from '../../service/orders.service';
 import { type OrderDraft } from './models/order.model';
+import { TranslationService } from '../i18n/translation.service';
 
 @Component({
   selector: 'app-orders',
@@ -13,10 +14,10 @@ import { type OrderDraft } from './models/order.model';
 })
 export class OrdersComponent {
   readonly orderService = inject(OrdersService);
+  readonly ts           = inject(TranslationService);
 
-  // UI-only state
-  readonly isModalOpen = signal(false);
-  readonly editingOrder = signal<OrderDraft | null>(null);
+  readonly isModalOpen    = signal(false);
+  readonly editingOrder   = signal<OrderDraft | null>(null);
   readonly warningMessage = signal<string | null>(null);
   readonly confirmDeleteId = signal<string | null>(null);
 
@@ -39,7 +40,7 @@ export class OrdersComponent {
     const result = this.orderService.save(order);
     if (result === 'duplicate') {
       this.warningMessage.set(
-        `Tisch ${order.tableNumber} ist bereits belegt — Bestellung wurde nicht gespeichert.`,
+        this.ts.translator().ordersDuplicate.replace('{n}', String(order.tableNumber)),
       );
     }
     this.closeModal();
@@ -65,5 +66,22 @@ export class OrdersComponent {
 
   dismissWarning(): void {
     this.warningMessage.set(null);
+  }
+
+  formatDate(iso?: string): string {
+    if (!iso) return '';
+    const d      = new Date(iso);
+    const locale = this.ts.currentLang() === 'zh' ? 'zh-CN'
+                 : this.ts.currentLang() === 'en' ? 'en-GB'
+                 : 'de-DE';
+    const weekday = new Intl.DateTimeFormat(locale, { weekday: 'short' }).format(d);
+    const date    = new Intl.DateTimeFormat(locale, { day: '2-digit', month: '2-digit', year: 'numeric' }).format(d);
+    const time    = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' }).format(d);
+    if (locale === 'zh-CN') return `${weekday} ${date} · ${time}`;
+    return `${weekday}. ${date} · ${time} Uhr`;
+  }
+
+  deleteDialogTitle(tableNumber: number): string {
+    return this.ts.translator().deleteTitle.replace('{n}', String(tableNumber));
   }
 }

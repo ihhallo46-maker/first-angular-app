@@ -3,6 +3,7 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
 import { HeaderComponent } from './header/header.component';
+import { TranslationService } from './i18n/translation.service';
 
 type View = 'menu' | 'orders' | 'takeaway' | 'anfahrt';
 
@@ -16,6 +17,7 @@ type View = 'menu' | 'orders' | 'takeaway' | 'anfahrt';
 })
 export class AppComponent {
   private readonly router = inject(Router);
+  readonly ts = inject(TranslationService);
 
   private readonly currentUrl = toSignal(
     this.router.events.pipe(

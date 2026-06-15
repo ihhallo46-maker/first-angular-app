@@ -3,15 +3,11 @@
 
     <!-- ══ KARTE ══════════════════════════════════════════════ -->
     <div class="col-12 col-lg-7 anfahrt-map-col">
-      <iframe
-        class="anfahrt-iframe"
-        [src]="mapUrl"
-        frameborder="0"
-        allowfullscreen
-        loading="lazy"
+      <iframe class="anfahrt-iframe" [src]="mapUrl"
+        frameborder="0" allowfullscreen loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
-        title="Duck House — Standort auf Google Maps"
-        aria-label="Google Maps: Harpener Hellweg 211a, 44805 Bochum">
+        [title]="ts.t().anfahrtMapTitle"
+        [attr.aria-label]="ts.t().anfahrtMapTitle">
       </iframe>
     </div>
 
@@ -19,10 +15,9 @@
     <div class="col-12 col-lg-5 anfahrt-info-col">
       <div class="anfahrt-info">
 
-        <!-- Eyebrow -->
         <div class="info-eyebrow" aria-hidden="true">
           <span class="ey-line"></span>
-          <span class="ey-text">RESTAURANT & ANFAHRT</span>
+          <span class="ey-text">{{ ts.t().anfahrtEyebrow }}</span>
         </div>
         <h1 class="info-title">Duck House</h1>
 
@@ -30,28 +25,25 @@
         <div class="info-block">
           <div class="info-block-head">
             <i class="bi bi-geo-alt-fill info-icon" aria-hidden="true"></i>
-            <span class="info-block-label">Adresse</span>
+            <span class="info-block-label">{{ ts.t().anfahrtAddress }}</span>
           </div>
-          <p class="info-block-body">
-            Harpener Hellweg 211a<br>
-            44805 Bochum
-          </p>
+          <p class="info-block-body">Harpener Hellweg 211a<br>44805 Bochum</p>
         </div>
 
         <!-- Öffnungszeiten -->
         <div class="info-block">
           <div class="info-block-head">
             <i class="bi bi-clock-fill info-icon" aria-hidden="true"></i>
-            <span class="info-block-label">Öffnungszeiten</span>
+            <span class="info-block-label">{{ ts.t().anfahrtHours }}</span>
           </div>
           <div class="hours-table">
             <div class="hours-row">
-              <span class="hours-days">Mo – Sa &amp; So</span>
+              <span class="hours-days">{{ ts.t().anfahrtDaysRegular }}</span>
               <span class="hours-time">12:00 – 15:00 &nbsp;|&nbsp; 17:30 – 22:00</span>
             </div>
             <div class="hours-row hours-row--closed">
-              <span class="hours-days">Dienstag</span>
-              <span class="hours-time hours-closed">Ruhetag</span>
+              <span class="hours-days">{{ ts.t().anfahrtTuesday }}</span>
+              <span class="hours-time hours-closed">{{ ts.t().anfahrtClosed }}</span>
             </div>
           </div>
         </div>
@@ -60,32 +52,27 @@
         <div class="info-block">
           <div class="info-block-head">
             <i class="bi bi-telephone-fill info-icon" aria-hidden="true"></i>
-            <span class="info-block-label">Telefon &amp; Reservierung</span>
+            <span class="info-block-label">{{ ts.t().anfahrtPhone }}</span>
           </div>
-          <a class="info-phone" href="tel:+492343389688">
-            0234 – 33 89 688
-          </a>
-          <p class="info-note">Reservierungen jederzeit telefonisch möglich.</p>
+          <a class="info-phone" href="tel:+492343389688">0234 – 33 89 688</a>
+          <p class="info-note">{{ ts.t().anfahrtNote }}</p>
         </div>
 
         <!-- CTAs -->
         <div class="info-actions">
-          <a class="btn-duck" [href]="directionsUrl"
-             target="_blank" rel="noopener noreferrer">
+          <a class="btn-duck" [href]="directionsUrl" target="_blank" rel="noopener noreferrer">
             <i class="bi bi-sign-turn-right" aria-hidden="true"></i>
-            Route planen
+            {{ ts.t().anfahrtDirections }}
           </a>
           <a class="btn-duck btn-duck--flat" href="tel:+492343389688">
             <i class="bi bi-telephone" aria-hidden="true"></i>
-            Anrufen
+            {{ ts.t().anfahrtCall }}
           </a>
         </div>
 
-        <!-- Maps-Link -->
-        <a class="info-maps-link" [href]="mapsUrl"
-           target="_blank" rel="noopener noreferrer">
+        <a class="info-maps-link" [href]="mapsUrl" target="_blank" rel="noopener noreferrer">
           <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
-          In Google Maps öffnen
+          {{ ts.t().anfahrtMaps }}
         </a>
 
       </div>

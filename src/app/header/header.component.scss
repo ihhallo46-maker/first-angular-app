@@ -149,6 +149,94 @@ $wood:   #8c8276;
   }
 }
 
+// ── Auth-Row: Sprache + Login nebeneinander ───────────────
+.nav-auth-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+// ── Sprachauswahl ─────────────────────────────────────────
+.lang-switcher {
+  position: relative;
+}
+
+.btn-lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.38rem 0.75rem;
+  border: 1.5px solid rgba($ivory, 0.35);
+  border-radius: 999px;
+  background: transparent;
+  color: $ivory;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+
+  &:hover {
+    background: rgba($ivory, 0.12);
+    border-color: rgba($ivory, 0.7);
+  }
+
+  .lang-flag { font-size: 1rem; line-height: 1; }
+  .lang-code { font-size: 0.75rem; }
+  .lang-chevron {
+    font-size: 0.6rem;
+    transition: transform 0.2s;
+  }
+}
+
+.lang-switcher--open .lang-chevron {
+  transform: rotate(180deg);
+}
+
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  min-width: 130px;
+  background-color: var(--wood-bg-color);
+  background-image: var(--wood-bg-image);
+  border: 1px solid rgba($ivory, 0.2);
+  border-radius: 0.6rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  overflow: hidden;
+  z-index: 1050;
+  animation: fadeIn 0.15s ease both;
+}
+
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  padding: 0.55rem 1rem;
+  background: transparent;
+  border: none;
+  color: rgba($ivory, 0.7);
+  font-family: 'Lato', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s, color 0.12s;
+
+  &:hover {
+    background: rgba($ivory, 0.1);
+    color: $ivory;
+  }
+
+  &--active {
+    color: $ivory;
+    background: rgba($ivory, 0.08);
+  }
+}
+
 // ── Mobile collapse: inherit walnut background ─────────────
 @media (max-width: 991.98px) {
   .navbar-collapse {

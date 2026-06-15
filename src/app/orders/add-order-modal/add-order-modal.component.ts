@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, effect, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, input, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { type OrderDraft, type OrderDrink, type OrderItemStatus } from '../models/order.model';
+import { TranslationService } from '../../i18n/translation.service';
 
 interface DrinkOption {
   key: string;
@@ -30,6 +31,7 @@ interface SizeEntry {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddOrderModalComponent {
+  readonly ts         = inject(TranslationService);
   readonly closeModal = output<void>();
   readonly saveOrder = output<OrderDraft>();
   readonly orderToEdit = input<OrderDraft | null>(null);
@@ -144,18 +146,33 @@ export class AddOrderModalComponent {
         if (!opt.sizes.includes(size)) continue;
         const confirmed = this.getConfirmedCount(opt.key, size);
         const isChecked = Boolean(this.form.get(`${opt.key}${sizeKey}`)?.value);
-        const newCount = Number(this.form.get(`${opt.key}${sizeKey}Count`)?.value || 0);
+        const newCount  = Number(this.form.get(`${opt.key}${sizeKey}Count`)?.value || 0);
         const total = confirmed + (isChecked ? newCount : 0);
         if (total > 0) parts.push(`${total}× ${opt.label} ${size}`);
       }
     }
-    if (parts.length === 0) return 'Noch keine Getränke gewählt';
-    if (parts.length <= 2) return parts.join(', ');
-    return `${parts.length} Positionen ausgewählt`;
+    const t = this.ts.translator();
+    if (parts.length === 0) return t.modalNoDrinks;
+    if (parts.length <= 2)  return parts.join(', ');
+    return t.modalDrinkItems.replace('{n}', String(parts.length));
   }
 
   get tableLabel(): string {
-    return `Tisch ${Number(this.form.get('tableNumber')?.value) || 1}`;
+    const n = Number(this.form.get('tableNumber')?.value) || 1;
+    return this.ts.translator().modalTableLabel.replace('{n}', String(n));
+  }
+
+  getCatLabel(key: string): string {
+    const t = this.ts.translator();
+    switch (key) {
+      case 'softdrinks': return t.catSoftdrinks;
+      case 'bier':       return t.catBier;
+      case 'saefte':     return t.catSaefte;
+      case 'wasser':     return t.catWasser;
+      case 'wein':       return t.catWein;
+      case 'warm':       return t.catWarm;
+      default:           return key;
+    }
   }
 
   // ── Stepper interactions ──────────────────────────────────

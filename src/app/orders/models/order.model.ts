@@ -10,6 +10,7 @@ export interface OrderDrink {
 
 export interface OrderDraft {
   id: string;
+  createdAt?: string;   // ISO-String, gesetzt beim ersten Speichern
   tableNumber: number;
   drinks: OrderDrink[];
   buffetCount: number;       // Summe: Erwachsene + Kinder

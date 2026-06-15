@@ -7,11 +7,12 @@
         <i class="bi bi-journal-check" aria-hidden="true"></i>
       </div>
       <div>
-        <h1 class="page-title">Bestellungen</h1>
+        <h1 class="page-title">{{ ts.translator().ordersTitle }}</h1>
         <p class="page-subtitle">
-          {{ orderService.orders().length }} {{ orderService.orders().length === 1 ? 'Tisch' : 'Tische' }}
+          {{ orderService.orders().length }}
+          {{ orderService.orders().length === 1 ? ts.translator().ordersTable : ts.translator().ordersTables }}
           @if (orderService.inProgressCount() > 0) {
-            · {{ orderService.inProgressCount() }} in Bearbeitung
+            · {{ orderService.inProgressCount() }} {{ ts.translator().ordersInProgress }}
           }
         </p>
       </div>
@@ -19,7 +20,7 @@
 
     <button type="button" class="btn-new" (click)="openModal()">
       <i class="bi bi-plus-lg" aria-hidden="true"></i>
-      Neue Bestellung
+      {{ ts.translator().ordersNewBtn }}
     </button>
   </header>
 
@@ -28,7 +29,7 @@
     <div class="warning-banner" role="alert">
       <i class="bi bi-exclamation-triangle-fill warning-icon" aria-hidden="true"></i>
       <span class="warning-text">{{ warningMessage() }}</span>
-      <button type="button" class="warning-dismiss" aria-label="Schließen"
+      <button type="button" class="warning-dismiss" [attr.aria-label]="ts.translator().deleteCancelBtn"
               (click)="dismissWarning()">
         <i class="bi bi-x-lg" aria-hidden="true"></i>
       </button>
@@ -50,11 +51,11 @@
         <path d="M 53 27 Q 60 19 57 37"/>
       </svg>
       </div>
-      <h2 class="empty-title">Noch keine Bestellungen</h2>
-      <p class="empty-text">Erfasse den ersten Tisch für diesen Service.</p>
+      <h2 class="empty-title">{{ ts.translator().ordersEmptyTitle }}</h2>
+      <p class="empty-text">{{ ts.translator().ordersEmptyText }}</p>
       <button type="button" class="btn-new" (click)="openModal()">
         <i class="bi bi-plus-lg" aria-hidden="true"></i>
-        Erste Bestellung anlegen
+        {{ ts.translator().ordersFirstBtn }}
       </button>
     </div>
   }
@@ -71,24 +72,32 @@
           <div class="card-head">
             <div class="card-table-label">
               <i class="bi bi-grid-3x2 card-table-icon" aria-hidden="true"></i>
-              <span class="card-table-number">Tisch {{ order.tableNumber }}</span>
+              <span class="card-table-number">{{ ts.translator().ordersTable }} {{ order.tableNumber }}</span>
             </div>
 
             <span class="status-badge"
                   [class.status-badge--done]="order.status === 'completed'">
               @if (order.status === 'completed') {
-                <i class="bi bi-check2-circle" aria-hidden="true"></i> Abgeschlossen
+                <i class="bi bi-check2-circle" aria-hidden="true"></i> {{ ts.translator().ordersCompletedBadge }}
               } @else {
-                <i class="bi bi-clock" aria-hidden="true"></i> In Bearbeitung
+                <i class="bi bi-clock" aria-hidden="true"></i> {{ ts.translator().ordersInProgressBadge }}
               }
             </span>
           </div>
+
+          <!-- Erstellungsdatum -->
+          @if (order.createdAt) {
+            <div class="card-date">
+              <i class="bi bi-calendar3" aria-hidden="true"></i>
+              {{ formatDate(order.createdAt) }}
+            </div>
+          }
 
           <!-- Getränke -->
           @if (order.drinks.length > 0) {
             <div class="card-section">
               <span class="card-section-label">
-                <i class="bi bi-cup-hot" aria-hidden="true"></i> Getränke
+                <i class="bi bi-cup-hot" aria-hidden="true"></i> {{ ts.translator().ordersDrinks }}
               </span>
               <div class="pill-row">
                 @for (drink of order.drinks; track drink.name + drink.size + drink.status) {
@@ -106,7 +115,7 @@
           @if (order.buffetCount > 0 || order.carteCount > 0) {
             <div class="card-section">
               <span class="card-section-label">
-                <i class="bi bi-people" aria-hidden="true"></i> Service
+                <i class="bi bi-people" aria-hidden="true"></i> {{ ts.translator().ordersService }}
               </span>
               <div class="pill-row">
                 @if (order.buffetCount > 0) {
@@ -114,11 +123,11 @@
                         [class.service-pill--confirmed]="order.buffetStatus === 'confirmed'"
                         [class.service-pill--new]="order.buffetStatus === 'new'">
                     <i class="bi bi-egg-fried" aria-hidden="true"></i>
-                    Buffet
+                    {{ ts.translator().modalBuffetTitle }}
                     @if (order.buffetAdults > 0 || order.buffetChildren > 0) {
-                      &nbsp;·&nbsp;<i class="bi bi-person-fill" aria-hidden="true"></i> {{ order.buffetAdults }} Erw.
+                      &nbsp;·&nbsp;<i class="bi bi-person-fill" aria-hidden="true"></i> {{ order.buffetAdults }} {{ ts.translator().ordersAdults }}
                       @if (order.buffetChildren > 0) {
-                        <i class="bi bi-person" aria-hidden="true"></i> {{ order.buffetChildren }} Kind.
+                        <i class="bi bi-person" aria-hidden="true"></i> {{ order.buffetChildren }} {{ ts.translator().ordersChildren }}
                       }
                     } @else {
                       · {{ order.buffetCount }}P
@@ -130,7 +139,7 @@
                         [class.service-pill--confirmed]="order.carteStatus === 'confirmed'"
                         [class.service-pill--new]="order.carteStatus === 'new'">
                     <i class="bi bi-card-list" aria-hidden="true"></i>
-                    À la carte · {{ order.carteCount }}P
+                    {{ ts.translator().modalCarteTitle }} · {{ order.carteCount }}P
                   </span>
                 }
               </div>
@@ -157,7 +166,7 @@
             </button>
             <button type="button" class="btn-action btn-action--delete"
                     (click)="requestDelete(order.id)"
-                    [attr.aria-label]="'Tisch ' + order.tableNumber + ' löschen'">
+                    [attr.aria-label]="ts.translator().ordersTable + ' ' + order.tableNumber + ' ' + ts.translator().deleteConfirmBtn">
               <i class="bi bi-trash3" aria-hidden="true"></i>
             </button>
           </div>
@@ -180,19 +189,18 @@
       </div>
        @for (order of orderService.orders(); track order.id) {
          @if (order.id === confirmDeleteId()) {
-           <h3 id="del-dialog-title" class="delete-dialog-title">Tisch {{ order.tableNumber }} löschen?</h3>
+           <h3 id="del-dialog-title" class="delete-dialog-title">
+             {{ ts.translator().deleteTitle.replace('{n}', order.tableNumber.toString()) }}
+           </h3>
          }
        }
-      <p class="delete-dialog-msg">
-        Diese Bestellung wird endgültig entfernt und kann nicht
-        wiederhergestellt werden.
-      </p>
+      <p class="delete-dialog-msg">{{ ts.translator().deleteMsg }}</p>
       <div class="delete-dialog-actions">
         <button type="button" class="btn-del-cancel" (click)="cancelDelete()">
-          Abbrechen
+          {{ ts.translator().deleteCancelBtn }}
         </button>
         <button type="button" class="btn-del-confirm" (click)="confirmDelete()">
-          <i class="bi bi-trash3" aria-hidden="true"></i> Löschen
+          <i class="bi bi-trash3" aria-hidden="true"></i> {{ ts.translator().deleteConfirmBtn }}
         </button>
       </div>
     </div>

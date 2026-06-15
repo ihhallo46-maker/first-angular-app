@@ -34,7 +34,8 @@ export class OrdersService {
         items.map((item) => (item.id === order.id ? { ...item, ...order } : item)),
       );
     } else {
-      this._orders.update((items) => [order, ...items]);
+      const newOrder = { ...order, createdAt: new Date().toISOString() };
+      this._orders.update((items) => [newOrder, ...items]);
     }
     return 'saved';
   }

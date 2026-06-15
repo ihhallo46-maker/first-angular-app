@@ -2,9 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   signal,
 } from '@angular/core';
 import { menuData, type MenuItem } from './menu-data';
+import { TranslationService } from '../i18n/translation.service';
 
 @Component({
   selector: 'app-menu',
@@ -14,6 +16,7 @@ import { menuData, type MenuItem } from './menu-data';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuComponent {
+  readonly ts       = inject(TranslationService);
   readonly menuData = menuData;
   readonly searchTerm = signal('');
   readonly openSectionTitle = signal<string | null>(null);
