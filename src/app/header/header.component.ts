@@ -18,7 +18,7 @@ export class HeaderComponent {
   readonly auth = inject(AuthService);
   readonly ts   = inject(TranslationService);
 
-  readonly activeView   = input<View | null>(null);
+  readonly activeView   = input<string | null>(null);
   readonly viewSelected = output<View>();
   readonly homeClicked  = output<void>();
 
