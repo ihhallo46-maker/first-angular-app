@@ -8,8 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:first-angular-app": "node dist/first-angular-app/server/server.mjs",
-    "deploy:staging": "ng build && firebase hosting:channel:deploy staging --expires 30d",
-    "deploy:firebase": "ng build && firebase deploy --only hosting"
+    "firebase:login": "npx --yes firebase-tools login",
+    "deploy:staging": "ng build && npx --yes firebase-tools hosting:channel:deploy staging --expires 30d",
+    "deploy:firebase": "ng build && npx --yes firebase-tools deploy --only hosting"
   },
   "prettier": {
     "printWidth": 100,
