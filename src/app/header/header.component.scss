@@ -491,6 +491,16 @@ $wood:   #8c8276;
   animation: dotPulse 2s ease-in-out infinite;
 }
 
+.hero-meta-dot-red {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ef4444;
+  flex-shrink: 0;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
 // ══════════════════════════════════════════════════════════
 // EMPFEHLUNGEN-KARTE
 // ══════════════════════════════════════════════════════════
@@ -661,6 +671,15 @@ $wood:   #8c8276;
   width: 8px;
   height: 8px;
   background: #4ade80;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+.emp-open-dot-red {
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
   border-radius: 50%;
   flex-shrink: 0;
   animation: dotPulse 2s ease-in-out infinite;
