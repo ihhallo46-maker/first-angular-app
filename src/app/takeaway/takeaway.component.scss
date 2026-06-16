@@ -45,6 +45,14 @@ $wood: #8c8276;
   margin: 0 auto;
 }
 
+// ── Banner ────────────────────────────────────────────────
+.ta-banner {
+  height: clamp(180px, 28vw, 320px);
+  background-image: url('/assets/images/ente-teller-2.jpg');
+  background-size: cover;
+  background-position: center 55%;
+}
+
 // ── Schritte ──────────────────────────────────────────────
 .ta-steps {
   display: flex;
