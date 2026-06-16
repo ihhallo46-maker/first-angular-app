@@ -290,9 +290,13 @@ export class AddOrderModalComponent {
       comment: [''],
       ...Object.fromEntries(
         this.drinkOptions.flatMap((option) => [
+          [`${option.key}01`, false],
+          [`${option.key}02`, false],
           [`${option.key}03`, false],
           [`${option.key}05`, false],
           [`${option.key}075`, false],
+          [`${option.key}01Count`, 0],
+          [`${option.key}02Count`, 0],
           [`${option.key}03Count`, 0],
           [`${option.key}05Count`, 0],
           [`${option.key}075Count`, 0],
