@@ -351,15 +351,15 @@ $wood: #8c8276;
   background-size: cover;
   background-position: center;
   opacity: 0;
-  animation: slideCycle 30s infinite;
+  animation: slideCycle 20s infinite;
   will-change: opacity;
 }
 
-.slide--1 { background-image: url('/assets/images/laternen.jpg');            animation-delay:  0s; }
-.slide--2 { background-image: url('/assets/images/ente-figur-laternen.jpg'); animation-delay:  6s; }
-.slide--3 { background-image: url('/assets/images/woks.jpg');                animation-delay: 12s; }
-.slide--4 { background-image: url('/assets/images/speisesaal.jpg');          animation-delay: 18s; }
-.slide--5 { background-image: url('/assets/images/buffet.jpg');              animation-delay: 24s; }
+.slide--1 { background-image: url('./assets/images/laternen.jpg');            animation-delay:  0s; }
+.slide--2 { background-image: url('./assets/images/ente-figur-laternen.jpg'); animation-delay:  6s; }
+.slide--3 { background-image: url('./assets/images/woks.jpg');                animation-delay: 12s; }
+.slide--4 { background-image: url('./assets/images/speisesaal.jpg');          animation-delay: 18s; }
+.slide--5 { background-image: url('./assets/images/buffet.jpg');              animation-delay: 24s; }
 
 @keyframes slideCycle {
   0%   { opacity: 0; }
