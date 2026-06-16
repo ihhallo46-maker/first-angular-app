@@ -278,14 +278,14 @@ $wood:   #8c8276;
   color: $walnut;
   overflow: hidden;
 
-  // Hintergrundbild mit Zoom-Animation — Foto in src/app/assets/images/restaurant.jpg ablegen
+  // Hintergrundbild mit Zoom-Animation — Gebäude-Außenansicht
   &::before {
     content: '';
     position: absolute;
     inset: -6%;
-    background-image: url('/assets/images/restaurant.jpg');
+    background-image: url('/assets/images/gebaeude.jpg');
     background-size: cover;
-    background-position: center center;
+    background-position: center right;
     background-repeat: no-repeat;
     animation: heroZoom 12s ease-out both;
     z-index: 0;
