@@ -120,6 +120,15 @@ $wood: #8c8276;
 // ══════════════════════════════════════════════════════════
 // SEARCH BAR
 // ══════════════════════════════════════════════════════════
+.menu-banner {
+  height: 130px;
+  margin: 0 0 1.25rem;
+  border-radius: 0.75rem;
+  background-image: url('/assets/images/ente-figur-laternen.jpg');
+  background-size: cover;
+  background-position: center 45%;
+}
+
 .search-bar {
   display: flex;
   align-items: center;
