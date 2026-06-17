@@ -214,8 +214,8 @@
             <p class="hero-meta">
               @if (!betrieb.isActive) {
                 @if (isOpen()) {
-                  <span class="hero-meta-dot" aria-hidden="true"></span>
-                  {{ ts.translator().heroOpen }}
+                  <span class="hours-days">{{ ts.translator().anfahrtDaysRegular }}</span>
+                  <span class="hours-time">12:00 – 15:00 &nbsp;|&nbsp; 17:30 – 22:00</span>
                 }
                 <span class="" aria-hidden="true"></span>
                 {{ ts.translator().heroTuesdayClosed }}
