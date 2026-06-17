@@ -1,3 +1,6 @@
+<!-- Betriebsurlaub-Modal — erscheint automatisch während des konfigurierten Zeitraums -->
+<app-betriebsurlaub-modal />
+
 @if (isInternRoute()) {
   <!-- Interner Login — eigene Vollseite, kein Header/Footer -->
   <router-outlet />
@@ -32,7 +35,7 @@
 
         <!-- Textblöcke -->
         <div class="story-grid">
-          <article class="story-block">
+          <article class="story-block" appScrollReveal>
             <h3 class="story-title">Entspannte Atmosphäre, traditionelle Gerichte</h3>
             <p class="story-text">
               Wir bieten Ihnen in ungezwungener Atmosphäre Gerichte á la carte und am Abend
@@ -43,7 +46,7 @@
             </p>
           </article>
 
-          <article class="story-block">
+          <article class="story-block" appScrollReveal>
             <h3 class="story-title">Frische Zutaten, schonende Zubereitung</h3>
             <p class="story-text">
               Wir legen viel Wert auf frische, hochwertige Zutaten und traditionell kurze Garzeiten
@@ -53,7 +56,7 @@
             </p>
           </article>
 
-          <article class="story-block">
+          <article class="story-block" appScrollReveal>
             <h3 class="story-title">Vielfältiges Angebot für jeden Geschmack</h3>
             <p class="story-text">
               Unser Abendbuffet enthält auch unsere knusprig gebratene, frische Entenbrust aus dem
@@ -64,7 +67,7 @@
             </p>
           </article>
 
-          <article class="story-block">
+          <article class="story-block" appScrollReveal>
             <h3 class="story-title">Gerichte zum Mitnehmen</h3>
             <p class="story-text">
               Falls Sie keine Zeit haben, gemütlich bei uns zu verweilen, können Sie viele unserer

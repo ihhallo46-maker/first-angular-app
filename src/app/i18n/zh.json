@@ -12,6 +12,13 @@
   "statusClosed": "现已打烊",
   "statusRest": "今日休息",
 
+  "betriebsurlaubTitle": "假期休业",
+  "betriebsurlaubSub": "餐厅假期休业！",
+  "betriebsurlaubBody": "鸭屋餐厅目前暂停营业。我们期待于",
+  "betriebsurlaubReopen": "起再次欢迎您的光临。",
+  "betriebsurlaubPhone": "重新开业后，我们将恢复正常接待。",
+  "betriebsurlaubClose": "明白了，谢谢！",
+
   "langDe": "Deutsch",
   "langEn": "English",
   "langZh": "中文简体",

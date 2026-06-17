@@ -148,12 +148,11 @@
         <div class="row mb-lg-4 mb-3">
           <div class="col-12">
             <div class="ruhetag-banner" role="alert">
-              <i class="bi bi-moon-stars-fill flex-shrink-0"
-                 aria-hidden="true"></i>
-              <p class="mb-0">
-                <strong>{{ ts.translator().ruhetagTitle }}</strong>
-                {{ ts.translator().ruhetagBody }}
-              </p>
+              <i class="bi bi-moon-stars-fill ruhetag-icon" aria-hidden="true"></i>
+              <div class="ruhetag-content">
+                <span class="ruhetag-headline">{{ ts.translator().ruhetagTitle }}</span>
+                <span class="ruhetag-text">{{ ts.translator().ruhetagBody }}</span>
+              </div>
             </div>
           </div>
         </div>

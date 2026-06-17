@@ -1,0 +1,219 @@
+@use 'sass:color';
+
+$walnut: #3a332c;
+$ivory:  #efebe3;
+$amber:  #b45309;
+$amber-light: #fdebb0;
+
+// ── Backdrop ──────────────────────────────────────────────
+.betrieb-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba($walnut, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: bdFadeIn 0.3s ease both;
+}
+
+@keyframes bdFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+// ── Modal-Karte ───────────────────────────────────────────
+.betrieb-modal {
+  position: relative;
+  background: $ivory;
+  border-radius: 1.6rem;
+  box-shadow:
+    0 8px 32px rgba($walnut, 0.18),
+    0 32px 80px rgba($walnut, 0.22);
+  padding: 2.5rem 2rem 2rem;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  animation: modalSlideUp 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(28px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+// ── Schließen-X ──────────────────────────────────────────
+.betrieb-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba($walnut, 0.18);
+  background: transparent;
+  color: rgba($walnut, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+
+  i.bi { font-size: 0.85rem; }
+
+  &:hover {
+    background: rgba($walnut, 0.07);
+    color: $walnut;
+    border-color: rgba($walnut, 0.35);
+  }
+}
+
+// ── Icon ─────────────────────────────────────────────────
+.betrieb-icon {
+  font-size: 2.4rem;
+  color: $amber;
+  margin-bottom: 1rem;
+  line-height: 1;
+
+  i.bi { display: block; }
+}
+
+// ── Eyebrow ───────────────────────────────────────────────
+.betrieb-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+.betrieb-ey-line {
+  display: block;
+  flex: 1;
+  max-width: 32px;
+  height: 1px;
+  background: rgba($walnut, 0.22);
+}
+
+.betrieb-ey-text {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: rgba($walnut, 0.42);
+}
+
+// ── Titel ─────────────────────────────────────────────────
+.betrieb-title {
+  font-size: clamp(1.5rem, 5vw, 1.9rem);
+  font-weight: 700;
+  color: $walnut;
+  margin: 0 0 1.5rem;
+  line-height: 1.15;
+}
+
+// ── Datums-Block ──────────────────────────────────────────
+.betrieb-dates {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: rgba($walnut, 0.05);
+  border: 1px solid rgba($walnut, 0.1);
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.betrieb-date-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.betrieb-date-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: rgba($walnut, 0.42);
+  text-transform: uppercase;
+}
+
+.betrieb-date-val {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: $walnut;
+
+  &--accent { color: $amber; }
+}
+
+.betrieb-arrow {
+  font-size: 0.9rem;
+  color: rgba($walnut, 0.28);
+  flex-shrink: 0;
+}
+
+// ── Body-Text ─────────────────────────────────────────────
+.betrieb-body {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba($walnut, 0.72);
+  margin: 0 0 1.25rem;
+
+  strong { color: $walnut; font-weight: 700; }
+}
+
+// ── Telefon-Link ──────────────────────────────────────────
+.betrieb-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: $walnut;
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  border-bottom: 1.5px solid rgba($walnut, 0.22);
+  padding-bottom: 0.1rem;
+  transition: border-color 0.15s, color 0.15s;
+
+  i.bi { font-size: 0.9rem; }
+
+  &:hover { color: $amber; border-color: $amber; }
+}
+
+// ── CTA-Button ────────────────────────────────────────────
+.betrieb-btn {
+  display: block;
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  border: none;
+  background: $walnut;
+  color: $ivory;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.12s;
+
+  &:hover { filter: brightness(1.25); transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
+}
+
+// ── Mobile ────────────────────────────────────────────────
+@media (max-width: 480px) {
+  .betrieb-modal {
+    padding: 2rem 1.25rem 1.5rem;
+    border-radius: 1.2rem;
+  }
+
+  .betrieb-dates {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .betrieb-arrow { transform: rotate(90deg); }
+}

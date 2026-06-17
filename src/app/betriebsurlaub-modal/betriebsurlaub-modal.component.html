@@ -1,0 +1,55 @@
+@if (show()) {
+  <div class="betrieb-backdrop" (click)="dismiss()" role="dialog" aria-modal="true"
+       [attr.aria-label]="ts.translator().betriebsurlaubTitle">
+
+    <div class="betrieb-modal" (click)="$event.stopPropagation()">
+
+      <!-- Schließen-Button oben rechts -->
+      <button class="betrieb-close" type="button" (click)="dismiss()"
+              [attr.aria-label]="ts.translator().betriebsurlaubClose">
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+      </button>
+
+      <!-- Icon -->
+      <div class="betrieb-icon" aria-hidden="true">
+        <i class="bi bi-sun"></i>
+      </div>
+
+      <!-- Eyebrow -->
+      <div class="betrieb-eyebrow" aria-hidden="true">
+        <span class="betrieb-ey-line"></span>
+        <span class="betrieb-ey-text">DUCK HOUSE</span>
+        <span class="betrieb-ey-line"></span>
+      </div>
+
+      <!-- Titel + Untertitel -->
+      <h2 class="betrieb-title">{{ ts.translator().betriebsurlaubSub }}</h2>
+
+      <!-- Zeitraum-Karte -->
+      <div class="betrieb-dates">
+        <div class="betrieb-date-col">
+          <span class="betrieb-date-label">Geschlossen vom</span>
+          <span class="betrieb-date-val">{{ formattedStart() }} bis {{ formattedEnd() }}</span>
+        </div>
+        <i class="bi bi-arrow-right betrieb-arrow" aria-hidden="true"></i>
+        <div class="betrieb-date-col">
+          <span class="betrieb-date-label">Wiedereröffnung</span>
+          <span class="betrieb-date-val betrieb-date-val--accent">{{ formattedOpen() }}</span>
+        </div>
+      </div>
+
+      <!-- Body-Text -->
+      <p class="betrieb-body">
+        {{ ts.translator().betriebsurlaubBody }}
+        <strong>{{ formattedOpen() }}</strong>
+        {{ ts.translator().betriebsurlaubReopen }}
+      </p>
+
+      <!-- CTA -->
+      <button class="betrieb-btn" type="button" (click)="dismiss()">
+        {{ ts.translator().betriebsurlaubClose }}
+      </button>
+
+    </div>
+  </div>
+}

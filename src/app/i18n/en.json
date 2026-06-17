@@ -12,6 +12,13 @@
   "statusClosed": "Closed now",
   "statusRest": "Closed today",
 
+  "betriebsurlaubTitle": "Holiday Closure",
+  "betriebsurlaubSub": "We're on holiday!",
+  "betriebsurlaubBody": "Duck House is temporarily closed. We look forward to welcoming you back from",
+  "betriebsurlaubReopen": "onwards.",
+  "betriebsurlaubPhone": "We will be available for enquiries from reopening onwards.",
+  "betriebsurlaubClose": "Got it, thanks!",
+
   "langDe": "Deutsch",
   "langEn": "English",
   "langZh": "中文简体",

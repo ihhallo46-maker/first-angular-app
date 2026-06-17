@@ -169,15 +169,15 @@ $wood:   #6e6457;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.32rem 0.7rem;
+  padding: 0.38rem 0.8rem;
   border-radius: 999px;
-  background: rgba($ivory, 0.08);
-  border: 1px solid rgba($ivory, 0.18);
+  background: rgba($ivory, 0.10);
+  border: 1px solid rgba($ivory, 0.22);
   font-family: inherit;
-  font-size: 0.74rem;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: rgba($ivory, 0.85);
+  color: rgba($ivory, 0.92);
   white-space: nowrap;
 }
 
@@ -390,19 +390,55 @@ $wood:   #6e6457;
 .ruhetag-banner {
   display: flex;
   align-items: flex-start;
-  gap: 0.8rem;
-  background: #fdebb0;
-  border: 1px solid #c8841a;
-  border-radius: 0.75rem;
-  padding: 1rem 1.35rem;
-  color: #5c2c0c;
-  font-size: 0.92rem;
-  line-height: 1.55;
+  gap: 1rem;
+  background: #fffbf0;
+  border: 1px solid rgba(#c8841a, 0.35);
+  border-left: 4px solid #b45309;
+  border-radius: 0 0.9rem 0.9rem 0;
+  padding: 1.1rem 1.5rem;
+  color: #3d1f00;
+  line-height: 1.6;
   animation: fadeIn 0.4s ease both;
 
-  i.bi { font-size: 1.15rem; margin-top: 0.15rem; color: #b45309; }
+  .ruhetag-icon {
+    font-size: 1.5rem;
+    color: #b45309;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+  }
 
-  strong { font-weight: 700; }
+  .ruhetag-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .ruhetag-headline {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #3d1f00;
+    letter-spacing: 0.01em;
+  }
+
+  .ruhetag-text {
+    font-size: 0.88rem;
+    color: rgba(#3d1f00, 0.75);
+  }
+
+  .ruhetag-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.4rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #b45309;
+    letter-spacing: 0.02em;
+
+    i.bi { font-size: 0.75rem; }
+  }
+
+  strong { font-weight: 800; }
   a { color: #7c3a0b; font-weight: 700; text-decoration: underline; }
 }
 
@@ -427,10 +463,10 @@ $wood:   #6e6457;
 
 .ey-text {
   font-family: inherit;
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.2em;
-  color: rgba($walnut, 0.42);
+  color: rgba($walnut, 0.55);
 }
 
 // ── Titel ─────────────────────────────────────────────────
@@ -458,10 +494,10 @@ $wood:   #6e6457;
 // ── Beschreibung ──────────────────────────────────────────
 .hero-desc {
   font-family: inherit;
-  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
-  font-weight: 300;
-  color: rgba($walnut, 0.68);
-  line-height: 1.72;
+  font-size: clamp(1rem, 1.4vw, 1.1rem);
+  font-weight: 400;
+  color: rgba($walnut, 0.82);
+  line-height: 1.75;
   max-width: 480px;
   margin: 0 0 1rem;
   animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both 0.22s;
@@ -549,10 +585,10 @@ $wood:   #6e6457;
   flex-wrap: wrap;
   gap: 0.45rem;
   font-family: inherit;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
-  color: rgba($walnut, 0.38);
+  letter-spacing: 0.12em;
+  color: rgba($walnut, 0.55);
   margin: 0.4rem 0 0;
   animation: fadeUp 0.7s ease both 0.34s;
 }
@@ -674,10 +710,10 @@ $wood:   #6e6457;
 
 .emp-item-desc {
   font-family: inherit;
-  font-size: 0.82rem;
-  color: rgba($walnut, 0.72);
+  font-size: 0.84rem;
+  color: rgba($walnut, 0.80);
   margin: 0.22rem 0 0;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 // ── Karten-Footer ─────────────────────────────────────────

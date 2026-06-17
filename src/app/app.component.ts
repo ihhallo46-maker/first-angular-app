@@ -4,13 +4,15 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
 import { HeaderComponent } from './header/header.component';
 import { TranslationService } from './i18n/translation.service';
+import { BetriebsurlaubModalComponent } from './betriebsurlaub-modal/betriebsurlaub-modal.component';
+import { ScrollRevealDirective } from './directives/scroll-reveal.directive';
 
 type NavView = 'menu' | 'orders' | 'takeaway' | 'anfahrt';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, RouterOutlet, RouterLink],
+  imports: [HeaderComponent, RouterOutlet, RouterLink, BetriebsurlaubModalComponent, ScrollRevealDirective],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

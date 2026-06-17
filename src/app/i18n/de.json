@@ -12,6 +12,13 @@
   "statusClosed": "Jetzt geschlossen",
   "statusRest": "Heute Ruhetag",
 
+  "betriebsurlaubTitle": "Betriebsurlaub",
+  "betriebsurlaubSub": "Wir machen Urlaub!",
+  "betriebsurlaubBody": "Das Duck House ist vorübergehend geschlossen. Wir freuen uns, Sie ab",
+  "betriebsurlaubReopen": "wieder herzlich bei uns begrüßen zu dürfen.",
+  "betriebsurlaubPhone": "Für Anfragen stehen wir ab Wiedereröffnung zur Verfügung.",
+  "betriebsurlaubClose": "Alles klar, danke!",
+
   "langDe": "Deutsch",
   "langEn": "English",
   "langZh": "中文简体",
