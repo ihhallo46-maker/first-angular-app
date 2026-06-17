@@ -1,11 +1,16 @@
 {
-  "navMenu": "MENU",
-  "navOrders": "ORDERS",
-  "navTakeaway": "TAKE AWAY",
-  "navAnfahrt": "DIRECTIONS",
+  "navMenu": "Menu",
+  "navOrders": "Orders",
+  "navTakeaway": "Take Away",
+  "navAnfahrt": "Directions",
+  "navReserve": "Reserve",
   "navLogin": "Sign In",
   "navLogout": "Sign Out",
   "navOpen": "Open navigation",
+
+  "statusOpen": "Open now",
+  "statusClosed": "Closed now",
+  "statusRest": "Closed today",
 
   "langDe": "Deutsch",
   "langEn": "English",
@@ -17,7 +22,6 @@
   "heroOrder": "Order Now  →",
   "heroReserve": "Reserve Table",
   "heroOpen": "OPEN UNTIL 22:00",
-  "heroClosed": "CLOSED",
   "heroReserveLabel": "Reserve now:",
   "heroTuesdayClosed": "Tue: Closed",
 

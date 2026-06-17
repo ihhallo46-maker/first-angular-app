@@ -1,11 +1,16 @@
 {
-  "navMenu": "SPEISEKARTE",
-  "navOrders": "BESTELLUNGEN",
-  "navTakeaway": "MITNEHMEN",
-  "navAnfahrt": "ANFAHRT",
+  "navMenu": "Speisekarte",
+  "navOrders": "Bestellungen",
+  "navTakeaway": "Mitnehmen",
+  "navAnfahrt": "Anfahrt",
+  "navReserve": "Reservieren",
   "navLogin": "Anmelden",
   "navLogout": "Abmelden",
   "navOpen": "Navigation öffnen",
+
+  "statusOpen": "Jetzt geöffnet",
+  "statusClosed": "Jetzt geschlossen",
+  "statusRest": "Heute Ruhetag",
 
   "langDe": "Deutsch",
   "langEn": "English",
@@ -17,7 +22,6 @@
   "heroOrder": "Jetzt bestellen  →",
   "heroReserve": "Tisch reservieren",
   "heroOpen": "GEÖFFNET BIS 22:00",
-  "heroClosed": "GESCHLOSSEN",
   "heroReserveLabel": "Jetzt reservieren:",
   "heroTuesdayClosed": "Di: Ruhetag",
 

@@ -64,8 +64,29 @@
         </li>
       </ul>
 
-      <!-- ── Sprache + Login/Logout ─────────────────── -->
+      <!-- ── Status + Reservieren + Sprache + Login/Logout ── -->
       <div class="ms-lg-3 mt-2 mt-lg-0 nav-auth-row">
+
+        <!-- Öffnungsstatus -->
+        <span class="nav-status"
+              [class.nav-status--open]="isOpen()"
+              [class.nav-status--closed]="!isOpen()"
+              role="status">
+          <span class="nav-status-dot" aria-hidden="true"></span>
+          @if (isTuesday()) {
+            {{ ts.translator().statusRest }}
+          } @else if (isOpen()) {
+            {{ ts.translator().statusOpen }}
+          } @else {
+            {{ ts.translator().statusClosed }}
+          }
+        </span>
+
+        <!-- Reservieren (Telefon) -->
+        <a class="btn-nav-reserve" href="tel:+492343389688">
+          <i class="bi bi-telephone-fill" aria-hidden="true"></i>
+          {{ ts.translator().navReserve }}
+        </a>
 
         <!-- Sprachauswahl -->
         <div class="lang-switcher" [class.lang-switcher--open]="isLangOpen()">
@@ -175,11 +196,8 @@
                 <span class="hero-meta-dot" aria-hidden="true"></span>
                 {{ ts.translator().heroOpen }}
               }
-              @else if (!isOpen()) {
-                <span class="hero-meta-dot-red" aria-hidden="true"></span>
+              <span class="" aria-hidden="true"></span>
               {{ ts.translator().heroTuesdayClosed }}
-              }
-             
             </p>
 
           </div>
@@ -229,27 +247,25 @@
                 </li>
                 <li class="emp-item">
                   <div class="emp-item-row">
-                    <span class="emp-item-name">Gebratene Ente à la Siu-Ja</span>
+                    <span class="emp-item-name">Gebackene Bananen</span>
                     <span class="emp-item-leader" aria-hidden="true"></span>
-                    <span class="emp-item-price">17,90 €</span>
+                    <span class="emp-item-price">3,50 €</span>
                   </div>
-                  <p class="emp-item-desc">mit Pflaumen-Sauce süß und scharf oder Champignon-Soja-Sauce</p>
+                  <p class="emp-item-desc">gebacken, mit Honig</p>
                 </li>
                 <li class="emp-item">
                   <div class="emp-item-row">
-                    <span class="emp-item-name">Gebratene Ente à la Malaya</span>
+                    <span class="emp-item-name">Frühlingsrolle</span>
                     <span class="emp-item-leader" aria-hidden="true"></span>
-                    <span class="emp-item-price">17,90 €</span>
+                    <span class="emp-item-price">3,50 €</span>
                   </div>
-                  <p class="emp-item-desc">in scharfer Curry-Sauce</p>
+                  <p class="emp-item-desc">Loempia</p>
                 </li>
               </ul>
 
               <div class="emp-footer">
                 <span class="emp-hours">
-                  @if(isOpen()) {
-                     {{ ts.translator().empToday }} <strong>12–15 · 17:30–22 Uhr</strong>
-                  }
+                  {{ ts.translator().empToday }} <strong>12–15 · 17:30–22 Uhr</strong>
                 </span>
                 <button class="emp-cta" type="button" (click)="select('menu')">
                   {{ ts.translator().empFullMenu }}
@@ -260,12 +276,6 @@
                 <div class="emp-open-badge">
                   <span class="emp-open-dot" aria-hidden="true"></span>
                   {{ ts.translator().heroOpen }}
-                </div>
-              }
-              @else {
-                <div class="emp-open-badge">
-                  <span class="emp-open-dot-red" aria-hidden="true"></span>
-                  {{ ts.translator().heroClosed }}
                 </div>
               }
 

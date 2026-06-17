@@ -3,7 +3,7 @@
 // ── Tokens ─────────────────────────────────────────────────
 $walnut: #3a332c;
 $ivory:  #efebe3;
-$wood:   #8c8276;
+$wood:   #6e6457;
 
 :host { display: block; }
 
@@ -86,12 +86,12 @@ $wood:   #8c8276;
 // ── Nav-Links ─────────────────────────────────────────────
 .nav-item-link {
   font-family: inherit;
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: rgba($ivory, 0.6) !important;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: rgba($ivory, 0.85) !important;
   text-decoration: none;
-  padding: 0.5rem 0.9rem;
+  padding: 0.7rem 0.9rem;
   position: relative;
   transition: color 0.2s;
 
@@ -156,11 +156,69 @@ $wood:   #8c8276;
   }
 }
 
-// ── Auth-Row: Sprache + Login nebeneinander ───────────────
+// ── Auth-Row: Status + Reservieren + Sprache + Login ──────
 .nav-auth-row {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+// ── Öffnungsstatus-Badge ──────────────────────────────────
+.nav-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  background: rgba($ivory, 0.08);
+  border: 1px solid rgba($ivory, 0.18);
+  font-family: inherit;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba($ivory, 0.85);
+  white-space: nowrap;
+}
+
+.nav-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: #9ca3af;
+
+  .nav-status--open & {
+    background: #4ade80;
+    animation: dotPulse 2s ease-in-out infinite;
+  }
+  .nav-status--closed & { background: #ef4444; }
+}
+
+// ── Reservieren-Button (primärer CTA in der Navigation) ───
+.btn-nav-reserve {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.1rem;
+  min-height: 40px;
+  border-radius: 999px;
+  background: $ivory;
+  color: $walnut;
+  border: 1.5px solid $ivory;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.12s;
+
+  i.bi { font-size: 0.85rem; }
+
+  &:hover { color: $walnut; filter: brightness(0.94); transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
 }
 
 // ── Sprachauswahl ─────────────────────────────────────────
@@ -256,11 +314,30 @@ $wood:   #8c8276;
   }
 
   .nav-item-link {
-    padding: 0.65rem 0.75rem;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.75rem 0.75rem;
     border-radius: 0.35rem;
 
     &::after { display: none; }
     &:hover { background: rgba($ivory, 0.07); }
+  }
+
+  // Status + Reservieren im aufgeklappten Menü voll nutzbar
+  .nav-auth-row {
+    align-items: stretch;
+    gap: 0.6rem;
+    padding: 0.25rem 0.75rem 0.5rem;
+  }
+
+  .nav-status { justify-content: center; }
+
+  .btn-nav-reserve {
+    width: 100%;
+    justify-content: center;
+    min-height: 46px;
+    font-size: 0.92rem;
   }
 }
 
@@ -278,12 +355,12 @@ $wood:   #8c8276;
   color: $walnut;
   overflow: hidden;
 
-  // Hintergrundbild mit Zoom-Animation — Gebäude-Außenansicht
+  // Hintergrundbild mit Zoom-Animation — appetitliches Tellerbild (Ente)
   &::before {
     content: '';
     position: absolute;
     inset: -6%;
-    background-image: url('../assets/images/gebaeude.jpg');
+    background-image: url('../assets/images/ente-teller-1.jpg');
     background-size: cover;
     background-position: center right;
     background-repeat: no-repeat;
@@ -314,19 +391,19 @@ $wood:   #8c8276;
   display: flex;
   align-items: flex-start;
   gap: 0.8rem;
-  background: #fef3c7;
-  border: 1px solid #f4b942;
+  background: #fdebb0;
+  border: 1px solid #c8841a;
   border-radius: 0.75rem;
   padding: 1rem 1.35rem;
-  color: #78350f;
-  font-size: 0.9rem;
+  color: #5c2c0c;
+  font-size: 0.92rem;
   line-height: 1.55;
   animation: fadeIn 0.4s ease both;
 
-  i.bi { font-size: 1.15rem; margin-top: 0.15rem; color: #d97706; }
+  i.bi { font-size: 1.15rem; margin-top: 0.15rem; color: #b45309; }
 
   strong { font-weight: 700; }
-  a { color: #92400e; font-weight: 600; text-decoration: underline; }
+  a { color: #7c3a0b; font-weight: 700; text-decoration: underline; }
 }
 
 // ── Eyebrow ───────────────────────────────────────────────
@@ -368,13 +445,12 @@ $wood:   #8c8276;
   animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both 0.1s;
 }
 
-// ── Italic Subtitle ───────────────────────────────────────
+// ── Subtitle (hervorgehoben über Farbe + Größe, ohne Italic) ─
 .hero-sub {
   font-family: inherit;
-  font-style: italic;
   font-size: clamp(1.4rem, 2.6vw, 2rem);
-  font-weight: 400;
-  color: #9a7840;
+  font-weight: 600;
+  color: #8a6a30;
   margin: 0 0 1.35rem;
   animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both 0.17s;
 }
@@ -446,7 +522,7 @@ $wood:   #8c8276;
   color: rgba($walnut, 0.72);
   animation: fadeUp 0.7s ease both 0.3s;
 
-  i.bi { font-size: 0.82rem; color: rgba($walnut, 0.45); }
+  i.bi { font-size: 0.82rem; color: rgba($walnut, 0.72); }
 }
 
 .hero-reserve-label {
@@ -487,16 +563,6 @@ $wood:   #8c8276;
   height: 6px;
   border-radius: 50%;
   background: #4ade80;
-  flex-shrink: 0;
-  animation: dotPulse 2s ease-in-out infinite;
-}
-
-.hero-meta-dot-red {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #ef4444;
   flex-shrink: 0;
   animation: dotPulse 2s ease-in-out infinite;
 }
@@ -609,7 +675,7 @@ $wood:   #8c8276;
 .emp-item-desc {
   font-family: inherit;
   font-size: 0.82rem;
-  color: rgba($walnut, 0.5);
+  color: rgba($walnut, 0.72);
   margin: 0.22rem 0 0;
   line-height: 1.4;
 }
@@ -627,7 +693,7 @@ $wood:   #8c8276;
 .emp-hours {
   font-family: inherit;
   font-size: 0.84rem;
-  color: rgba($walnut, 0.55);
+  color: rgba($walnut, 0.72);
 
   strong { color: $walnut; font-weight: 700; }
 }
@@ -671,15 +737,6 @@ $wood:   #8c8276;
   width: 8px;
   height: 8px;
   background: #4ade80;
-  border-radius: 50%;
-  flex-shrink: 0;
-  animation: dotPulse 2s ease-in-out infinite;
-}
-
-.emp-open-dot-red {
-  width: 8px;
-  height: 8px;
-  background: #ef4444;
   border-radius: 50%;
   flex-shrink: 0;
   animation: dotPulse 2s ease-in-out infinite;
