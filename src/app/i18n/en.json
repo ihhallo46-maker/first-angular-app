@@ -8,8 +8,8 @@
   "navLogout": "Sign Out",
   "navOpen": "Open navigation",
 
-  "statusOpen": "Open now",
-  "statusClosed": "Closed now",
+  "statusOpen": "Open",
+  "statusClosed": "Closed",
   "statusRest": "Closed today",
   "statusBetrieb": "Holiday Closure",
   "betriebsurlaubReopenLabel": "Reopening",

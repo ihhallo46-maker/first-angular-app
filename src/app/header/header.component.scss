@@ -164,26 +164,27 @@ $wood:   #6e6457;
   flex-wrap: wrap;
 }
 
-// ── Öffnungsstatus-Badge ──────────────────────────────────
+// ── Öffnungsstatus-Badge (immer sichtbar, neben Logo) ────
 .nav-status {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.38rem 0.8rem;
+  padding: 0.32rem 0.7rem;
   border-radius: 999px;
   background: rgba($ivory, 0.10);
   border: 1px solid rgba($ivory, 0.22);
   font-family: inherit;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: rgba($ivory, 0.92);
   white-space: nowrap;
+  margin-left: 0.5rem;
 }
 
 .nav-status-dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   flex-shrink: 0;
   background: #9ca3af;
@@ -263,7 +264,6 @@ $wood:   #6e6457;
 .lang-dropdown {
   position: absolute;
   top: calc(100% + 0.4rem);
-  right: 0;
   min-width: 130px;
   background-color: var(--wood-bg-color);
   background-image: var(--wood-bg-image);
@@ -324,14 +324,14 @@ $wood:   #6e6457;
     &:hover { background: rgba($ivory, 0.07); }
   }
 
-  // Status + Reservieren im aufgeklappten Menü voll nutzbar
+  .nav-status { margin-left: auto; margin-right: 0.5rem; }
+
+  // Reservieren im aufgeklappten Menü voll nutzbar
   .nav-auth-row {
     align-items: stretch;
     gap: 0.6rem;
     padding: 0.25rem 0.75rem 0.5rem;
   }
-
-  .nav-status { justify-content: center; }
 
   .btn-nav-reserve {
     width: 100%;

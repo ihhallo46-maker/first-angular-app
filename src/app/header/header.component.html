@@ -4,7 +4,6 @@
 <nav class="navbar navbar-expand-lg fixed-top top-nav"
      aria-label="Hauptnavigation">
   <div class="container-xxl">
-
     <!-- ── Logo ─────────────────────────────────── -->
     <a class="navbar-brand nav-logo" href="#"
        (click)="$event.preventDefault(); goHome()">
@@ -20,6 +19,24 @@
       </svg>
       <span class="nav-brand-text">DUCK HOUSE</span>
     </a>
+
+    <!-- ── Öffnungsstatus — immer sichtbar neben Logo ────── -->
+    <span class="nav-status"
+          [class.nav-status--open]="isOpen() && !betrieb.isActive"
+          [class.nav-status--closed]="!isOpen() && !betrieb.isActive"
+          [class.nav-status--betrieb]="betrieb.isActive"
+          role="status">
+      <span class="nav-status-dot" aria-hidden="true"></span>
+      @if (betrieb.isActive) {
+        {{ ts.translator().statusBetrieb }}
+      } @else if (isTuesday()) {
+        {{ ts.translator().statusRest }}
+      } @else if (isOpen()) {
+        {{ ts.translator().statusOpen }}
+      } @else {
+        {{ ts.translator().statusClosed }}
+      }
+    </span>
 
     <!-- ── Hamburger ─────────────────────────────── -->
     <button class="navbar-toggler nav-toggler" type="button"
@@ -64,28 +81,8 @@
         </li>
       </ul>
 
-      <!-- ── Status + Reservieren + Sprache + Login/Logout ── -->
+      <!-- ── Reservieren + Sprache + Login/Logout ── -->
       <div class="ms-lg-3 mt-2 mt-lg-0 nav-auth-row">
-
-        <!-- Öffnungsstatus -->
-        <span class="nav-status"
-              [class.nav-status--open]="isOpen() && !betrieb.isActive"
-              [class.nav-status--closed]="!isOpen() && !betrieb.isActive"
-              [class.nav-status--betrieb]="betrieb.isActive"
-              role="status">
-          <span class="nav-status-dot" aria-hidden="true"></span>
-          @if (betrieb.isActive) {
-            {{ ts.translator().statusBetrieb }}
-          } @else if (isTuesday()) {
-            {{ ts.translator().statusRest }}
-          } @else if (isOpen()) {
-            {{ ts.translator().statusOpen }}
-          }
-         @else {
-            {{ ts.translator().statusClosed }}
-           }
-        </span>
-
         <!-- Reservieren (Telefon) -->
         <a class="btn-nav-reserve" href="tel:+492343389688">
           <i class="bi bi-telephone-fill" aria-hidden="true"></i>
@@ -215,12 +212,10 @@
             </p>
             }
             <p class="hero-meta">
-              @if (!betrieb.isActive) {
                 <span class="hours-days">{{ ts.translator().anfahrtDaysRegular }}</span>
                 <span class="hours-time">12:00 – 15:00 &nbsp;|&nbsp; 17:30 – 22:00</span>  
                 <span class="" aria-hidden="true"></span>
                 {{ ts.translator().heroTuesdayClosed }}
-              }
             </p>
 
           </div>
@@ -270,58 +265,28 @@
                 </li>
                 <li class="emp-item">
                   <div class="emp-item-row">
-                    <span class="emp-item-name">Gebackene Bananen</span>
+                    <span class="emp-item-name">Gebratene Ente à la Malaya</span>
                     <span class="emp-item-leader" aria-hidden="true"></span>
-                    <span class="emp-item-price">3,50 €</span>
+                    <span class="emp-item-price">17,90 €</span>
                   </div>
-                  <p class="emp-item-desc">gebacken, mit Honig</p>
+                  <p class="emp-item-desc">in scharfer Curry-Sauce</p>
                 </li>
                 <li class="emp-item">
                   <div class="emp-item-row">
-                    <span class="emp-item-name">Frühlingsrolle</span>
+                    <span class="emp-item-name">Gebratene Ente à la Canton</span>
                     <span class="emp-item-leader" aria-hidden="true"></span>
-                    <span class="emp-item-price">3,50 €</span>
+                    <span class="emp-item-price">17,90 €</span>
                   </div>
-                  <p class="emp-item-desc">Loempia</p>
+                  <p class="emp-item-desc">mit Ananas in süß-saurer Sauce</p>
                 </li>
               </ul>
 
           
               <div class="emp-footer">
-                @if(!betrieb.isActive && !isTuesday()) {
-                  <span class="emp-hours">    
-                    {{ ts.translator().empToday }} <strong>12–15 · 17:30–22 Uhr</strong>
-                  </span>
-                }
                 <button class="emp-cta" type="button" (click)="select('menu')">
                   {{ ts.translator().empFullMenu }}
                 </button>
               </div>
-              
-              @if (isOpen() && !betrieb.isActive) {
-                <div class="emp-open-badge">
-                  <span class="emp-open-dot" aria-hidden="true"></span>
-                  {{ ts.translator().heroOpen }}
-                </div>
-              }
-              @else if (betrieb.isActive) {
-                <div class="emp-betrieb-badge">
-                  <span class="emp-betrieb-dot" aria-hidden="true"></span>
-                  {{ ts.translator().statusBetrieb }}
-                </div>
-              }
-              @else if (isTuesday()) {
-                <div class="emp-closed-badge">
-                  <span class="emp-closed-dot" aria-hidden="true"></span>
-                  {{ ts.translator().statusRest }}
-                  </div>
-              }
-              @else {
-                <div class="emp-closed-badge">
-                  <span class="emp-closed-dot" aria-hidden="true"></span>
-                  {{ ts.translator().statusClosed }}
-                  </div>
-                }
             </div>
           </div>
         </div>

@@ -8,9 +8,9 @@
   "navLogout": "Abmelden",
   "navOpen": "Navigation öffnen",
 
-  "statusOpen": "Jetzt geöffnet",
-  "statusClosed": "Jetzt geschlossen",
-  "statusRest": "Heute Ruhetag",
+  "statusOpen": "Geöffnet",
+  "statusClosed": "Geschlossen",
+  "statusRest": "Ruhetag",
   "statusBetrieb": "Betriebsurlaub",
   "betriebsurlaubReopenLabel": "Wiedereröffnung",
   "takeawayBetriebNotice": "Während des Betriebsurlaubs ist kein Take-Away möglich. Wir freuen uns, Sie ab",
