@@ -1,7 +1,7 @@
 // ── Tokens ─────────────────────────────────────────────────
 $walnut: #3a332c;
 $ivory:  #efebe3;
-$wood:   #8c8276;
+$wood:   #6e6457;
 
 :host { display: block; }
 
@@ -164,11 +164,11 @@ $wood:   #8c8276;
   color: rgba($walnut, 0.7);
 }
 
-.hours-row--closed .hours-days { color: rgba($walnut, 0.45); }
+.hours-row--closed .hours-days { color: rgba($walnut, 0.72); }
 
 .hours-closed {
-  font-style: italic;
-  color: rgba($walnut, 0.38) !important;
+  font-weight: 600;
+  color: #b91c1c !important;
 }
 
 // ── Telefon ───────────────────────────────────────────────
@@ -187,7 +187,7 @@ $wood:   #8c8276;
 .info-note {
   font-family: inherit;
   font-size: 0.82rem;
-  color: rgba($walnut, 0.5);
+  color: rgba($walnut, 0.72);
   margin: 0;
   line-height: 1.5;
 }
