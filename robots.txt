@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /intern
+Disallow: /orders
+
+Sitemap: https://duckhouse-4e363.web.app/sitemap.xml
