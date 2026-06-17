@@ -66,6 +66,9 @@
                 } @else if (isOpen()) {
                   {{ ts.translator().statusOpen }}
                 }
+                @else {
+                  {{ ts.translator().statusClosed }}
+                }
             </span>
           </div>
           <div class="hours-table">

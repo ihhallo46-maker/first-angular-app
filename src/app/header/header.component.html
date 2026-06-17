@@ -81,6 +81,9 @@
           } @else if (isOpen()) {
             {{ ts.translator().statusOpen }}
           }
+         @else {
+            {{ ts.translator().statusClosed }}
+           }
         </span>
 
         <!-- Reservieren (Telefon) -->
@@ -213,10 +216,8 @@
             }
             <p class="hero-meta">
               @if (!betrieb.isActive) {
-                @if (isOpen()) {
-                  <span class="hours-days">{{ ts.translator().anfahrtDaysRegular }}</span>
-                  <span class="hours-time">12:00 – 15:00 &nbsp;|&nbsp; 17:30 – 22:00</span>
-                }
+                <span class="hours-days">{{ ts.translator().anfahrtDaysRegular }}</span>
+                <span class="hours-time">12:00 – 15:00 &nbsp;|&nbsp; 17:30 – 22:00</span>  
                 <span class="" aria-hidden="true"></span>
                 {{ ts.translator().heroTuesdayClosed }}
               }
@@ -303,18 +304,24 @@
                   {{ ts.translator().heroOpen }}
                 </div>
               }
-              @if (betrieb.isActive) {
+              @else if (betrieb.isActive) {
                 <div class="emp-betrieb-badge">
                   <span class="emp-betrieb-dot" aria-hidden="true"></span>
                   {{ ts.translator().statusBetrieb }}
                 </div>
               }
-              @if (isTuesday()) {
+              @else if (isTuesday()) {
                 <div class="emp-closed-badge">
                   <span class="emp-closed-dot" aria-hidden="true"></span>
                   {{ ts.translator().statusRest }}
                   </div>
               }
+              @else {
+                <div class="emp-closed-badge">
+                  <span class="emp-closed-dot" aria-hidden="true"></span>
+                  {{ ts.translator().statusClosed }}
+                  </div>
+                }
             </div>
           </div>
         </div>
