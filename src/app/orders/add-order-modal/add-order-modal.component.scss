@@ -37,7 +37,7 @@ $border: rgba(#6e6457, 0.22);
 .modal-dialog {
   width: min(100%, 700px);
   max-height: calc(100vh - 80px); // never taller than viewport minus nav
-  height: 700px;
+  height: 550px;
   background: #fff;
   border-radius: 1.25rem;
   display: flex;
@@ -663,9 +663,6 @@ $border: rgba(#6e6457, 0.22);
 // RESPONSIVE
 // ══════════════════════════════════════════════════════════
 @media (max-width: 600px) {
-  .modal-dialog {
-    height: 600px;
-  }
   .drink-grid,
   .service-grid {
     grid-template-columns: 1fr;
