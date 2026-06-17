@@ -27,15 +27,18 @@
           [class.nav-status--betrieb]="betrieb.isActive"
           role="status">
       <span class="nav-status-dot" aria-hidden="true"></span>
-      @if (betrieb.isActive) {
-        {{ ts.translator().statusBetrieb }}
-      } @else if (isTuesday()) {
-        {{ ts.translator().statusRest }}
-      } @else if (isOpen()) {
-        {{ ts.translator().statusOpen }}
-      } @else {
-        {{ ts.translator().statusClosed }}
-      }
+      <span class="nav-status-text nav-status-text--sm" aria-hidden="true">
+        @if (betrieb.isActive) { {{ ts.translator().statusBetriebShort }}
+        } @else if (isTuesday()) { {{ ts.translator().statusRestShort }}
+        } @else if (isOpen()) { {{ ts.translator().statusOpenShort }}
+        } @else { {{ ts.translator().statusClosedShort }} }
+      </span>
+      <span class="nav-status-text nav-status-text--lg">
+        @if (betrieb.isActive) { {{ ts.translator().statusBetrieb }}
+        } @else if (isTuesday()) { {{ ts.translator().statusRest }}
+        } @else if (isOpen()) { {{ ts.translator().statusOpen }}
+        } @else { {{ ts.translator().statusClosed }} }
+      </span>
     </span>
 
     <!-- ── Hamburger ─────────────────────────────── -->

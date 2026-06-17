@@ -196,6 +196,16 @@ $wood:   #6e6457;
   .nav-status--closed & { background: #ef4444; }
 }
 
+// Mobile: kurzes Label, Desktop: langes Label
+.nav-status-text--sm  { display: inline; }
+.nav-status-text--lg  { display: none; }
+
+@media (min-width: 992px) {
+  .nav-status-text--sm { display: none; }
+  .nav-status-text--lg { display: inline; }
+  .nav-status { margin-left: 0.75rem; }
+}
+
 // ── Reservieren-Button (primärer CTA in der Navigation) ───
 .btn-nav-reserve {
   display: inline-flex;
@@ -323,8 +333,6 @@ $wood:   #6e6457;
     &::after { display: none; }
     &:hover { background: rgba($ivory, 0.07); }
   }
-
-  .nav-status { margin-left: auto; margin-right: 0.5rem; }
 
   // Reservieren im aufgeklappten Menü voll nutzbar
   .nav-auth-row {
