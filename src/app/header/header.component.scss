@@ -3,7 +3,7 @@
 // ── Tokens ─────────────────────────────────────────────────
 $walnut: #3a332c;
 $ivory:  #efebe3;
-$wood:   #8c8276;
+$wood:   #6e6457;
 
 :host { display: block; }
 
@@ -89,9 +89,9 @@ $wood:   #8c8276;
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: rgba($ivory, 0.6) !important;
+  color: rgba($ivory, 0.85) !important;
   text-decoration: none;
-  padding: 0.5rem 0.9rem;
+  padding: 0.7rem 0.9rem;
   position: relative;
   transition: color 0.2s;
 
@@ -446,7 +446,7 @@ $wood:   #8c8276;
   color: rgba($walnut, 0.72);
   animation: fadeUp 0.7s ease both 0.3s;
 
-  i.bi { font-size: 0.82rem; color: rgba($walnut, 0.45); }
+  i.bi { font-size: 0.82rem; color: rgba($walnut, 0.72); }
 }
 
 .hero-reserve-label {
@@ -609,7 +609,7 @@ $wood:   #8c8276;
 .emp-item-desc {
   font-family: inherit;
   font-size: 0.82rem;
-  color: rgba($walnut, 0.5);
+  color: rgba($walnut, 0.72);
   margin: 0.22rem 0 0;
   line-height: 1.4;
 }
@@ -627,7 +627,7 @@ $wood:   #8c8276;
 .emp-hours {
   font-family: inherit;
   font-size: 0.84rem;
-  color: rgba($walnut, 0.55);
+  color: rgba($walnut, 0.72);
 
   strong { color: $walnut; font-weight: 700; }
 }

@@ -3,7 +3,7 @@
 // ── Tokens ────────────────────────────────────────────────
 $walnut: #3a332c;
 $ivory: #efebe3;
-$wood: #8c8276;
+$wood: #6e6457;
 $card-bg: #f5f2ec;
 $border: rgba(#8c8276, 0.22);
 
@@ -458,7 +458,7 @@ $border: rgba(#8c8276, 0.22);
 .person-total {
   margin: 0.35rem 0 0;
   font-size: 0.72rem;
-  color: rgba($walnut, 0.5);
+  color: rgba($walnut, 0.72);
   text-align: right;
 
   strong { color: $walnut; font-weight: 700; }

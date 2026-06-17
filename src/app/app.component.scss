@@ -1,7 +1,7 @@
 // ── Tokens ─────────────────────────────────────────────────
 $walnut: #3a332c;
 $ivory: #efebe3;
-$wood: #8c8276;
+$wood: #6e6457;
 
 :host {
   display: flex;
@@ -109,7 +109,7 @@ $wood: #8c8276;
   height: 52px;
   border-radius: 0.75rem;
   background: rgba($walnut, 0.06);
-  color: rgba($walnut, 0.6);
+  color: rgba($walnut, 0.72);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -130,7 +130,7 @@ $wood: #8c8276;
 .card-desc {
   font-family: inherit;
   font-size: 0.84rem;
-  color: rgba($walnut, 0.55);
+  color: rgba($walnut, 0.72);
   line-height: 1.65;
   margin: 0;
   flex: 1;
@@ -174,7 +174,7 @@ $wood: #8c8276;
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: rgba($walnut, 0.45);
+  color: rgba($walnut, 0.72);
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
@@ -245,7 +245,6 @@ $wood: #8c8276;
   font-family: inherit;
   font-size: 1.8rem;
   font-weight: 600;
-  font-style: italic;
   color: $walnut;
   margin: 0;
 }
@@ -253,7 +252,7 @@ $wood: #8c8276;
 .placeholder-desc {
   font-family: inherit;
   font-size: 0.85rem;
-  color: rgba($walnut, 0.5);
+  color: rgba($walnut, 0.72);
   margin: 0;
 }
 
