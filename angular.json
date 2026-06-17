@@ -44,6 +44,10 @@
             "styles": [
               "src/styles.scss"
             ],
+            "allowedCommonJsDependencies": [
+              "@grpc/grpc-js",
+              "@grpc/proto-loader"
+            ],
             "stylePreprocessorOptions": {
               "includePaths": [
                 "src/styles"
