@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TranslationService } from '../i18n/translation.service';
+import { BetriebsurlaubService } from '../betriebsurlaub-modal/betriebsurlaub.service';
 
 @Component({
   selector: 'app-takeaway',
@@ -9,5 +10,6 @@ import { TranslationService } from '../i18n/translation.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TakeawayComponent {
-  readonly ts = inject(TranslationService);
+  readonly ts      = inject(TranslationService);
+  readonly betrieb = inject(BetriebsurlaubService);
 }

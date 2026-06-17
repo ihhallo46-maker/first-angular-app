@@ -1,5 +1,20 @@
 <div class="takeaway-view">
 
+  <!-- Betriebsurlaub-Hinweis -->
+  @if (betrieb.isActive) {
+    <div class="ta-betrieb-notice" role="alert">
+      <i class="bi bi-calendar-x ta-betrieb-icon" aria-hidden="true"></i>
+      <div class="ta-betrieb-content">
+        <strong class="ta-betrieb-headline">{{ ts.t().betriebsurlaubTitle }}</strong>
+        <p class="ta-betrieb-text">
+          {{ ts.t().takeawayBetriebNotice }}
+          <strong>{{ betrieb.formattedOpen() }}</strong>
+          {{ ts.t().takeawayBetriebNoticeEnd }}
+        </p>
+      </div>
+    </div>
+  }
+
   <!-- Header -->
   <div class="ta-header">
     <h2 class="ta-title">{{ ts.t().takeawayTitle }}</h2>

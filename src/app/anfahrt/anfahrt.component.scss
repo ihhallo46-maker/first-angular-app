@@ -5,6 +5,44 @@ $wood:   #6e6457;
 
 :host { display: block; }
 
+// ── Betriebsurlaub-Hinweis ────────────────────────────────
+.anfahrt-betrieb-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: linear-gradient(135deg, #7c2d12 0%, #92400e 100%);
+  padding: 1.1rem 2rem;
+  color: #fef3c7;
+}
+
+.anfahrt-betrieb-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+  opacity: 0.9;
+}
+
+.anfahrt-betrieb-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.anfahrt-betrieb-headline {
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.anfahrt-betrieb-text {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  opacity: 0.88;
+  margin: 0;
+
+  strong { color: #fde68a; font-weight: 700; opacity: 1; }
+}
+
 @keyframes lineGrow {
   from { transform: scaleX(0); }
   to   { transform: scaleX(1); }
@@ -141,6 +179,7 @@ $wood:   #6e6457;
 
   &--open   { background: rgba(#16803c, 0.12); color: #15803d; }
   &--closed { background: rgba(#b91c1c, 0.1);  color: #b91c1c; }
+  &--betrieb { background: rgba(#f59e0b, 0.1); color: #f59e0b; }
 }
 
 .info-status-dot {
@@ -151,6 +190,7 @@ $wood:   #6e6457;
 
   .info-status--open & { background: #16a34a; }
   .info-status--closed & { background: #dc2626; }
+  .info-status--betrieb & { background: #f59e0b; }
 }
 
 .info-block-body {

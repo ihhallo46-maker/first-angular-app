@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, input, output, si
 import { AuthService } from '../auth/auth.service';
 import { TranslationService } from '../i18n/translation.service';
 import { type Lang } from '../i18n/translations';
+import { BetriebsurlaubService } from '../betriebsurlaub-modal/betriebsurlaub.service';
 
 type View = 'menu' | 'orders' | 'takeaway' | 'anfahrt';
 
@@ -14,8 +15,9 @@ type View = 'menu' | 'orders' | 'takeaway' | 'anfahrt';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  readonly auth = inject(AuthService);
-  readonly ts   = inject(TranslationService);
+  readonly auth    = inject(AuthService);
+  readonly ts      = inject(TranslationService);
+  readonly betrieb = inject(BetriebsurlaubService);
 
   readonly activeView   = input<string | null>(null);
   readonly viewSelected = output<View>();

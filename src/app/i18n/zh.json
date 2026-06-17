@@ -11,6 +11,10 @@
   "statusOpen": "正在营业",
   "statusClosed": "现已打烊",
   "statusRest": "今日休息",
+  "statusBetrieb": "假期休业",
+  "betriebsurlaubReopenLabel": "重新开业",
+  "takeawayBetriebNotice": "假期休业期间暂停外带服务，我们期待于",
+  "takeawayBetriebNoticeEnd": "起再次为您服务。",
 
   "betriebsurlaubTitle": "假期休业",
   "betriebsurlaubSub": "餐厅假期休业！",

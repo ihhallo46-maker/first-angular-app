@@ -11,6 +11,10 @@
   "statusOpen": "Open now",
   "statusClosed": "Closed now",
   "statusRest": "Closed today",
+  "statusBetrieb": "Holiday Closure",
+  "betriebsurlaubReopenLabel": "Reopening",
+  "takeawayBetriebNotice": "Take-away is not available during the holiday closure. We look forward to serving you again from",
+  "takeawayBetriebNoticeEnd": "onwards.",
 
   "betriebsurlaubTitle": "Holiday Closure",
   "betriebsurlaubSub": "We're on holiday!",

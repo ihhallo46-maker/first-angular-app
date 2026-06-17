@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { TranslationService } from '../i18n/translation.service';
+import { BetriebsurlaubService } from './betriebsurlaub.service';
 
 @Component({
   selector: 'app-betriebsurlaub-modal',
@@ -9,11 +10,12 @@ import { TranslationService } from '../i18n/translation.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BetriebsurlaubModalComponent {
-  readonly ts = inject(TranslationService);
+  readonly ts      = inject(TranslationService);
+  readonly betrieb = inject(BetriebsurlaubService);
 
-  // ── Betriebsurlaub-Zeitraum hier konfigurieren ─────────
-  private readonly start = new Date('2026-06-14');
-  private readonly end   = new Date('2026-07-15');
+  readonly formattedStart = this.betrieb.formattedStart;
+  readonly formattedEnd   = this.betrieb.formattedEnd;
+  readonly formattedOpen  = this.betrieb.formattedOpen;
 
   private readonly dismissed = signal(
     typeof sessionStorage !== 'undefined'
@@ -21,23 +23,8 @@ export class BetriebsurlaubModalComponent {
       : false,
   );
 
-  readonly show = computed(() => {
-    const now = new Date();
-    return now >= this.start && now <= this.end && !this.dismissed();
-  });
-
-  readonly formattedStart = computed(() =>
-    this.formatDate(this.start),
-  );
-
-  readonly formattedEnd = computed(() =>
-    this.formatDate(this.end),
-  );
-
-  private readonly reopenDate = new Date(this.end.getTime() + 24 * 60 * 60 * 1000);
-
-  readonly formattedOpen = computed(() =>
-    this.formatDate(this.reopenDate),
+  readonly show = computed(() =>
+    this.betrieb.isActive && !this.dismissed(),
   );
 
   dismiss(): void {
@@ -45,13 +32,5 @@ export class BetriebsurlaubModalComponent {
       sessionStorage.setItem('dk-betrieb-dismissed', '1');
     }
     this.dismissed.set(true);
-  }
-
-  private formatDate(d: Date): string {
-    const lang   = this.ts.currentLang();
-    const locale = lang === 'zh' ? 'zh-CN' : lang === 'en' ? 'en-GB' : 'de-DE';
-    return new Intl.DateTimeFormat(locale, {
-      day: 'numeric', month: 'long', year: 'numeric',
-    }).format(d);
   }
 }

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TranslationService } from '../i18n/translation.service';
+import { BetriebsurlaubService } from '../betriebsurlaub-modal/betriebsurlaub.service';
 
 const PLACE_QUERY   = 'Duck+House+Chinesisches+Restaurant,+Harpener+Hellweg+211a,+44805+Bochum';
 const PLACE_ENCODED = encodeURIComponent('Duck House Chinesisches Restaurant, Harpener Hellweg 211a, 44805 Bochum');
@@ -15,6 +16,7 @@ const PLACE_ENCODED = encodeURIComponent('Duck House Chinesisches Restaurant, Ha
 export class AnfahrtComponent {
   private readonly sanitizer = inject(DomSanitizer);
   readonly ts = inject(TranslationService);
+  readonly betrieb = inject(BetriebsurlaubService);
 
   readonly mapUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
     `https://maps.google.com/maps?q=${PLACE_QUERY}&output=embed&hl=de&z=17`,

@@ -1,4 +1,20 @@
 <div class="anfahrt-page">
+
+  <!-- Betriebsurlaub-Hinweis -->
+  @if (betrieb.isActive) {
+    <div class="anfahrt-betrieb-notice" role="alert">
+      <i class="bi bi-calendar-x anfahrt-betrieb-icon" aria-hidden="true"></i>
+      <div class="anfahrt-betrieb-content">
+        <strong class="anfahrt-betrieb-headline">{{ ts.translator().betriebsurlaubTitle }}</strong>
+        <p class="anfahrt-betrieb-text">
+          {{ ts.translator().betriebsurlaubBody }}
+          <strong>{{ betrieb.formattedOpen() }}</strong>
+          {{ ts.translator().betriebsurlaubReopen }}
+        </p>
+      </div>
+    </div>
+  }
+
   <div class="row g-0 anfahrt-row">
 
     <!-- ══ KARTE ══════════════════════════════════════════════ -->
@@ -37,18 +53,19 @@
           <div class="info-block-head">
             <i class="bi bi-clock-fill info-icon" aria-hidden="true"></i>
             <span class="info-block-label">{{ ts.translator().anfahrtHours }}</span>
-            <span class="info-status"
-                  [class.info-status--open]="isOpen()"
-                  [class.info-status--closed]="!isOpen()"
-                  role="status">
+              <span class="info-status"
+                [class.info-status--open]="isOpen() && !betrieb.isActive"
+                [class.info-status--closed]="!isOpen() && !betrieb.isActive"
+                [class.info-status--betrieb]="betrieb.isActive"
+              role="status">
               <span class="info-status-dot" aria-hidden="true"></span>
-              @if (isTuesday()) {
-                {{ ts.translator().statusRest }}
-              } @else if (isOpen()) {
-                {{ ts.translator().statusOpen }}
-              } @else {
-                {{ ts.translator().statusClosed }}
-              }
+                @if (betrieb.isActive) {
+                  {{ ts.translator().statusBetrieb }}
+                } @else if (isTuesday()) {
+                  {{ ts.translator().statusRest }}
+                } @else if (isOpen()) {
+                  {{ ts.translator().statusOpen }}
+                }
             </span>
           </div>
           <div class="hours-table">
