@@ -77,7 +77,7 @@ $wood: #6e6457;
 
 .ta-step-divider {
   font-size: 1.4rem;
-  color: rgba($ivory, 0.25);
+  color: rgba($ivory, 0.4);
   flex-shrink: 0;
   margin-top: 3rem;
 }
@@ -86,8 +86,8 @@ $wood: #6e6457;
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 1.5px solid rgba($ivory, 0.3);
-  color: rgba($ivory, 0.5);
+  border: 1.5px solid rgba($ivory, 0.45);
+  color: rgba($ivory, 0.8);
   font-family: inherit;
   font-size: 0.72rem;
   font-weight: 700;
@@ -98,7 +98,7 @@ $wood: #6e6457;
 
 .ta-step-icon {
   font-size: 1.8rem;
-  color: rgba($ivory, 0.7);
+  color: rgba($ivory, 0.92);
   line-height: 1;
   i.bi { display: block; }
 }
@@ -127,7 +127,7 @@ $wood: #6e6457;
   font-weight: 700;
   color: $ivory;
   text-decoration: none;
-  border-bottom: 1px solid rgba($ivory, 0.3);
+  border-bottom: 1px solid rgba($ivory, 0.55);
   padding-bottom: 1px;
   margin-top: 0.2rem;
   transition: border-color 0.18s;

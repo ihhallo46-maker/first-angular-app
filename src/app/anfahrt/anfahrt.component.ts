@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TranslationService } from '../i18n/translation.service';
 
@@ -25,4 +25,16 @@ export class AnfahrtComponent {
 
   readonly mapsUrl =
     `https://www.google.com/maps/search/?api=1&query=${PLACE_ENCODED}`;
+
+  // ── Öffnungsstatus (identisch zur Header-Logik) ──────────
+  private readonly today = signal(new Date());
+
+  readonly isTuesday = computed(() => this.today().getDay() === 2);
+
+  readonly isOpen = computed(() => {
+    const d = this.today();
+    if (d.getDay() === 2) return false;
+    const mins = d.getHours() * 60 + d.getMinutes();
+    return (mins >= 12 * 60 && mins < 15 * 60) || (mins >= 17 * 60 + 30 && mins < 22 * 60);
+  });
 }

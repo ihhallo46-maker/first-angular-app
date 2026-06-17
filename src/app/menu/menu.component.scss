@@ -124,7 +124,7 @@ $wood: #6e6457;
   height: 170px;
   margin: 0 0 1.25rem;
   border-radius: 0.75rem;
-  background-image: url('../assets/images/speisekarte.jpg');
+  background-image: url('../assets/images/ente-figur-laternen.jpg');
   background-size: cover;
   background-position: center center;
 }
@@ -242,6 +242,7 @@ $wood: #6e6457;
   align-items: center;
   gap: 0.75rem;
   width: 100%;
+  min-height: 48px;
   padding: 0.85rem 1rem;
   background: none;
   border: none;
@@ -257,11 +258,10 @@ $wood: #6e6457;
 
 .section-title {
   font-family: inherit;
-  font-size: 0.72rem;
+  font-size: 1rem;
   font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: $wood;
+  letter-spacing: 0.01em;
+  color: $walnut;
   white-space: nowrap;
 }
 
@@ -344,11 +344,10 @@ $wood: #6e6457;
 }
 
 .item-desc {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: $wood;
-  font-style: italic;
   margin: 0;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
 // ══════════════════════════════════════════════════════════
