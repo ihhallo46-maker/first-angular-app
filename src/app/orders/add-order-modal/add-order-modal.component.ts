@@ -58,7 +58,9 @@ export class AddOrderModalComponent {
     { key: 'krefelder', label: 'Krefelder', sizes: ['0.3L', '0.5L'] },
     { key: 'altBier', label: 'Altbier', sizes: ['0.3L', '0.5L'] },
     { key: 'radler', label: 'Radler', sizes: ['0.3L', '0.5L'] },
-    { key: 'alster', label: 'Alster', sizes: ['0.3L', '0.5L'] },
+    { key: 'alcRadler', label: 'Alkoholfreier Radler', sizes: ['0.3L', '0.5L'] },
+    { key: 'alcAlster', label: 'Alkoholfreier Alster', sizes: ['0.3L', '0.5L'] },
+    { key: 'radler', label: 'Radler', sizes: ['0.3L', '0.5L'] },
     { key: 'lemon', label: 'Bitter Lemon', sizes: ['0.3L'] },
     { key: 'gingerAle', label: 'Ginger Ale', sizes: ['0.3L'] },
     { key: 'malzbier', label: 'Malzbier', sizes: ['0.3L'] },
@@ -88,7 +90,7 @@ export class AddOrderModalComponent {
 
   readonly drinkCategories: DrinkCategory[] = [
     { key: 'softdrinks', label: 'Softdrinks',      icon: 'bi-cup-straw',    drinkKeys: ['apple','sprite', 'cola', 'colaZero', 'spezi', 'fanta', 'lemon', 'gingerAle', 'malzbier'] },
-    { key: 'bier',       label: 'Bier',             icon: 'bi-cup-fill',     drinkKeys: ['pils', 'alcPils', 'weizen', 'alcWeizen', 'krefelder', 'altBier', 'radler', 'alster'] },
+    { key: 'bier',       label: 'Bier',             icon: 'bi-cup-fill',     drinkKeys: ['pils', 'alcPils', 'weizen', 'alcWeizen', 'krefelder', 'altBier', 'radler','alcRadler', 'alster', 'alcAlster'] },
     { key: 'saefte',     label: 'Säfte',            icon: 'bi-droplet-fill', drinkKeys: ['apfelsaft', 'orangensaft', 'maracuja'] },
     { key: 'wasser',     label: 'Wasser',            icon: 'bi-droplet-half', drinkKeys: ['wasserstill', 'wassersprudel'] },
     { key: 'wein',       label: 'Wein & Schnaps',   icon: 'bi-stars',        drinkKeys: ['rotWein', 'weissWein', 'bottleWine', 'reisschnaps', 'plumwine', 'rose'] },
