@@ -193,6 +193,16 @@ export class AddOrderModalComponent {
     }
   }
 
+  // ── Tischauswahl ──────────────────────────────────────────
+
+  selectTable(n: number): void {
+    this.form.get('tableNumber')?.setValue(n);
+  }
+
+  get selectedTable(): number {
+    return Number(this.form.get('tableNumber')?.value) || 0;
+  }
+
   // ── Stepper interactions ──────────────────────────────────
 
   increment(countKey: string, checkboxKey: string): void {

@@ -198,20 +198,37 @@ $border: rgba(#6e6457, 0.22);
   margin-bottom: 0.4rem;
 }
 
-.table-select {
-  width: 220px;
-  padding: 0.6rem 0.9rem;
-  border: 1px solid rgba($wood, 0.35);
-  border-radius: 0.5rem;
-  background: #fff;
-  font-size: 0.88rem;
-  color: $walnut;
-  cursor: pointer;
-  appearance: auto;
+// ── Tischnummer-Raster ────────────────────────────────────
+.table-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
 
-  &:focus {
-    outline: none;
-    border-color: $walnut;
+.table-cell {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba($wood, 0.3);
+  border-radius: 0.6rem;
+  background: #fff;
+  color: $walnut;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s, color 0.12s, transform 0.08s;
+
+  &:active { transform: scale(0.95); }
+
+  &--active {
+    background-color: var(--wood-bg-color);
+    background-image: var(--wood-bg-image);
+    border-color: transparent;
+    color: $ivory;
+    box-shadow: 0 4px 12px rgba($walnut, 0.25);
   }
 }
 
@@ -575,10 +592,29 @@ $border: rgba(#6e6457, 0.22);
 }
 
 .footer-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.footer-table-chip {
+  flex-shrink: 0;
+  background-color: var(--wood-bg-color);
+  background-image: var(--wood-bg-image);
+  color: $ivory;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.footer-drinks {
   font-size: 0.78rem;
   color: $wood;
   font-weight: 500;
-  flex: 1;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;

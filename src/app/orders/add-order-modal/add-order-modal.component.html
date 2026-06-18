@@ -37,12 +37,16 @@
             <span class="section-label">{{ ts.translator().modalSec1 }}</span>
             <span class="section-rule"></span>
           </div>
-          <label class="field-label" for="tableNumber">{{ ts.translator().modalSelectTable }}</label>
-          <select id="tableNumber" class="table-select" formControlName="tableNumber">
+          <span class="field-label">{{ ts.translator().modalSelectTable }}</span>
+          <div class="table-grid" role="radiogroup" [attr.aria-label]="ts.translator().modalSelectTable">
             @for (n of tableNumbers; track n) {
-              <option [value]="n">{{ ts.translator().modalTableOption.replace('{n}', n.toString()) }}</option>
+              <button type="button" class="table-cell"
+                      [class.table-cell--active]="selectedTable === n"
+                      role="radio" [attr.aria-checked]="selectedTable === n"
+                      [attr.aria-label]="ts.translator().modalTableOption.replace('{n}', n.toString())"
+                      (click)="selectTable(n)">{{ n }}</button>
             }
-          </select>
+          </div>
         </div>
 
         <!-- ─ Section 2: Getränke ─ -->
@@ -292,9 +296,10 @@
 
       <!-- ── Footer bar (not scrolling) ─────────────────── -->
       <div class="modal-footer-bar">
-        <span class="footer-summary" [title]="drinkSummary + ' · ' + tableLabel">
-          {{ drinkSummary }} · {{ tableLabel }}
-        </span>
+        <div class="footer-summary">
+          <span class="footer-table-chip">{{ tableLabel }}</span>
+          <span class="footer-drinks" [title]="drinkSummary">{{ drinkSummary }}</span>
+        </div>
         <div class="footer-actions">
           <button type="button" class="btn-cancel" (click)="close()">{{ ts.translator().modalCancelBtn }}</button>
           <button type="submit" class="btn-save">
