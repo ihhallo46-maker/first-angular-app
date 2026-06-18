@@ -60,7 +60,7 @@ export class AddOrderModalComponent {
     { key: 'radler', label: 'Radler', sizes: ['0.3L', '0.5L'] },
     { key: 'alcRadler', label: 'Alkoholfreier Radler', sizes: ['0.3L', '0.5L'] },
     { key: 'alcAlster', label: 'Alkoholfreier Alster', sizes: ['0.3L', '0.5L'] },
-    { key: 'radler', label: 'Radler', sizes: ['0.3L', '0.5L'] },
+    { key: 'alster', label: 'Alster', sizes: ['0.3L', '0.5L'] },
     { key: 'lemon', label: 'Bitter Lemon', sizes: ['0.3L'] },
     { key: 'gingerAle', label: 'Ginger Ale', sizes: ['0.3L'] },
     { key: 'malzbier', label: 'Malzbier', sizes: ['0.3L'] },

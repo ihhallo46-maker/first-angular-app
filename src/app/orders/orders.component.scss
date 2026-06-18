@@ -15,6 +15,63 @@ $wood: #6e6457;
 }
 
 // ══════════════════════════════════════════════════════════
+// TISCH-SUCHE
+// ══════════════════════════════════════════════════════════
+.table-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.table-search-icon {
+  position: absolute;
+  left: 0.9rem;
+  color: rgba($wood, 0.6);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.table-search {
+  width: 100%;
+  padding: 0.7rem 2.4rem;
+  border: 1px solid rgba($wood, 0.3);
+  border-radius: 0.6rem;
+  background: #fff;
+  font-size: 0.95rem;
+  color: $walnut;
+
+  &::placeholder { color: rgba($wood, 0.55); }
+  &:focus { outline: none; border-color: $walnut; }
+}
+
+.table-search-clear {
+  position: absolute;
+  right: 0.6rem;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 50%;
+  background: rgba($wood, 0.12);
+  color: $walnut;
+  font-size: 1.05rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+
+  &:hover { background: rgba($wood, 0.22); }
+}
+
+.table-search-empty {
+  margin: 0;
+  padding: 0.5rem 0.2rem;
+  font-size: 0.9rem;
+  color: $wood;
+}
+
+// ══════════════════════════════════════════════════════════
 // PAGE HEADER
 // ══════════════════════════════════════════════════════════
 .page-header {

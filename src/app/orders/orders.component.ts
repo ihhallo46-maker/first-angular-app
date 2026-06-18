@@ -21,6 +21,16 @@ export class OrdersComponent {
   readonly warningMessage  = signal<string | null>(null);
   readonly confirmDeleteId = signal<string | null>(null);
 
+  // ── Tisch-Suche ───────────────────────────────────────────
+  readonly tableFilter = signal('');
+
+  filteredOrders(): OrderDraft[] {
+    const q = this.tableFilter().trim();
+    const all = this.orderService.orders();
+    if (!q) return all;
+    return all.filter((o) => String(o.tableNumber).startsWith(q));
+  }
+
   openModal(order: OrderDraft | null = null): void {
     this.editingOrder.set(order);
     this.isModalOpen.set(true);

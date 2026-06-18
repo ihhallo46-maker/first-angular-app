@@ -62,9 +62,27 @@
 
   <!-- ── Bestellkarten ──────────────────────────────────────── -->
   @if (orderService.orders().length > 0) {
+
+    <!-- ── Tisch-Suche ──────────────────────────────────────── -->
+    <div class="table-search-wrap">
+      <i class="bi bi-search table-search-icon" aria-hidden="true"></i>
+      <input type="text" inputmode="numeric" class="table-search" autocomplete="off"
+             placeholder="Tisch suchen … z. B. 5"
+             [value]="tableFilter()"
+             (input)="tableFilter.set($any($event.target).value)" />
+      @if (tableFilter()) {
+        <button type="button" class="table-search-clear" aria-label="Suche löschen"
+                (click)="tableFilter.set('')">×</button>
+      }
+    </div>
+
+    @if (filteredOrders().length === 0) {
+      <p class="table-search-empty">Kein Tisch „{{ tableFilter() }}" gefunden.</p>
+    }
+
     <div class="orders-grid">
 
-      @for (order of orderService.orders(); track order.id) {
+      @for (order of filteredOrders(); track order.id) {
         <article class="order-card"
                  [class.order-card--completed]="order.status === 'completed'">
 
