@@ -216,6 +216,64 @@ $border: rgba(#6e6457, 0.22);
 }
 
 // ══════════════════════════════════════════════════════════
+// GETRÄNKE-SUCHE
+// ══════════════════════════════════════════════════════════
+.drink-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.85rem;
+}
+
+.drink-search-icon {
+  position: absolute;
+  left: 0.8rem;
+  color: rgba($wood, 0.6);
+  font-size: 0.95rem;
+  pointer-events: none;
+}
+
+.drink-search {
+  width: 100%;
+  padding: 0.65rem 2.2rem;
+  border: 1px solid rgba($wood, 0.35);
+  border-radius: 0.5rem;
+  background: #fff;
+  font-size: 0.9rem;
+  color: $walnut;
+
+  &::placeholder { color: rgba($wood, 0.6); }
+  &:focus { outline: none; border-color: $walnut; }
+}
+
+.drink-search-clear {
+  position: absolute;
+  right: 0.55rem;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background: rgba($wood, 0.12);
+  color: $walnut;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+
+  &:hover { background: rgba($wood, 0.22); }
+}
+
+.search-empty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  color: $wood;
+}
+
+// ══════════════════════════════════════════════════════════
 // DRINK GRID & CARDS
 // ══════════════════════════════════════════════════════════
 .drink-grid {

@@ -111,6 +111,15 @@ export class AddOrderModalComponent {
     return this.drinkOptions.filter((o) => category.drinkKeys.includes(o.key));
   }
 
+  // ── Getränke-Suche ────────────────────────────────────────
+  readonly drinkSearch = signal('');
+
+  searchResults(): DrinkOption[] {
+    const q = this.drinkSearch().trim().toLowerCase();
+    if (!q) return [];
+    return this.drinkOptions.filter((o) => o.label.toLowerCase().includes(q));
+  }
+
   getCategoryTotal(category: DrinkCategory): number {
     let total = 0;
     for (const opt of this.drinkOptions.filter((o) => category.drinkKeys.includes(o.key))) {
