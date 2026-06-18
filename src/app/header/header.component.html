@@ -20,27 +20,6 @@
       <span class="nav-brand-text">DUCK HOUSE</span>
     </a>
 
-    <!-- ── Öffnungsstatus — immer sichtbar neben Logo ────── -->
-    <span class="nav-status"
-          [class.nav-status--open]="isOpen() && !betrieb.isActive"
-          [class.nav-status--closed]="!isOpen() && !betrieb.isActive"
-          [class.nav-status--betrieb]="betrieb.isActive"
-          role="status">
-      <span class="nav-status-dot" aria-hidden="true"></span>
-      <span class="nav-status-text nav-status-text--sm" aria-hidden="true">
-        @if (betrieb.isActive) { {{ ts.translator().statusBetriebShort }}
-        } @else if (isTuesday()) { {{ ts.translator().statusRestShort }}
-        } @else if (isOpen()) { {{ ts.translator().statusOpenShort }}
-        } @else { {{ ts.translator().statusClosedShort }} }
-      </span>
-      <span class="nav-status-text nav-status-text--lg">
-        @if (betrieb.isActive) { {{ ts.translator().statusBetrieb }}
-        } @else if (isTuesday()) { {{ ts.translator().statusRest }}
-        } @else if (isOpen()) { {{ ts.translator().statusOpen }}
-        } @else { {{ ts.translator().statusClosed }} }
-      </span>
-    </span>
-
     <!-- ── Hamburger ─────────────────────────────── -->
     <button class="navbar-toggler nav-toggler" type="button"
             data-bs-toggle="collapse" data-bs-target="#navMain"
