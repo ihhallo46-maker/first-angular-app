@@ -50,6 +50,8 @@ $wood: #6e6457;
   display: flex;
   flex-direction: column;
   gap: 0;
+  border-radius: 0.75rem;
+  overflow: hidden;
   animation: fadeUp 0.5s ease both;
 }
 

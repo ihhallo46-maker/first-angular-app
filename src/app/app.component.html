@@ -24,13 +24,26 @@
     <section class="story-section">
       <div class="container-xxl">
 
-        <!-- Slideshow (5 Bilder, automatischer Überblend-Wechsel) -->
-        <div class="slideshow" role="img" aria-label="Eindrücke aus dem Duck House">
-          <div class="slide slide--1"></div>
-          <div class="slide slide--2"></div>
-          <div class="slide slide--3"></div>
-          <div class="slide slide--4"></div>
-          <div class="slide slide--5"></div>
+        <!-- Slideshow (5 Bilder, auto-Wechsel + Steuerung) -->
+        <div class="slideshow" role="group" aria-label="Eindrücke aus dem Duck House"
+             (mouseenter)="pauseSlideshow()" (mouseleave)="resumeSlideshow()"
+             (focusin)="pauseSlideshow()" (focusout)="resumeSlideshow()">
+          <div class="slide slide--1" [class.slide--active]="currentSlide() === 0"></div>
+          <div class="slide slide--2" [class.slide--active]="currentSlide() === 1"></div>
+          <div class="slide slide--3" [class.slide--active]="currentSlide() === 2"></div>
+          <div class="slide slide--4" [class.slide--active]="currentSlide() === 3"></div>
+          <div class="slide slide--5" [class.slide--active]="currentSlide() === 4"></div>
+
+          <div class="slide-dots" role="tablist" aria-label="Bild auswählen">
+            @for (i of slideIndexes; track i) {
+              <button type="button" class="slide-dot"
+                      [class.slide-dot--active]="currentSlide() === i"
+                      (click)="goToSlide(i)"
+                      role="tab"
+                      [attr.aria-selected]="currentSlide() === i"
+                      [attr.aria-label]="'Bild ' + (i + 1) + ' anzeigen'"></button>
+            }
+          </div>
         </div>
 
         <!-- Textblöcke -->
@@ -116,4 +129,14 @@
     </div>
   </div>
 </footer>
+}
+
+<!-- ══════════════════════════════════════════════
+     BACK-TO-TOP — nicht auf /intern
+     ══════════════════════════════════════════════ -->
+@if (!isInternRoute() && showBackToTop()) {
+  <button type="button" class="back-to-top" (click)="scrollToTop()"
+          aria-label="Nach oben scrollen" title="Nach oben">
+    <i class="bi bi-arrow-up" aria-hidden="true"></i>
+  </button>
 }

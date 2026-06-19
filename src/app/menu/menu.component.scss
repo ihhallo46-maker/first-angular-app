@@ -137,7 +137,13 @@ $wood: #6e6457;
   border: 1.5px solid rgba($wood, 0.25);
   border-radius: 0.65rem;
   padding: 0.6rem 0.9rem;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, box-shadow 0.15s;
+
+  // Bleibt beim Scrollen sichtbar (unter der fixen Navigation)
+  position: sticky;
+  top: 64px;
+  z-index: 20;
+  box-shadow: 0 4px 14px rgba($walnut, 0.08);
 
   &:focus-within {
     border-color: $walnut;

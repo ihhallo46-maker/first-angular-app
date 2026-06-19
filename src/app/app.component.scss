@@ -209,7 +209,8 @@ $wood: #6e6457;
 .content-wrap {
   max-width: 1180px;
   margin: 0 auto;
-  overflow: hidden;
+  // overflow: visible — sonst funktioniert die Sticky-Suchleiste im Menü nicht.
+  // Eck-Clipping passiert in den Ansichten, die randvolle Flächen haben.
   border-radius: 0.75rem;
   box-shadow: 0 4px 24px rgba($walnut, 0.1);
 }
@@ -350,27 +351,53 @@ $wood: #6e6457;
   background-size: cover;
   background-position: center;
   opacity: 0;
-  animation: slideCycle 30s infinite;
+  transition: opacity 1s ease;
   will-change: opacity;
+
+  &--active { opacity: 1; }
 }
 
-.slide--1 { background-image: url('./assets/images/laternen.jpg');            animation-delay:  0s; }
-.slide--2 { background-image: url('./assets/images/ente-figur-laternen.jpg'); animation-delay:  6s; }
-.slide--3 { background-image: url('./assets/images/woks.jpg');                animation-delay: 12s; }
-.slide--4 { background-image: url('./assets/images/speisesaal.jpg');          animation-delay: 18s; }
-.slide--5 { background-image: url('./assets/images/buffet.jpg');              animation-delay: 24s; }
+.slide--1 { background-image: url('./assets/images/laternen.jpg'); }
+.slide--2 { background-image: url('./assets/images/ente-figur-laternen.jpg'); }
+.slide--3 { background-image: url('./assets/images/woks.jpg'); }
+.slide--4 { background-image: url('./assets/images/speisesaal.jpg'); }
+.slide--5 { background-image: url('./assets/images/buffet.jpg'); }
 
-@keyframes slideCycle {
-  0%   { opacity: 0; }
-  3%   { opacity: 1; }
-  18%  { opacity: 1; }
-  21%  { opacity: 0; }
-  100% { opacity: 0; }
+// ── Steuerungs-Punkte ─────────────────────────────────────
+.slide-dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 3;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  background: rgba($walnut, 0.28);
+  backdrop-filter: blur(4px);
+}
+
+.slide-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: rgba(#fff, 0.55);
+  cursor: pointer;
+  transition: width 0.25s ease, background 0.2s ease;
+
+  &:hover { background: rgba(#fff, 0.85); }
+
+  &--active {
+    width: 26px;
+    background: #fff;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .slide { animation: none; }
-  .slide--1 { opacity: 1; }
+  .slide { transition: none; }
 }
 
 // ── Textblöcke ────────────────────────────────────────────
@@ -423,4 +450,37 @@ $wood: #6e6457;
 @media (max-width: 768px) {
   .story-section { padding: 3rem 1.25rem 3.5rem; }
   .story-grid { grid-template-columns: 1fr; gap: 2rem; margin-top: 2.5rem; }
+}
+
+// ══════════════════════════════════════════════════════════
+// BACK-TO-TOP BUTTON
+// ══════════════════════════════════════════════════════════
+.back-to-top {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--wood-bg-color);
+  background-image: var(--wood-bg-image);
+  color: $ivory;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba($walnut, 0.35);
+  animation: fadeUp 0.3s ease both;
+  transition: transform 0.15s ease, filter 0.15s ease;
+
+  i.bi { font-size: 1.3rem; line-height: 1; }
+
+  &:hover { filter: brightness(1.15); transform: translateY(-3px); }
+  &:active { transform: translateY(-1px); }
+}
+
+@media (max-width: 768px) {
+  .back-to-top { right: 1rem; bottom: 1rem; }
 }

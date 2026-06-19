@@ -504,7 +504,8 @@ $wood:   #6e6457;
   font-family: inherit;
   font-size: clamp(1.4rem, 2.6vw, 2rem);
   font-weight: 600;
-  color: #8a6a30;
+  color: #7a5a22; // etwas dunkler → besserer Kontrast auf hellem Foto
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.55); // hebt das Gold vom Foto ab
   margin: 0 0 1.35rem;
   animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both 0.17s;
 }
