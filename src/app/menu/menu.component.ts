@@ -24,7 +24,8 @@ export class MenuComponent {
   readonly activeSection = signal<string>('');
 
   private rafPending = false;
-  private spyLockUntil = 0;
+  private spyLocked = false;
+  private unlockTimer?: ReturnType<typeof setTimeout>;
 
   constructor() {
     afterNextRender(() => this.updateActiveSection());
@@ -59,10 +60,29 @@ export class MenuComponent {
     const id = this.sectionId(title);
     this.activeSection.set(id);
     if (typeof document === 'undefined') return;
-    // Scroll-Spy während des sanften Scrollens sperren → keine Flacker-Kaskade
-    this.spyLockUntil = Date.now() + 900;
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Scroll-Spy sperren, bis das Scrollen wirklich beendet ist
+    this.spyLocked = true;
     this.centerActiveChip(id);
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    this.armSpyUnlock();
+  }
+
+  /** Spy erst wieder freigeben, wenn das (sanfte) Scrollen zu Ende ist – ohne Neuauswertung */
+  private armSpyUnlock(): void {
+    if (typeof window === 'undefined') return;
+    if (this.unlockTimer) clearTimeout(this.unlockTimer);
+
+    const onEnd = () => {
+      window.removeEventListener('scrollend', onEnd);
+      if (this.unlockTimer) clearTimeout(this.unlockTimer);
+      this.spyLocked = false;
+    };
+    window.addEventListener('scrollend', onEnd, { once: true });
+    // Fallback, falls der Browser kein 'scrollend' kennt
+    this.unlockTimer = setTimeout(() => {
+      window.removeEventListener('scrollend', onEnd);
+      this.spyLocked = false;
+    }, 1600);
   }
 
   search(value: string): void {
@@ -97,7 +117,7 @@ export class MenuComponent {
 
   private updateActiveSection(): void {
     if (typeof document === 'undefined') return;
-    if (Date.now() < this.spyLockUntil) return; // nach Klick kurz gesperrt
+    if (this.spyLocked) return; // nach Klick gesperrt bis Scrollende
 
     const sections = Array.from(document.querySelectorAll<HTMLElement>('.menu-section'));
     if (sections.length === 0) return;
