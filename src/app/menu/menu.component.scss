@@ -220,131 +220,183 @@ $wood: #6e6457;
 }
 
 // ══════════════════════════════════════════════════════════
-// SECTIONS LIST
+// LAYOUT: Desktop = Seitenleiste · Mobil = obere Chip-Leiste
 // ══════════════════════════════════════════════════════════
-.sections-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.menu-layout { display: block; }
+
+@media (min-width: 992px) {
+  .menu-layout {
+    display: grid;
+    grid-template-columns: 215px 1fr;
+    gap: 2.25rem;
+    align-items: start;
+  }
 }
 
-// ══════════════════════════════════════════════════════════
-// MENU SECTION
-// ══════════════════════════════════════════════════════════
+// ── Kategorie-Navigation ──────────────────────────────────
+// Mobil: horizontale Chip-Leiste, sticky oben
+.menu-nav {
+  position: sticky;
+  top: 113px;            // direkt unter Navigation (59px) + Suchleiste (~50px)
+  z-index: 15;
+  display: flex;
+  flex-wrap: nowrap;     // Chips bleiben in einer Reihe → horizontal scrollbar
+  gap: 0.4rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.6rem 0.1rem;
+  margin: 0 0 1.5rem;
+  background: $ivory;
+  border-bottom: 1px solid rgba($wood, 0.18);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;            // horizontales Wischen freigeben
+  overscroll-behavior-x: contain;
+  &::-webkit-scrollbar { display: none; }
+}
+
+// Desktop: vertikale Seitenleiste — alle Kategorien sichtbar
+@media (min-width: 992px) {
+  .menu-nav {
+    top: 124px;
+    flex-direction: column;
+    overflow: visible;
+    gap: 0.1rem;
+    padding: 0.55rem;
+    margin: 0;
+    background: #fff;
+    border: 1px solid rgba($wood, 0.18);
+    border-radius: 0.85rem;
+    box-shadow: 0 2px 14px rgba($walnut, 0.05);
+  }
+}
+
+.menu-nav-item {
+  flex-shrink: 0;
+  border: none;
+  background: rgba($wood, 0.07);
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: $walnut;
+  cursor: pointer;
+  white-space: nowrap;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  transition: background 0.15s, color 0.15s;
+
+  &:hover { background: rgba($wood, 0.16); }
+
+  &--active {
+    background-color: var(--wood-bg-color);
+    background-image: var(--wood-bg-image);
+    color: $ivory;
+  }
+}
+
+@media (min-width: 992px) {
+  .menu-nav-item {
+    background: transparent;
+    border-radius: 0.5rem;
+    text-align: left;
+    padding: 0.55rem 0.85rem;
+    white-space: normal;        // lange Titel umbrechen statt herausragen
+    line-height: 1.3;
+
+    &:hover { background: rgba($wood, 0.1); }
+
+    // Holz-Markierung muss die transparente Basis oben überschreiben
+    &--active,
+    &--active:hover {
+      background-color: var(--wood-bg-color);
+      background-image: var(--wood-bg-image);
+      color: $ivory;
+    }
+  }
+}
+
+// ── Inhalt ────────────────────────────────────────────────
+.menu-content { min-width: 0; }
+
 .menu-section {
-  display: flex;
-  flex-direction: column;
-  background: #fff;
-  border: 1px solid rgba($wood, 0.2);
-  border-radius: 0.75rem;
-  overflow: hidden;
-  transition: border-color 0.15s;
-
-  &--open { border-color: rgba($walnut, 0.25); }
+  // Sprungziel landet unter den Sticky-Leisten (mobil zusätzlich Chip-Leiste)
+  scroll-margin-top: 178px;
+  margin-bottom: 2rem;
+  &:last-child { margin-bottom: 0; }
 }
 
-.section-header {
+@media (min-width: 992px) {
+  .menu-section { scroll-margin-top: 126px; }
+}
+
+.section-title-row {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-  min-height: 48px;
-  padding: 0.85rem 1rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  text-align: left;
-  transition: background 0.15s;
-
-  &:hover { background: rgba($ivory, 0.6); }
-
-  .menu-section--open & { background: rgba($ivory, 0.4); }
+  gap: 0.9rem;
+  margin: 0 0 0.7rem;
 }
 
 .section-title {
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   color: $walnut;
   white-space: nowrap;
+  padding: 0.25rem 0.8rem;
+  border-radius: 0.55rem;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.section-chevron {
-  font-size: 0.75rem;
-  color: $wood;
-  flex-shrink: 0;
-  transition: transform 0.2s ease;
-
-  .menu-section--open & { transform: rotate(180deg); }
+// Aktive Kategorie: Überschrift als Holz-Pille mit Ivory-Text (wie die Navigation)
+.menu-section--active .section-title {
+  background-color: var(--wood-bg-color);
+  background-image: var(--wood-bg-image);
+  color: $ivory;
 }
 
 .section-rule {
   flex: 1;
   height: 1px;
-  background: rgba($wood, 0.2);
+  background: rgba($wood, 0.25);
 }
 
-.section-count {
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: $ivory;
-  background-color: var(--wood-bg-color);
-  background-image: var(--wood-bg-image);
-  border-radius: 999px;
-  padding: 0.1rem 0.5rem;
-  flex-shrink: 0;
+// ── Gerichte-Liste (zweispaltig, Punktlinie) ──────────────
+.items-list {
+  columns: 2;
+  column-gap: 2.5rem;
 }
 
-// ══════════════════════════════════════════════════════════
-// ITEMS GRID
-// ══════════════════════════════════════════════════════════
-.items-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 0.6rem;
-  padding: 1rem 0.75rem 0.75rem;
-  border-top: 1px solid rgba($wood, 0.12);
-}
-
-// ══════════════════════════════════════════════════════════
-// MENU ITEM CARD
-// ══════════════════════════════════════════════════════════
 .menu-item {
-  background: #fff;
-  border: 1.5px solid rgba($wood, 0.18);
-  border-radius: 0.75rem;
-  padding: 0.8rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  transition: border-color 0.15s, box-shadow 0.15s;
-
-  &:hover {
-    border-color: rgba($wood, 0.4);
-    box-shadow: 0 4px 12px rgba($walnut, 0.07);
-  }
+  break-inside: avoid;
+  margin-bottom: 1rem;
 }
 
 .item-head {
   display: flex;
-  justify-content: space-between;
   align-items: baseline;
-  gap: 0.75rem;
+  gap: 0.4rem;
 }
 
 .item-name {
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-size: 0.95rem;
+  font-weight: 600;
   color: $walnut;
-  line-height: 1.3;
+  line-height: 1.35;
+}
+
+.item-leader {
+  flex: 1;
+  align-self: flex-end;
+  margin-bottom: 0.24rem;
+  min-width: 1.2rem;
+  border-bottom: 1.5px dotted rgba($wood, 0.45);
 }
 
 .item-price {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  color: $wood;
+  color: #7a5a22;
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -352,8 +404,12 @@ $wood: #6e6457;
 .item-desc {
   font-size: 0.8rem;
   color: $wood;
-  margin: 0;
+  margin: 0.15rem 0 0;
   line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .items-list { columns: 1; }
 }
 
 // ══════════════════════════════════════════════════════════

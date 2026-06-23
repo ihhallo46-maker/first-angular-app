@@ -56,37 +56,50 @@
     </div>
   }
 
-  <!-- ── Menü-Sektionen (Akkordeon) ────────────────────── -->
-  <div class="sections-list">
-    @for (section of filteredSections(); track section.title) {
-      <section class="menu-section" [class.menu-section--open]="isSectionOpen(section.title)">
+  <!-- ── Layout: Kategorie-Register + Gerichte ───────────── -->
+  @if (filteredSections().length > 0) {
+    <div class="menu-layout">
 
-        <button type="button" class="section-header"
-                (click)="toggleSection(section.title)"
-                [attr.aria-expanded]="isSectionOpen(section.title)">
-          <span class="section-title">{{ section.title }}</span>
-          <span class="section-rule"></span>
-          <i class="bi bi-chevron-down section-chevron" aria-hidden="true"></i>
-        </button>
-
-        @if (isSectionOpen(section.title)) {
-          <div class="items-grid">
-            @for (item of section.items; track item.name) {
-              <article class="menu-item">
-                <div class="item-head">
-                  <span class="item-name">{{ item.name }}</span>
-                  <span class="item-price">{{ item.price }}</span>
-                </div>
-                @if (item.description) {
-                  <p class="item-desc">{{ item.description }}</p>
-                }
-              </article>
-            }
-          </div>
+      <!-- Kategorie-Navigation (Seitenleiste / mobil Chip-Leiste) -->
+      <nav class="menu-nav" aria-label="Kategorien">
+        @for (section of filteredSections(); track section.title) {
+          <button type="button" class="menu-nav-item"
+                  [attr.data-id]="sectionId(section.title)"
+                  [class.menu-nav-item--active]="activeSection() === sectionId(section.title)"
+                  (click)="scrollToSection(section.title)">
+            {{ section.title }}
+          </button>
         }
+      </nav>
 
-      </section>
-    }
-  </div>
+      <!-- Gerichte: alle Kategorien sichtbar -->
+      <div class="menu-content">
+        @for (section of filteredSections(); track section.title) {
+          <section class="menu-section" [id]="sectionId(section.title)"
+                   [class.menu-section--active]="activeSection() === sectionId(section.title)">
+            <h2 class="section-title-row">
+              <span class="section-title">{{ section.title }}</span>
+              <span class="section-rule"></span>
+            </h2>
+            <div class="items-list">
+              @for (item of section.items; track item.name) {
+                <article class="menu-item">
+                  <div class="item-head">
+                    <span class="item-name">{{ item.name }}</span>
+                    <span class="item-leader" aria-hidden="true"></span>
+                    <span class="item-price">{{ item.price }}</span>
+                  </div>
+                  @if (item.description) {
+                    <p class="item-desc">{{ item.description }}</p>
+                  }
+                </article>
+              }
+            </div>
+          </section>
+        }
+      </div>
+
+    </div>
+  }
 
 </div>
