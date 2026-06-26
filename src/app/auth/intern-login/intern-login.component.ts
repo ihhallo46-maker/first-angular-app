@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -14,6 +14,7 @@ import { AuthService } from '../auth.service';
 export class InternLoginComponent {
   private readonly auth   = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly route  = inject(ActivatedRoute);
   private readonly fb     = inject(FormBuilder);
 
   readonly form = this.fb.group({
@@ -36,7 +37,8 @@ export class InternLoginComponent {
     this.loading.set(false);
 
     if (result === 'ok') {
-      void this.router.navigate(['/orders']);
+      const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/orders';
+      void this.router.navigateByUrl(returnUrl);
     } else {
       this.error.set('invalid');
       this.form.controls.password.reset();

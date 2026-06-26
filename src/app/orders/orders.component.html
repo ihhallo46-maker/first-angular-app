@@ -18,10 +18,12 @@
       </div>
     </div>
 
-    <button type="button" class="btn-new" (click)="openModal()">
-      <i class="bi bi-plus-lg" aria-hidden="true"></i>
-      {{ ts.translator().ordersNewBtn }}
-    </button>
+    <div class="header-actions">
+      <button type="button" class="btn-new" (click)="openModal()">
+        <i class="bi bi-plus-lg" aria-hidden="true"></i>
+        {{ ts.translator().ordersNewBtn }}
+      </button>
+    </div>
   </header>
 
   <!-- ── Warnmeldung (doppelter Tisch) ────────────────────── -->

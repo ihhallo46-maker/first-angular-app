@@ -117,6 +117,13 @@ $wood: #6e6457;
   margin: 0;
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
 .btn-new {
   display: inline-flex;
   align-items: center;

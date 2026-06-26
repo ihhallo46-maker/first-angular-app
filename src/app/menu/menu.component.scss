@@ -295,6 +295,32 @@ $wood: #6e6457;
   }
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.btn-admin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  color: $walnut;
+  border: 1px solid rgba($wood, 0.35);
+  border-radius: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.84rem;
+  font-weight: 600;
+  font-family: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+
+  &:hover { background: rgba($wood, 0.08); border-color: $walnut; }
+}
+
 @media (min-width: 992px) {
   .menu-nav-item {
     background: transparent;

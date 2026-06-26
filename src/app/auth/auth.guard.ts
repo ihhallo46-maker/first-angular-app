@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Router, type CanActivateFn } from '@angular/router';
 import { AuthService } from './auth.service';
 
-export const authGuard: CanActivateFn = async () => {
+export const authGuard: CanActivateFn = async (_route, state) => {
   const auth   = inject(AuthService);
   const router = inject(Router);
 
@@ -10,5 +10,6 @@ export const authGuard: CanActivateFn = async () => {
   await auth.ready;
 
   if (auth.isAuthenticated()) return true;
-  return router.createUrlTree(['/intern']);
+  // Zielseite merken, damit der Login danach dorthin zurückführt
+  return router.createUrlTree(['/intern'], { queryParams: { returnUrl: state.url } });
 };

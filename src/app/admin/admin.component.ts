@@ -100,8 +100,4 @@ export class AdminComponent {
   backToMenu(): void {
     this.router.navigate(['/menu']);
   }
-
-  logout(): void {
-    void this.auth.logout();
-  }
 }

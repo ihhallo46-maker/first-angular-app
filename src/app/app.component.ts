@@ -72,6 +72,7 @@ export class AppComponent implements OnDestroy {
     const url = this.currentUrl();
     if (url.startsWith('/menu'))        return 'menu';
     if (url.startsWith('/orders'))      return 'orders';
+    if (url.startsWith('/admin'))       return 'admin';
     if (url.startsWith('/takeaway'))    return 'takeaway';
     if (url.startsWith('/anfahrt'))     return 'anfahrt';
     if (url.startsWith('/impressum'))   return 'impressum';

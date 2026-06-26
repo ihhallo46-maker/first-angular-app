@@ -19,6 +19,15 @@
         </p>
       </div>
     </div>
+
+    @if (auth.isAuthenticated()) {
+      <div class="header-actions">
+        <button class="btn-admin-link" routerLink="/admin">
+        <i class="bi bi-pencil-square" aria-hidden="true"></i>
+        Speisekarte verwalten
+      </button>
+      </div>
+    }
   </header>
 
   <!-- ── Banner: Atmosphäre ─────────────────────────────── -->
@@ -103,3 +112,4 @@
   }
 
 </div>
+
