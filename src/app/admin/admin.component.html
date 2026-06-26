@@ -1,0 +1,88 @@
+<div class="admin-page">
+
+  <!-- Kopfzeile -->
+  <header class="admin-bar">
+    <div class="admin-bar-left">
+      <i class="bi bi-pencil-square" aria-hidden="true"></i>
+      <h1 class="admin-title">Speisekarte verwalten</h1>
+    </div>
+    <div class="admin-bar-actions">
+      <button type="button" class="btn-ghost" (click)="backToMenu()">
+        <i class="bi bi-eye" aria-hidden="true"></i> Zur Speisekarte
+      </button>
+      <button type="button" class="btn-ghost" (click)="logout()">
+        <i class="bi bi-box-arrow-right" aria-hidden="true"></i> Abmelden
+      </button>
+    </div>
+  </header>
+
+  <!-- Leerer Zustand: Import anbieten -->
+  @if (menu.loaded() && menu.categories().length === 0) {
+    <div class="admin-empty">
+      <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
+      <h2>Noch keine Speisekarte in der Datenbank</h2>
+      <p>Importiere einmalig die aktuelle Karte – danach kannst du alles hier bearbeiten.</p>
+      <button type="button" class="btn-primary" (click)="seed()" [disabled]="busy()">
+        @if (busy()) { Importiere … } @else { Aktuelle Karte importieren }
+      </button>
+    </div>
+  }
+
+  <!-- Kategorien -->
+  @for (cat of draft(); track cat.id ?? $index; let ci = $index) {
+    <section class="cat-card">
+
+      <div class="cat-head">
+        <div class="cat-order">
+          <button type="button" class="btn-icon" (click)="move(ci, -1)" [disabled]="ci === 0 || busy()" aria-label="nach oben">
+            <i class="bi bi-chevron-up" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="btn-icon" (click)="move(ci, 1)" [disabled]="ci === draft().length - 1 || busy()" aria-label="nach unten">
+            <i class="bi bi-chevron-down" aria-hidden="true"></i>
+          </button>
+        </div>
+        <input class="cat-title-input" [(ngModel)]="cat.title" placeholder="Kategorie-Name" />
+        <button type="button" class="btn-icon btn-icon--danger" (click)="deleteCategory(cat)" [disabled]="busy()" aria-label="Kategorie löschen">
+          <i class="bi bi-trash3" aria-hidden="true"></i>
+        </button>
+      </div>
+
+      <!-- Gerichte -->
+      <div class="items">
+        @for (item of cat.items; track $index; let ii = $index) {
+          <div class="item-row">
+            <input class="in-name"  [(ngModel)]="item.name"  placeholder="Gericht" />
+            <input class="in-price" [(ngModel)]="item.price" placeholder="€ 0,00" />
+            <input class="in-desc"  [(ngModel)]="item.description" placeholder="Beschreibung (optional)" />
+            <button type="button" class="btn-icon btn-icon--danger" (click)="removeItem(cat, ii)" aria-label="Gericht entfernen">
+              <i class="bi bi-x-lg" aria-hidden="true"></i>
+            </button>
+          </div>
+        }
+      </div>
+
+      <div class="cat-foot">
+        <button type="button" class="btn-add" (click)="addItem(cat)">
+          <i class="bi bi-plus-lg" aria-hidden="true"></i> Gericht
+        </button>
+        <button type="button" class="btn-primary" (click)="saveCategory(cat)" [disabled]="savingId() !== null">
+          @if (savingId() === (cat.id ?? cat.title)) { Speichere … } @else { Speichern }
+        </button>
+      </div>
+
+    </section>
+  }
+
+  <!-- Neue Kategorie -->
+  @if (menu.categories().length > 0) {
+    <button type="button" class="btn-new-cat" (click)="addCategory()" [disabled]="busy()">
+      <i class="bi bi-plus-circle" aria-hidden="true"></i> Neue Kategorie
+    </button>
+  }
+
+  <p class="admin-hint">
+    <i class="bi bi-info-circle" aria-hidden="true"></i>
+    Änderungen erscheinen nach „Speichern" sofort live auf der Speisekarte.
+  </p>
+
+</div>

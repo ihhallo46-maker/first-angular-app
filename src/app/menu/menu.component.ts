@@ -9,6 +9,12 @@ import {
 } from '@angular/core';
 import { menuData, type MenuItem } from './menu-data';
 import { TranslationService } from '../i18n/translation.service';
+import { MenuService } from '../../service/menu.service';
+
+interface MenuSectionView {
+  title: string;
+  items: MenuItem[];
+}
 
 @Component({
   selector: 'app-menu',
@@ -18,8 +24,8 @@ import { TranslationService } from '../i18n/translation.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuComponent {
-  readonly ts       = inject(TranslationService);
-  readonly menuData = menuData;
+  readonly ts   = inject(TranslationService);
+  readonly menu = inject(MenuService);
   readonly searchTerm = signal('');
   readonly activeSection = signal<string>('');
 
@@ -31,10 +37,21 @@ export class MenuComponent {
     afterNextRender(() => this.updateActiveSection());
   }
 
-  readonly filteredSections = computed(() => {
+  /** Quelle: Firestore-Kategorien; Fallback auf statische Karte, solange die DB leer ist */
+  private readonly sections = computed<MenuSectionView[]>(() => {
+    const db = this.menu.categories();
+    if (db.length > 0) {
+      return db.map((c) => ({ title: c.title, items: c.items }));
+    }
+    return menuData.sections.map((s) => ({ title: s.title, items: s.items }));
+  });
+
+  readonly totalCategories = computed(() => this.sections().length);
+
+  readonly filteredSections = computed<MenuSectionView[]>(() => {
     const term = this.searchTerm().trim().toLowerCase();
-    if (!term) return this.menuData.sections;
-    return this.menuData.sections
+    if (!term) return this.sections();
+    return this.sections()
       .map((section) => ({
         ...section,
         items: section.items.filter((item) => this.matchesSearch(item, term)),
@@ -47,7 +64,7 @@ export class MenuComponent {
   );
 
   readonly totalItems = computed(() =>
-    this.menuData.sections.reduce((sum, s) => sum + s.items.length, 0),
+    this.sections().reduce((sum, s) => sum + s.items.length, 0),
   );
 
   /** Eindeutige, sprungfähige ID aus dem Kategorietitel */

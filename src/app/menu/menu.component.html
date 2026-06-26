@@ -14,7 +14,7 @@
             {{ totalFilteredItems() !== 1 ? ts.translator().menuResultPl : ts.translator().menuResultSg }}
             {{ ts.translator().menuFor }} „{{ searchTerm() }}"
           } @else {
-            {{ totalItems() }} {{ ts.translator().menuDishes }} · {{ menuData.sections.length }} {{ ts.translator().menuCategories }}
+            {{ totalItems() }} {{ ts.translator().menuDishes }} · {{ totalCategories() }} {{ ts.translator().menuCategories }}
           }
         </p>
       </div>

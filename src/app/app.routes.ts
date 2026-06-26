@@ -7,12 +7,14 @@ import { AnfahrtComponent } from './anfahrt/anfahrt.component';
 import { InternLoginComponent } from './auth/intern-login/intern-login.component';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { DatenschutzComponent } from './datenschutz/datenschutz.component';
+import { AdminComponent } from './admin/admin.component';
 import { authGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'orders', component: OrdersComponent, canActivate: [authGuard] },
+  { path: 'admin', component: AdminComponent, canActivate: [authGuard] },
   { path: 'takeaway', component: TakeawayComponent },
   { path: 'anfahrt', component: AnfahrtComponent },
   { path: 'intern', component: InternLoginComponent },
