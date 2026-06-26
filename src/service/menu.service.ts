@@ -57,10 +57,10 @@ export class MenuService {
     await deleteDoc(doc(this.col, id));
   }
 
-  /** Neue, leere Kategorie ans Ende anhängen */
+  /** Neue, leere Kategorie ganz oben einfügen */
   async addCategory(title: string): Promise<void> {
-    const maxOrder = this._categories().reduce((m, c) => Math.max(m, c.order), -1);
-    await this.saveCategory({ title, order: maxOrder + 1, items: [] });
+    const minOrder = this._categories().reduce((m, c) => Math.min(m, c.order), 0);
+    await this.saveCategory({ title, order: minOrder - 1, items: [] });
   }
 
   /** Zwei Kategorien in der Reihenfolge tauschen */
