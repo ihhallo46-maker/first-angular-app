@@ -14,7 +14,7 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'orders', component: OrdersComponent, canActivate: [authGuard] },
-  { path: 'admin', component: AdminComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [authGuard] },
   { path: 'takeaway', component: TakeawayComponent },
   { path: 'anfahrt', component: AnfahrtComponent },
   { path: 'intern', component: InternLoginComponent },

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { AddOrderModalComponent } from './add-order-modal/add-order-modal.component';
 import { OrdersService } from '../../service/orders.service';
 import { type OrderDraft } from './models/order.model';
@@ -8,7 +7,7 @@ import { TranslationService } from '../i18n/translation.service';
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [AddOrderModalComponent, RouterLink],
+  imports: [AddOrderModalComponent],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

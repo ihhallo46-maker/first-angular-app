@@ -12,7 +12,6 @@ import { TranslationService } from '../i18n/translation.service';
 import { MenuService } from '../../service/menu.service';
 import { AuthService } from '../auth/auth.service';
 import { RouterLink } from '@angular/router';
-import { AddOrderModalComponent } from '../orders/add-order-modal/add-order-modal.component';
 
 interface MenuSectionView {
   title: string;
@@ -24,7 +23,7 @@ interface MenuSectionView {
   standalone: true,
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',
-  imports: [RouterLink, AddOrderModalComponent],
+  imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuComponent {

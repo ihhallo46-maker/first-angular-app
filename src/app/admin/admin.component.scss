@@ -396,6 +396,154 @@ $wood:   #6e6457;
   i.bi { color: #d98a3a; }
 }
 
+// ══════════════════════════════════════════════════════════
+// VERÖFFENTLICHEN-LEISTE (im Hero)
+// ══════════════════════════════════════════════════════════
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.5rem;
+  animation: a-fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) both 0.45s;
+}
+
+.btn-publish {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #e0b15a, #d98a3a);
+  color: #2a1c0c;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 0.75rem 1.5rem;
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(#000, 0.28);
+  transition: filter 0.15s, transform 0.12s, box-shadow 0.2s;
+  &:hover { filter: brightness(1.07); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(#000, 0.34); }
+  &:active { transform: translateY(0); }
+  &:disabled { opacity: 0.85; cursor: default; transform: none; }
+  .spinner { border-color: rgba(#2a1c0c, 0.35); border-top-color: #2a1c0c; }
+}
+
+// ══════════════════════════════════════════════════════════
+// LÖSCH-MODAL
+// ══════════════════════════════════════════════════════════
+@keyframes a-modalIn  { from { opacity: 0; transform: translateY(18px) scale(0.94); } to { opacity: 1; transform: none; } }
+@keyframes a-iconPop   { 0% { transform: scale(0); } 60% { transform: scale(1.18); } 100% { transform: scale(1); } }
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba($walnut, 0.55);
+  backdrop-filter: blur(4px);
+  animation: a-fadeIn 0.2s ease both;
+}
+
+.modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 1.2rem;
+  padding: 2rem 1.75rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 30px 70px rgba($walnut, 0.45);
+  animation: a-modalIn 0.34s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.modal-icon {
+  width: 66px;
+  height: 66px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fee2e2;
+  color: #dc2626;
+  font-size: 1.7rem;
+  animation: a-iconPop 0.4s cubic-bezier(0.22,1.4,0.4,1) both 0.1s;
+}
+
+.modal-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: $walnut;
+  margin: 0 0 0.5rem;
+}
+
+.modal-text {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: $wood;
+  margin: 0 0 0.9rem;
+  strong { color: $walnut; }
+}
+
+.modal-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: #2f7a4d;
+  background: #e7f5ec;
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.75rem;
+  margin: 0 0 1.4rem;
+  strong { color: #1f5e39; }
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.7rem;
+  justify-content: center;
+}
+
+.btn-ghost-dark {
+  flex: 1;
+  background: rgba($wood, 0.1);
+  border: 1px solid rgba($wood, 0.25);
+  border-radius: 0.6rem;
+  padding: 0.7rem 1rem;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: $walnut;
+  cursor: pointer;
+  transition: background 0.15s;
+  &:hover { background: rgba($wood, 0.18); }
+}
+
+.btn-danger {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: #dc2626;
+  border: none;
+  border-radius: 0.6rem;
+  padding: 0.7rem 1rem;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(#dc2626, 0.4);
+  transition: background 0.15s, transform 0.12s;
+  &:hover { background: #b91c1c; transform: translateY(-1px); }
+  &:active { transform: translateY(0); }
+}
+
 @media (max-width: 640px) {
   .item-row { grid-template-columns: 1fr; }
   .in-price { text-align: left; }
@@ -404,7 +552,8 @@ $wood:   #6e6457;
 
 // Bewegung reduzieren
 @media (prefers-reduced-motion: reduce) {
-  .admin-hero, .hero-eyebrow, .hero-title, .hero-sub, .stat,
-  .admin-empty, .cat-card, .item-row { animation: none !important; }
+  .admin-hero, .hero-eyebrow, .hero-title, .hero-sub, .stat, .hero-actions,
+  .admin-empty, .cat-card, .item-row, .admin-side,
+  .modal-backdrop, .modal-card, .modal-icon { animation: none !important; }
   .orb, .empty-icon, .eyebrow-dot, .spinner { animation: none !important; }
 }

@@ -22,61 +22,105 @@ export interface MenuCategory {
 @Injectable({ providedIn: 'root' })
 export class MenuService {
   private readonly firestore = inject(Firestore);
-  private readonly col = collection(this.firestore, 'menu');
+  private readonly liveCol  = collection(this.firestore, 'menu');        // öffentlich/live
+  private readonly draftCol = collection(this.firestore, 'menu_draft');  // Entwurf (intern)
 
+  // ── Live (öffentliche Speisekarte) ────────────────────────
   private readonly _categories = signal<MenuCategory[]>([]);
-  /** Live-Kategorien aus Firestore (nach `order` sortiert) */
   readonly categories = this._categories.asReadonly();
-  /** true, sobald der erste Firestore-Snapshot da war */
   readonly loaded = signal(false);
+
+  // ── Entwurf (Admin-Arbeitskopie) ──────────────────────────
+  private readonly _draft = signal<MenuCategory[]>([]);
+  readonly draftCategories = this._draft.asReadonly();
+  readonly draftLoaded = signal(false);
+  private draftStarted = false;
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   constructor() {
     // Nur im Browser abonnieren – beim Prerendering greift der statische Fallback (SEO bleibt)
-    if (!isPlatformBrowser(inject(PLATFORM_ID))) return;
-    const q = query(this.col, orderBy('order'));
-    collectionData(q, { idField: 'id' }).subscribe({
-      next: (data) => {
-        this._categories.set(data as MenuCategory[]);
-        this.loaded.set(true);
-      },
-      error: (err) => {
-        console.error('[MenuService] Firestore-Lesefehler:', err);
-        this.loaded.set(true);
-      },
+    if (!this.isBrowser) return;
+    collectionData(query(this.liveCol, orderBy('order')), { idField: 'id' }).subscribe({
+      next: (d) => { this._categories.set(d as MenuCategory[]); this.loaded.set(true); },
+      error: (e) => { console.error('[MenuService] live-Lesefehler:', e); this.loaded.set(true); },
     });
   }
 
-  /** Kategorie anlegen oder aktualisieren */
-  async saveCategory(cat: MenuCategory): Promise<void> {
-    const id = cat.id ?? doc(this.col).id;
-    const payload = { title: cat.title, order: cat.order, items: cat.items };
-    await setDoc(doc(this.col, id), payload);
+  /** Entwurf-Collection erst im Admin abonnieren (öffentliche Seiten brauchen sie nicht) */
+  startDraft(): void {
+    if (this.draftStarted || !this.isBrowser) return;
+    this.draftStarted = true;
+    collectionData(query(this.draftCol, orderBy('order')), { idField: 'id' }).subscribe({
+      next: (d) => { this._draft.set(d as MenuCategory[]); this.draftLoaded.set(true); },
+      error: (e) => { console.error('[MenuService] draft-Lesefehler:', e); this.draftLoaded.set(true); },
+    });
   }
 
-  async deleteCategory(id: string): Promise<void> {
-    await deleteDoc(doc(this.col, id));
+  // ══ Entwurf bearbeiten (verändert NIE die Live-Karte) ═════
+  private clean(cat: MenuCategory) {
+    return { title: cat.title, order: cat.order, items: cat.items };
   }
 
-  /** Neue, leere Kategorie ganz oben einfügen */
-  async addCategory(title: string): Promise<void> {
-    const minOrder = this._categories().reduce((m, c) => Math.min(m, c.order), 0);
-    await this.saveCategory({ title, order: minOrder - 1, items: [] });
+  async saveDraftCategory(cat: MenuCategory): Promise<void> {
+    const id = cat.id ?? doc(this.draftCol).id;
+    await setDoc(doc(this.draftCol, id), this.clean(cat));
   }
 
-  /** Zwei Kategorien in der Reihenfolge tauschen */
-  async swapOrder(a: MenuCategory, b: MenuCategory): Promise<void> {
+  async deleteDraftCategory(id: string): Promise<void> {
+    await deleteDoc(doc(this.draftCol, id));
+  }
+
+  /** Neue, leere Kategorie ganz oben in den Entwurf */
+  async addDraftCategory(title: string): Promise<string> {
+    const minOrder = this._draft().reduce((m, c) => Math.min(m, c.order), 0);
+    const id = doc(this.draftCol).id;
+    await setDoc(doc(this.draftCol, id), { title, order: minOrder - 1, items: [] });
+    return id;
+  }
+
+  async swapDraftOrder(a: MenuCategory, b: MenuCategory): Promise<void> {
     await Promise.all([
-      this.saveCategory({ ...a, order: b.order }),
-      this.saveCategory({ ...b, order: a.order }),
+      this.saveDraftCategory({ ...a, order: b.order }),
+      this.saveDraftCategory({ ...b, order: a.order }),
     ]);
   }
 
-  /** Einmaliger Import der bestehenden (statischen) Karte – nur wenn die DB leer ist */
+  /** Entwurf mit einer Kopie der Live-Karte befüllen (gleiche IDs), wenn er leer ist */
+  async ensureDraftCopy(): Promise<void> {
+    if (this._draft().length > 0) return;
+    const live = this._categories();
+    await Promise.all(
+      live.map((c) => setDoc(doc(this.draftCol, c.id!), this.clean(c))),
+    );
+  }
+
+  /** Entwurf verwerfen und frische Kopie aus der Live-Karte ziehen */
+  async resetDraftFromLive(): Promise<void> {
+    await Promise.all(this._draft().map((c) => deleteDoc(doc(this.draftCol, c.id!))));
+    await Promise.all(
+      this._categories().map((c) => setDoc(doc(this.draftCol, c.id!), this.clean(c))),
+    );
+  }
+
+  // ══ Veröffentlichen: Entwurf → Live ═══════════════════════
+  async publish(): Promise<void> {
+    const draft = this._draft();
+    const live  = this._categories();
+    const draftIds = new Set(draft.map((c) => c.id));
+    // 1) Entwurf in Live schreiben (gleiche IDs)
+    await Promise.all(draft.map((c) => setDoc(doc(this.liveCol, c.id!), this.clean(c))));
+    // 2) Live-Kategorien entfernen, die im Entwurf gelöscht wurden
+    await Promise.all(
+      live.filter((c) => !draftIds.has(c.id)).map((c) => deleteDoc(doc(this.liveCol, c.id!))),
+    );
+  }
+
+  /** Einmaliger Import der statischen Karte in die Live-Collection (nur wenn leer) */
   async seedFromStatic(): Promise<void> {
     let order = 0;
     for (const s of menuData.sections) {
-      const id = doc(this.col).id;
-      await setDoc(doc(this.col, id), { title: s.title, order: order++, items: s.items });
+      const id = doc(this.liveCol).id;
+      await setDoc(doc(this.liveCol, id), { title: s.title, order: order++, items: s.items });
     }
   }
 }
