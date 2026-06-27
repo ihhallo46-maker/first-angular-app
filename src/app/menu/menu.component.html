@@ -30,26 +30,59 @@
     }
   </header>
 
+  <!-- ── Buffet-Highlight ───────────────────────────────── -->
+  <section class="buffet-card" aria-labelledby="buffet-heading" appScrollReveal>
+    <div class="buffet-main">
+      <span class="buffet-badge">{{ ts.translator().buffetBadge }}</span>
+      <h2 id="buffet-heading" class="buffet-title">
+        <i class="bi bi-egg-fried" aria-hidden="true"></i>
+        {{ ts.translator().buffetTitle }}
+      </h2>
+      <p class="buffet-time">
+        <i class="bi bi-clock-history" aria-hidden="true"></i>
+        <span>{{ ts.translator().buffetTime }}</span>
+      </p>
+    </div>
+
+    <dl class="buffet-prices">
+      <div class="buffet-price">
+        <dd class="buffet-price-value">{{ ts.translator().buffetAdultPrice }}</dd>
+        <dt class="buffet-price-label">{{ ts.translator().buffetAdultLabel }}</dt>
+      </div>
+      <div class="buffet-price">
+        <dd class="buffet-price-value">{{ ts.translator().buffetChildPrice }}</dd>
+        <dt class="buffet-price-label">{{ ts.translator().buffetChildLabel }}</dt>
+      </div>
+    </dl>
+
+    <p class="buffet-weekend">
+      <i class="bi bi-info-circle" aria-hidden="true"></i>
+      {{ ts.translator().buffetWeekend }}
+    </p>
+  </section>
+
   <!-- ── Banner: Atmosphäre ─────────────────────────────── -->
   <div class="menu-banner" role="img" aria-label="Enten-Figur und rote Laternen im Duck House"></div>
 
   <!-- ── Suchleiste ─────────────────────────────────────── -->
   <div class="search-bar">
-    <i class="bi bi-search search-icon" aria-hidden="true"></i>
-    <input
-      class="search-input"
-      type="text"
-      [placeholder]="ts.translator().menuSearchPh"
-      [value]="searchTerm()"
-      (input)="search($any($event.target).value)"
-      [attr.aria-label]="ts.translator().menuSearchPh"
-    />
-    @if (searchTerm()) {
-      <button type="button" class="search-clear" [attr.aria-label]="ts.translator().menuClear"
-              (click)="clearSearch()">
-        <i class="bi bi-x-lg" aria-hidden="true"></i>
-      </button>
-    }
+    <div class="search-field">
+      <i class="bi bi-search search-icon" aria-hidden="true"></i>
+      <input
+        class="search-input"
+        type="text"
+        [placeholder]="ts.translator().menuSearchPh"
+        [value]="searchTerm()"
+        (input)="search($any($event.target).value)"
+        [attr.aria-label]="ts.translator().menuSearchPh"
+      />
+      @if (searchTerm()) {
+        <button type="button" class="search-clear" [attr.aria-label]="ts.translator().menuClear"
+                (click)="clearSearch()">
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+        </button>
+      }
+    </div>
   </div>
 
   <!-- ── Kein Ergebnis ──────────────────────────────────── -->
@@ -83,10 +116,15 @@
 
       <!-- Gerichte: alle Kategorien sichtbar -->
       <div class="menu-content">
-        @for (section of filteredSections(); track section.title) {
+        @for (section of filteredSections(); track section.title; let i = $index) {
           <section class="menu-section" [id]="sectionId(section.title)"
+                   role="region"
+                   [attr.aria-labelledby]="sectionId(section.title) + '-t'"
+                   [appScrollReveal]="i >= 3"
+                   [class.menu-section--intro]="i < 3"
+                   [style.animation-delay]="i < 3 ? (i * 0.1 + 's') : null"
                    [class.menu-section--active]="activeSection() === sectionId(section.title)">
-            <h2 class="section-title-row">
+            <h2 class="section-title-row" [id]="sectionId(section.title) + '-t'">
               <span class="section-title">{{ section.title }}</span>
               <span class="section-rule"></span>
             </h2>

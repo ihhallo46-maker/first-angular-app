@@ -330,21 +330,26 @@ $wood:   #6e6457;
     background-size: cover;
     background-position: center right;
     background-repeat: no-repeat;
+    filter: saturate(1.14) contrast(1.05); // appetitlicher, weniger blass
     animation: heroZoom 12s ease-out both;
     z-index: 0;
   }
 
-  // Elfenbein-Overlay — links dicht (Text lesbar), rechts transparent (Foto sichtbar)
+  // Elfenbein-Overlay — links dicht (Text lesbar), rechts klart auf (Foto kräftig)
   &::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      105deg,
-      rgba($ivory, 0.96) 0%,
-      rgba($ivory, 0.82) 42%,
-      rgba($ivory, 0.38) 100%
-    );
+    background:
+      // sanftes Warmlicht-Vignette unten für Tiefe/Eleganz
+      radial-gradient(120% 80% at 18% 38%, rgba($ivory, 0.55), transparent 60%),
+      linear-gradient(
+        105deg,
+        rgba($ivory, 0.97) 0%,
+        rgba($ivory, 0.86) 34%,
+        rgba($ivory, 0.40) 64%,
+        rgba($ivory, 0.12) 100%
+      );
     z-index: 1;
   }
 
@@ -489,21 +494,45 @@ $wood:   #6e6457;
 
 // ── Titel ─────────────────────────────────────────────────
 .hero-title {
-  font-family: inherit;
-  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 6.25rem);
   font-weight: 700;
   line-height: 1;
   color: $walnut;
-  letter-spacing: -0.02em;
-  margin: 0 0 0.4rem;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.5rem;
   animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both 0.1s;
 }
 
-// ── Subtitle (hervorgehoben über Farbe + Größe, ohne Italic) ─
+// Feine Gold-Trennlinie unter dem Titel – zeichnet sich ein
+@keyframes lineGrow {
+  from { width: 0; opacity: 0; }
+  to   { width: 66px; opacity: 1; }
+}
+.hero-title::after {
+  content: '';
+  display: block;
+  width: 66px;
+  height: 3px;
+  margin: 0.75rem 0 0.95rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #e0b15a, #d98a3a);
+  animation: lineGrow 0.9s cubic-bezier(0.22, 1, 0.36, 1) both 0.4s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-title::after { animation: none; }
+}
+
+@media (max-width: 991.98px) {
+  .hero-title::after { margin-left: auto; margin-right: auto; }
+}
+
+// ── Subtitle (elegante Serifen-Kursive) ─
 .hero-sub {
-  font-family: inherit;
-  font-size: clamp(1.4rem, 2.6vw, 2rem);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.45rem, 2.6vw, 2.05rem);
+  font-weight: 500;
   color: #7a5a22; // etwas dunkler → besserer Kontrast auf hellem Foto
   text-shadow: 0 1px 2px rgba(255, 255, 255, 0.55); // hebt das Gold vom Foto ab
   margin: 0 0 1.35rem;
@@ -528,6 +557,7 @@ $wood:   #6e6457;
 .btn-duck {
   display: inline-flex;
   align-items: center;
+  gap: 0.5rem;
   background-color: var(--wood-bg-color);
   background-image:  var(--wood-bg-image);
   color: $ivory;
@@ -642,6 +672,18 @@ $wood:   #6e6457;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 6px 12px rgba($walnut, 0.06),
+      0 32px 80px rgba($walnut, 0.16);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .empfehlungen-card { transition: none; &:hover { transform: none; } }
 }
 
 // ── Kartenkopf ────────────────────────────────────────────
@@ -653,7 +695,7 @@ $wood:   #6e6457;
 }
 
 .emp-title {
-  font-family: inherit;
+  font-family: var(--font-display);
   font-size: 2rem;
   font-weight: 600;
   color: $walnut;
@@ -911,4 +953,71 @@ $wood:   #6e6457;
 // ── lg+ (≥ 992 px): zweispaltig, Text linksbündig ──────────
 @media (min-width: 992px) {
   .hero-text { padding-right: 1.5rem; }
+}
+
+// ══════════════════════════════════════════════════════════
+// ENTENBUFFET-HIGHLIGHT (im Hero)
+// ══════════════════════════════════════════════════════════
+.hero-buffet {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  margin: 1.5rem 0;
+  padding: 0.9rem 1.15rem;
+  border-radius: 0.9rem;
+  background-color: var(--wood-bg-color);
+  background-image: var(--wood-bg-image);
+  color: $ivory;
+  box-shadow: 0 10px 26px rgba($walnut, 0.22);
+}
+
+.hb-badge {
+  flex-shrink: 0;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #2a1c0c;
+  background: linear-gradient(135deg, #e0b15a, #d98a3a);
+  border-radius: 999px;
+  padding: 0.22rem 0.7rem;
+}
+
+.hb-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin-right: auto;
+}
+.hb-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 1.1rem;
+  font-weight: 800;
+  line-height: 1.2;
+  i.bi { color: #e0b15a; }
+}
+.hb-time {
+  font-size: 0.82rem;
+  color: rgba($ivory, 0.88);
+  margin-top: 0.1rem;
+}
+
+.hb-prices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+}
+.hb-price {
+  font-size: 0.85rem;
+  color: rgba($ivory, 0.9);
+  white-space: nowrap;
+  b { color: #f0c270; font-size: 1rem; font-weight: 800; }
+}
+
+@media (max-width: 575px) {
+  .hero-buffet { justify-content: center; text-align: center; }
+  .hb-body { margin-right: 0; align-items: center; }
 }

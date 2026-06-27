@@ -36,7 +36,7 @@ $wood:   #6e6457;
 }
 
 .legal-title {
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-family: var(--font-display);
   font-weight: 500;
   color: $walnut;
   margin: 0 0 2.5rem;

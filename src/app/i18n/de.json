@@ -161,5 +161,16 @@
   "menuSearchPh": "Gerichte oder Zutaten suchen…",
   "menuClear": "Suche zurücksetzen",
   "menuNoResults": "Keine Gerichte gefunden",
-  "menuNoResultsHint": "Versuche einen anderen Suchbegriff."
+  "menuNoResultsHint": "Versuche einen anderen Suchbegriff.",
+
+  "buffetBadge": "BUFFET",
+  "buffetTitle": "Entenbuffet",
+  "buffetTime": "Mo – Sa 18:00 – 21:00 Uhr · sonntags ganztägig",
+  "buffetAllYouCan": "All-you-can-eat",
+  "buffetAdultPrice": "18,90 €",
+  "buffetAdultLabel": "pro Person",
+  "buffetChildPrice": "10,00 €",
+  "buffetChildLabel": "Kinder bis 10 Jahre",
+  "buffetWeekend": "Auch einzeln von der Karte bestellbar – Buffet oder Karte, ganz wie Sie mögen.",
+  "buffetCta": "Zur Speisekarte"
 }

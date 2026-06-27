@@ -47,8 +47,8 @@ $wood: #6e6457;
 }
 
 .page-title {
-  font-family: inherit;
-  font-size: 1.8rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 5vw, 1.95rem);
   font-weight: 700;
   color: $walnut;
   margin: 0 0 0.1rem;
@@ -129,7 +129,18 @@ $wood: #6e6457;
   background-position: center center;
 }
 
+// Mobil: deckende, randlose Band-Leiste — verbindet sich nahtlos mit der Chip-Leiste
 .search-bar {
+  position: sticky;
+  top: 60px;
+  z-index: 31;
+  margin: 0 -1rem;
+  padding: 0.55rem 1rem 0.5rem;
+  background: #d4cec3;   // gleicher Ton wie die Chip-Leiste
+}
+
+// Das eigentliche Suchfeld (weiße, abgerundete Box)
+.search-field {
   display: flex;
   align-items: center;
   gap: 0.6rem;
@@ -137,18 +148,15 @@ $wood: #6e6457;
   border: 1.5px solid rgba($wood, 0.25);
   border-radius: 0.65rem;
   padding: 0.6rem 0.9rem;
-  transition: border-color 0.15s, box-shadow 0.15s;
-
-  // Bleibt beim Scrollen sichtbar (unter der fixen Navigation)
-  position: sticky;
-  top: 64px;
-  z-index: 20;
   box-shadow: 0 4px 14px rgba($walnut, 0.08);
+  transition: border-color 0.15s, box-shadow 0.15s;
 
   &:focus-within {
     border-color: $walnut;
   }
 }
+
+// Desktop nutzt dasselbe deckende, randlose Band wie Mobil.
 
 .search-icon {
   color: $wood;
@@ -206,7 +214,7 @@ $wood: #6e6457;
 }
 
 .empty-title {
-  font-family: inherit;
+  font-family: var(--font-display);
   font-size: 1.4rem;
   font-weight: 700;
   color: $walnut;
@@ -237,21 +245,27 @@ $wood: #6e6457;
 // Mobil: horizontale Chip-Leiste, sticky oben
 .menu-nav {
   position: sticky;
-  top: 113px;            // direkt unter Navigation (59px) + Suchleiste (~50px)
-  z-index: 15;
+  top: 116px;            // bündig unter der Suchleiste → wirkt als ein Header
+  z-index: 30;           // über den Karten → überdeckt sie sauber beim Scrollen
   display: flex;
   flex-wrap: nowrap;     // Chips bleiben in einer Reihe → horizontal scrollbar
   gap: 0.5rem;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 0.55rem 0.05rem;
-  margin: 0 0 1.4rem;
-  background: #dbd6cd;            // gleicher Ton wie die Seite → nahtlos
-  box-shadow: 0 8px 8px -8px rgba($walnut, 0.22); // dezenter Schatten beim Kleben
+  // randlos (deckt das p-3 Padding ab) + deckender Hintergrund
+  margin: 0 -1rem 1.3rem;
+  padding: 0.6rem 1rem;
+  background: #d4cec3;            // etwas kräftiger als die Seite → klar als Leiste erkennbar
+  border-bottom: 1px solid rgba($wood, 0.2);
+  box-shadow: 0 10px 12px -8px rgba($walnut, 0.28);
+  scroll-padding: 0 1rem;         // aktive Chips zentrieren mit Rand
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-x;            // horizontales Wischen freigeben
   overscroll-behavior-x: contain;
+  // Chips an den Rändern weich ausblenden → klar als scrollbar erkennbar, kein hartes Abschneiden
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
   &::-webkit-scrollbar { display: none; }
 }
 
@@ -261,6 +275,8 @@ $wood: #6e6457;
     top: 124px;
     flex-direction: column;
     overflow: visible;
+    -webkit-mask-image: none;
+    mask-image: none;
     gap: 0.1rem;
     padding: 0.55rem;
     margin: 0;
@@ -347,40 +363,60 @@ $wood: #6e6457;
 .menu-content { min-width: 0; }
 
 .menu-section {
-  // Sprungziel landet unter den Sticky-Leisten (mobil zusätzlich Chip-Leiste)
-  scroll-margin-top: 178px;
-  margin-bottom: 2rem;
+  // Sprungziel landet unter den Sticky-Leisten (mobil: Nav + Suche + Chip-Leiste)
+  scroll-margin-top: 175px;
+  margin-bottom: 1.5rem;
+  // Elegante Karte je Kategorie
+  background: #faf8f3;
+  border: 1px solid rgba($wood, 0.16);
+  border-radius: 1.1rem;
+  padding: 1.4rem 1.6rem 1.5rem;
+  box-shadow: 0 2px 10px rgba($walnut, 0.05);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
   &:last-child { margin-bottom: 0; }
 }
 
+// Aktive Kategorie: dezenter goldener Akzentbalken links (läuft über die ganze
+// Karte → immer sichtbar), ruhig & augenfreundlich
+.menu-section--active {
+  border-color: rgba($wood, 0.3);
+  box-shadow:
+    inset 5px 0 0 0 #c4923f,
+    0 10px 26px rgba($walnut, 0.10);
+}
+
 @media (min-width: 992px) {
-  .menu-section { scroll-margin-top: 126px; }
+  // Desktop: fixe Nav (~59px) + sticky Suchleiste (~60px) → großzügig Abstand
+  .menu-section { scroll-margin-top: 150px; }
+}
+
+// Die ersten drei Kategorien blenden direkt beim Laden ein (gestaffelt)
+@keyframes sectionIntro {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.menu-section--intro {
+  // backwards (statt both): nach der Animation bleibt KEIN transform → sticky funktioniert
+  animation: sectionIntro 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu-section--intro { animation: none; }
 }
 
 .section-title-row {
   display: flex;
   align-items: center;
   gap: 0.9rem;
-  margin: 0 0 0.7rem;
+  margin: 0 0 1rem;
 }
 
 .section-title {
-  font-family: inherit;
-  font-size: 1.15rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 3.8vw, 1.4rem);
   font-weight: 700;
   letter-spacing: 0.01em;
   color: $walnut;
   white-space: nowrap;
-  padding: 0.25rem 0.8rem;
-  border-radius: 0.55rem;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-// Aktive Kategorie: Überschrift als Holz-Pille mit Ivory-Text (wie die Navigation)
-.menu-section--active .section-title {
-  background-color: var(--wood-bg-color);
-  background-image: var(--wood-bg-image);
-  color: $ivory;
 }
 
 .section-rule {
@@ -389,15 +425,18 @@ $wood: #6e6457;
   background: rgba($wood, 0.25);
 }
 
-// ── Gerichte-Liste (zweispaltig, Punktlinie) ──────────────
+// ── Gerichte-Liste (responsives Grid, füllt den Platz) ────
+// Spaltenzahl passt sich automatisch ans Endgerät an: schmal = 1,
+// breiter = 2–3 Spalten. `auto-fit` füllt leeren Raum (keine Lücken).
 .items-list {
-  columns: 2;
-  column-gap: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 0.5rem 2.5rem;
+  align-content: start;
 }
 
 .menu-item {
-  break-inside: avoid;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .item-head {
@@ -462,4 +501,120 @@ $wood: #6e6457;
 @media (max-width: 600px) {
   .page-header { flex-direction: column; align-items: flex-start; }
   .items-grid { grid-template-columns: 1fr; }
+}
+
+// ══════════════════════════════════════════════════════════
+// BUFFET-HIGHLIGHT
+// ══════════════════════════════════════════════════════════
+.buffet-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem 1.75rem;
+  align-items: center;
+  padding: 1.4rem 1.6rem;
+  border-radius: 1.1rem;
+  background-color: var(--wood-bg-color, #{$walnut});
+  background-image: var(--wood-bg-image);
+  color: $ivory;
+  box-shadow: 0 14px 36px rgba($walnut, 0.28);
+}
+
+.buffet-main { min-width: 0; }
+
+.buffet-badge {
+  display: inline-block;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #2a1c0c;
+  background: linear-gradient(135deg, #e0b15a, #d98a3a);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+}
+
+.buffet-title {
+  font-family: var(--font-display);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  font-weight: 800;
+  margin: 0.55rem 0 0.35rem;
+  i.bi { color: #e0b15a; }
+}
+
+.buffet-time {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba($ivory, 0.92);
+  margin: 0;
+  i.bi { color: #e0b15a; }
+}
+
+.buffet-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: $ivory;
+  background: rgba($ivory, 0.16);
+  border: 1px solid rgba($ivory, 0.28);
+  border-radius: 999px;
+  padding: 0.12rem 0.6rem;
+}
+
+.buffet-prices {
+  display: flex;
+  gap: 0.7rem;
+  margin: 0;
+}
+
+.buffet-price {
+  text-align: center;
+  background: rgba(#000, 0.2);
+  border: 1px solid rgba($ivory, 0.18);
+  border-radius: 0.85rem;
+  padding: 0.7rem 1.1rem;
+  min-width: 104px;
+}
+
+.buffet-price-value {
+  display: block;
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.05;
+  color: #f0c270;
+}
+
+.buffet-price-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba($ivory, 0.82);
+  margin-top: 0.25rem;
+}
+
+.buffet-weekend {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: rgba($ivory, 0.85);
+  margin: 0;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba($ivory, 0.15);
+  i.bi { color: #e0b15a; flex-shrink: 0; }
+}
+
+@media (max-width: 640px) {
+  .buffet-card { grid-template-columns: 1fr; }
+  .buffet-prices { flex-wrap: wrap; }
+  .buffet-price { flex: 1; min-width: 100px; }
 }

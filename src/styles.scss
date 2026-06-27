@@ -4,6 +4,9 @@
   --dk-wood: #6e6457;
   --dk-card: #f5f2ec;
 
+  /* Elegante Display-Schrift nur für Titel */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+
   /* Holz-Textur (dunkles Walnuss) */
   --wood-bg-color: #3a2210;
   --wood-bg-image:
@@ -57,7 +60,7 @@ body {
 
   &.revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: none; // kein Rest-Transform → position:sticky bleibt funktionsfähig
   }
 }
 

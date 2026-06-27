@@ -1,11 +1,16 @@
-import { AfterViewInit, Directive, ElementRef, inject, OnDestroy } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, inject, OnDestroy } from '@angular/core';
 
 @Directive({ selector: '[appScrollReveal]', standalone: true })
 export class ScrollRevealDirective implements AfterViewInit, OnDestroy {
   private readonly el = inject(ElementRef<HTMLElement>);
   private observer?: IntersectionObserver;
 
+  /** false = kein Reveal (Element bleibt sofort sichtbar) */
+  @Input('appScrollReveal') enabled: boolean | '' = true;
+
   ngAfterViewInit(): void {
+    if (this.enabled === false) return;
+
     const el = this.el.nativeElement;
     el.classList.add('reveal');
 

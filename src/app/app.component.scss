@@ -53,7 +53,7 @@ $wood: #6e6457;
 }
 
 .cards-title {
-  font-family: inherit;
+  font-family: var(--font-display);
   font-size: clamp(2rem, 4.5vw, 3rem);
   font-weight: 600;
   color: $walnut;
@@ -203,7 +203,11 @@ $wood: #6e6457;
   background: #dbd6cd;
   flex: 1;
   padding: 2rem;
-  animation: fadeIn 0.3s ease both;
+  animation: fadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content-section { animation: fadeIn 0.2s ease both; }
 }
 
 .content-wrap {
@@ -276,7 +280,7 @@ $wood: #6e6457;
 .footer-duck {
   width: 26px;
   height: 21px;
-  color: rgba($ivory, 0.5);
+  color: rgba($ivory, 0.7);
   flex-shrink: 0;
 }
 
@@ -285,7 +289,7 @@ $wood: #6e6457;
   font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0.22em;
-  color: rgba($ivory, 0.5);
+  color: rgba($ivory, 0.78);
   flex-shrink: 0;
 }
 
@@ -301,14 +305,20 @@ $wood: #6e6457;
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: rgba($ivory, 0.5);
+  color: rgba($ivory, 0.86);
   text-decoration: none;
+  border-radius: 0.35rem;
   transition: color 0.2s;
 
-  &:hover { color: $ivory; }
+  &:hover { color: $ivory; text-decoration: underline; text-underline-offset: 3px; }
+  &:focus-visible {
+    outline: 2px solid #e0b15a;
+    outline-offset: 3px;
+    color: $ivory;
+  }
 }
 
-.footer-sep { color: rgba($wood, 0.35); font-size: 0.9rem; }
+.footer-sep { color: rgba($ivory, 0.45); font-size: 0.9rem; }
 
 // ══════════════════════════════════════════════════════════
 // RESPONSIVE
@@ -409,11 +419,27 @@ $wood: #6e6457;
   margin: 3.5rem auto 0;
 }
 
-.story-block { animation: fadeUp 0.6s ease both; }
+// Einblenden übernimmt appScrollReveal (.reveal) beim Scrollen
+.story-block { }
+
+.story-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.9rem;
+  margin-bottom: 1rem;
+  background-color: var(--wood-bg-color);
+  background-image: var(--wood-bg-image);
+  color: #e7c074;
+  font-size: 1.4rem;
+  box-shadow: 0 8px 22px rgba($walnut, 0.2);
+}
 
 .story-title {
-  font-family: inherit;
-  font-size: 1.3rem;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
   font-weight: 600;
   color: $walnut;
   margin: 0 0 0.85rem;

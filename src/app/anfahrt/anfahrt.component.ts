@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TranslationService } from '../i18n/translation.service';
 import { BetriebsurlaubService } from '../betriebsurlaub-modal/betriebsurlaub.service';
+import { ScrollRevealDirective } from '../directives/scroll-reveal.directive';
 
 const PLACE_QUERY   = 'Duck+House+Chinesisches+Restaurant,+Harpener+Hellweg+211a,+44805+Bochum';
 const PLACE_ENCODED = encodeURIComponent('Duck House Chinesisches Restaurant, Harpener Hellweg 211a, 44805 Bochum');
@@ -9,6 +10,7 @@ const PLACE_ENCODED = encodeURIComponent('Duck House Chinesisches Restaurant, Ha
 @Component({
   selector: 'app-anfahrt',
   standalone: true,
+  imports: [ScrollRevealDirective],
   templateUrl: './anfahrt.component.html',
   styleUrl:    './anfahrt.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

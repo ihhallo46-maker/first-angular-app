@@ -16,7 +16,7 @@
   }
 
   <!-- Header -->
-  <div class="ta-header">
+  <div class="ta-header" appScrollReveal>
     <h2 class="ta-title">{{ ts.t().takeawayTitle }}</h2>
     <p class="ta-sub">{{ ts.t().takeawaySub }}</p>
   </div>
@@ -26,7 +26,7 @@
 
   <!-- Schritte -->
   <div class="ta-steps">
-    <div class="ta-step">
+    <div class="ta-step" appScrollReveal style="transition-delay: 0.05s">
       <div class="ta-step-num">1</div>
       <div class="ta-step-icon"><i class="bi bi-telephone-fill" aria-hidden="true"></i></div>
       <h4 class="ta-step-title">{{ ts.t().takeawayStep1 }}</h4>
@@ -34,14 +34,14 @@
       <a class="ta-step-cta" href="tel:+492343389688">0234 – 33 89 688</a>
     </div>
     <div class="ta-step-divider" aria-hidden="true">→</div>
-    <div class="ta-step">
+    <div class="ta-step" appScrollReveal style="transition-delay: 0.18s">
       <div class="ta-step-num">2</div>
       <div class="ta-step-icon"><i class="bi bi-hourglass-split" aria-hidden="true"></i></div>
       <h4 class="ta-step-title">{{ ts.t().takeawayStep2 }}</h4>
       <p class="ta-step-desc">{{ ts.t().takeawayStep2Desc }}</p>
     </div>
     <div class="ta-step-divider" aria-hidden="true">→</div>
-    <div class="ta-step">
+    <div class="ta-step" appScrollReveal style="transition-delay: 0.31s">
       <div class="ta-step-num">3</div>
       <div class="ta-step-icon"><i class="bi bi-bag-check-fill" aria-hidden="true"></i></div>
       <h4 class="ta-step-title">{{ ts.t().takeawayStep3 }}</h4>
@@ -51,7 +51,7 @@
 
   <!-- Info-Kacheln -->
   <div class="ta-info-grid">
-    <div class="ta-info-card">
+    <div class="ta-info-card" appScrollReveal style="transition-delay: 0.05s">
       <i class="bi bi-clock ta-info-icon" aria-hidden="true"></i>
       <div class="ta-info-body">
         <strong class="ta-info-label">{{ ts.t().takeawayHours }}</strong>
@@ -60,7 +60,7 @@
         <p class="ta-info-text ta-closed">{{ ts.t().takeawayTuesdayClosed }}</p>
       </div>
     </div>
-    <div class="ta-info-card">
+    <div class="ta-info-card" appScrollReveal style="transition-delay: 0.18s">
       <i class="bi bi-geo-alt ta-info-icon" aria-hidden="true"></i>
       <div class="ta-info-body">
         <strong class="ta-info-label">{{ ts.t().takeawayPickup }}</strong>
@@ -68,7 +68,7 @@
         <p class="ta-info-text">44805 Bochum</p>
       </div>
     </div>
-    <div class="ta-info-card ta-info-card--cta">
+    <div class="ta-info-card ta-info-card--cta" appScrollReveal style="transition-delay: 0.31s">
       <i class="bi bi-telephone ta-info-icon" aria-hidden="true"></i>
       <div class="ta-info-body">
         <strong class="ta-info-label">{{ ts.t().takeawayOrderPhone }}</strong>

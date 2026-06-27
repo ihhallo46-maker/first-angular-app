@@ -161,5 +161,16 @@
   "menuSearchPh": "Search dishes or ingredients…",
   "menuClear": "Clear search",
   "menuNoResults": "No dishes found",
-  "menuNoResultsHint": "Try a different search term."
+  "menuNoResultsHint": "Try a different search term.",
+
+  "buffetBadge": "BUFFET",
+  "buffetTitle": "Duck Buffet",
+  "buffetTime": "Mon – Sat 6:00 – 9:00 PM · all day on Sundays",
+  "buffetAllYouCan": "All-you-can-eat",
+  "buffetAdultPrice": "€18.90",
+  "buffetAdultLabel": "per person",
+  "buffetChildPrice": "€10.00",
+  "buffetChildLabel": "children up to 10 years",
+  "buffetWeekend": "Also available individually from the menu – buffet or menu, whatever you prefer.",
+  "buffetCta": "View menu"
 }

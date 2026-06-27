@@ -122,8 +122,8 @@ $wood:   #6e6457;
 }
 
 .info-title {
-  font-family: inherit;
-  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 4.5vw, 2.6rem);
   font-weight: 700;
   color: $walnut;
   letter-spacing: -0.01em;

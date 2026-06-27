@@ -12,6 +12,7 @@ import { TranslationService } from '../i18n/translation.service';
 import { MenuService } from '../../service/menu.service';
 import { AuthService } from '../auth/auth.service';
 import { RouterLink } from '@angular/router';
+import { ScrollRevealDirective } from '../directives/scroll-reveal.directive';
 
 interface MenuSectionView {
   title: string;
@@ -23,7 +24,7 @@ interface MenuSectionView {
   standalone: true,
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',
-  imports: [RouterLink],
+  imports: [RouterLink, ScrollRevealDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuComponent {

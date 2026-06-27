@@ -161,5 +161,16 @@
   "menuSearchPh": "搜索菜品或食材…",
   "menuClear": "清除搜索",
   "menuNoResults": "未找到相关菜品",
-  "menuNoResultsHint": "请尝试其他关键词。"
+  "menuNoResultsHint": "请尝试其他关键词。",
+
+  "buffetBadge": "自助餐",
+  "buffetTitle": "烤鸭自助餐",
+  "buffetTime": "周一至周六 18:00 – 21:00 · 周日全天",
+  "buffetAllYouCan": "自助畅享",
+  "buffetAdultPrice": "18,90 €",
+  "buffetAdultLabel": "每位",
+  "buffetChildPrice": "10,00 €",
+  "buffetChildLabel": "10 岁以下儿童",
+  "buffetWeekend": "也可按菜单单点 —— 自助或单点，悉听尊便。",
+  "buffetCta": "查看菜单"
 }
