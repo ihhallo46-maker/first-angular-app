@@ -122,17 +122,15 @@ $wood: #6e6457;
 // ══════════════════════════════════════════════════════════
 .menu-banner {
   height: 170px;
-  margin: 0 0 1.25rem;
   border-radius: 0.75rem;
-  background-image: url('../assets/images/ente-figur-laternen.jpg');
+  background-image: url('../assets/images/entenofen.jpg');
   background-size: cover;
-  background-position: center center;
 }
 
 // Mobil: deckende, randlose Band-Leiste — verbindet sich nahtlos mit der Chip-Leiste
 .search-bar {
   position: sticky;
-  top: 60px;
+  top: 51px;
   z-index: 31;
   margin: 0 -1rem;
   padding: 0.55rem 1rem 0.5rem;
@@ -245,7 +243,7 @@ $wood: #6e6457;
 // Mobil: horizontale Chip-Leiste, sticky oben
 .menu-nav {
   position: sticky;
-  top: 116px;            // bündig unter der Suchleiste → wirkt als ein Header
+  top: 113px;            // bündig unter der Suchleiste → wirkt als ein Header
   z-index: 30;           // über den Karten → überdeckt sie sauber beim Scrollen
   display: flex;
   flex-wrap: nowrap;     // Chips bleiben in einer Reihe → horizontal scrollbar
@@ -370,7 +368,7 @@ $wood: #6e6457;
   background: #faf8f3;
   border: 1px solid rgba($wood, 0.16);
   border-radius: 1.1rem;
-  padding: 1.4rem 1.6rem 1.5rem;
+  padding: 1.1rem;
   box-shadow: 0 2px 10px rgba($walnut, 0.05);
   transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
   &:last-child { margin-bottom: 0; }
