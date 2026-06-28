@@ -86,11 +86,39 @@ $wood:   #6e6457;
 }
 
 .info-photo {
+  position: relative;
   margin: -2.5rem -2rem 0;
-  height: 200px;
+  height: 210px;
   background-image: url('../assets/images/gebaeude.jpg');
   background-size: cover;
   background-position: center;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+
+  // Verlauf unten → Beschriftung lesbar, edler Look
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba($walnut, 0.7), rgba($walnut, 0.05) 55%, transparent);
+  }
+}
+
+.info-photo-caption {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 1rem 1.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: $ivory;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+
+  i.bi { color: #e0b15a; }
 }
 
 // ══════════════════════════════════════════════════════════

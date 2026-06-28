@@ -16,6 +16,11 @@ export class OrdersComponent {
   readonly orderService = inject(OrdersService);
   readonly ts           = inject(TranslationService);
 
+  constructor() {
+    // Echtzeit-Listener erst hier starten (Seite ist per authGuard geschützt)
+    this.orderService.start();
+  }
+
   readonly isModalOpen     = signal(false);
   readonly editingOrder    = signal<OrderDraft | null>(null);
   readonly warningMessage  = signal<string | null>(null);

@@ -10,7 +10,8 @@
     "serve:ssr:first-angular-app": "node dist/first-angular-app/server/server.mjs",
     "firebase:login": "npx --yes firebase-tools login",
     "deploy:staging": "ng build && npx --yes firebase-tools hosting:channel:deploy staging --expires 30d",
-    "deploy:firebase": "ng build && npx --yes firebase-tools deploy --only hosting"
+    "deploy:firebase": "ng build && npx --yes firebase-tools deploy --only hosting",
+    "deploy:gh": "ng build --base-href /first-angular-app/ && cp dist/first-angular-app/browser/index.csr.html dist/first-angular-app/browser/404.html && npx --yes angular-cli-ghpages --dir=dist/first-angular-app/browser --no-silent"
   },
   "prettier": {
     "printWidth": 100,

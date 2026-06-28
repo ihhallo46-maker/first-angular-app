@@ -408,6 +408,17 @@ $wood:   #6e6457;
   animation: a-fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) both 0.45s;
 }
 
+.dirty-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0.8rem 0 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #ffe1b0;
+  i.bi { color: #e0b15a; }
+}
+
 .btn-publish {
   display: inline-flex;
   align-items: center;

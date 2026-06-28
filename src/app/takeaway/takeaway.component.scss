@@ -87,6 +87,29 @@ $wood: #6e6457;
   margin: 0 auto;
 }
 
+.ta-call-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 100px;
+  background-color: var(--wood-bg-color);
+  background-image: var(--wood-bg-image);
+  color: $ivory;
+  text-decoration: none;
+  font-size: 1rem;
+  box-shadow: 0 8px 22px rgba($walnut, 0.28);
+  transition: filter 0.15s, transform 0.12s, box-shadow 0.2s;
+
+  i.bi { color: #e0b15a; }
+  strong { font-weight: 800; letter-spacing: 0.01em; }
+
+  &:hover { filter: brightness(1.12); transform: translateY(-2px); box-shadow: 0 12px 30px rgba($walnut, 0.34); color: $ivory; }
+  &:active { transform: translateY(0); }
+  &:focus-visible { outline: 3px solid #e0b15a; outline-offset: 3px; }
+}
+
 // ── Banner ────────────────────────────────────────────────
 .ta-banner {
   height: clamp(180px, 28vw, 320px);

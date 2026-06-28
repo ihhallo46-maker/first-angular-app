@@ -151,8 +151,8 @@ export class MenuComponent {
     if (atBottom) {
       current = sections[sections.length - 1].id;
     } else {
-      // Höhe der klebenden Leisten (Nav + Suche [+ mobile Chip-Leiste])
-      const offset = (window.innerWidth >= 992 ? 130 : 175) + 4;
+      // Muss exakt den scroll-margin-top der .menu-section entsprechen → synchron
+      const offset = window.innerWidth >= 992 ? 124 : 168;
       current = sections[0].id;
       for (const s of sections) {
         if (s.getBoundingClientRect().top <= offset) current = s.id;

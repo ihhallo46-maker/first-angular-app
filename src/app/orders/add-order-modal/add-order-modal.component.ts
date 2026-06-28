@@ -203,6 +203,26 @@ export class AddOrderModalComponent {
     return Number(this.form.get('tableNumber')?.value) || 0;
   }
 
+  // ── Tab-Navigation (Segmente: Tisch · Getränke · Servierart) ──
+  readonly activeTab = signal<1 | 2 | 3>(1);
+  setTab(n: 1 | 2 | 3): void { this.activeTab.set(n); }
+
+  /** Gesamtzahl gewählter Getränke (für das Tab-Badge) */
+  get drinkCount(): number {
+    return this.drinkCategories.reduce((sum, c) => sum + this.getCategoryTotal(c), 0);
+  }
+
+  /** Gewählte Servierart als Kurztext (für das Tab-Badge) */
+  get serviceLabel(): string {
+    const t = this.ts.translator();
+    const buffet = this.form.get('buffet')?.value;
+    const carte  = this.form.get('carte')?.value;
+    if (buffet && carte) return `${t.modalBuffetTitle} + ${t.modalCarteTitle}`;
+    if (buffet) return t.modalBuffetTitle;
+    if (carte)  return t.modalCarteTitle;
+    return '';
+  }
+
   // ── Stepper interactions ──────────────────────────────────
 
   increment(countKey: string, checkboxKey: string): void {
@@ -250,7 +270,11 @@ export class AddOrderModalComponent {
 
   submit(): void {
     this.form.markAllAsTouched();
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      // Bei fehlender Servierart automatisch zum richtigen Tab springen
+      if (this.form.hasError('serviceRequired')) this.activeTab.set(3);
+      return;
+    }
 
     const existingOrder = this.orderToEdit();
 

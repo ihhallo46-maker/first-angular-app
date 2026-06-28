@@ -137,6 +137,83 @@ $border: rgba(#6e6457, 0.22);
   min-height: 0;
 }
 
+// ══════════════════════════════════════════════════════════
+// TAB-LEISTE (Segmente) — nur ein Bereich sichtbar
+// ══════════════════════════════════════════════════════════
+.modal-tabs {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.75rem 1.5rem 0;
+  background: $ivory;
+  flex-shrink: 0;
+}
+
+.modal-tab {
+  flex: 1;
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 0.5rem;
+  border: 1px solid $border;
+  border-radius: 0.7rem;
+  background: #fff;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: $walnut;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+
+  &--active {
+    background-color: var(--wood-bg-color);
+    background-image: var(--wood-bg-image);
+    color: $ivory;
+    border-color: transparent;
+  }
+}
+
+.tab-num {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba($wood, 0.16);
+  font-size: 0.72rem;
+  font-weight: 800;
+
+  .modal-tab--active & { background: rgba($ivory, 0.22); color: $ivory; }
+}
+
+.tab-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tab-chip {
+  flex-shrink: 0;
+  min-width: 18px;
+  padding: 0 0.35rem;
+  border-radius: 999px;
+  background: #d98a3a;
+  color: #2a1c0c;
+  font-size: 0.7rem;
+  font-weight: 800;
+  line-height: 1.55;
+
+  &--ok { background: #2f9e57; color: #fff; }
+}
+
+@media (max-width: 420px) {
+  .modal-tabs { padding: 0.6rem 0.85rem 0; gap: 0.3rem; }
+  .modal-tab { padding: 0.55rem 0.3rem; font-size: 0.72rem; gap: 0.3rem; }
+}
+
 // ── Scrollable body ───────────────────────────────────────
 .form-body {
   flex: 1;

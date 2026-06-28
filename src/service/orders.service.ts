@@ -1,4 +1,5 @@
-import { Injectable, computed, inject, signal } from '@angular/core';
+import { Injectable, PLATFORM_ID, computed, inject, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import {
   Firestore,
   collection,
@@ -14,6 +15,8 @@ import { type OrderDraft, type OrderDrink } from '../app/orders/models/order.mod
 export class OrdersService {
   private readonly firestore = inject(Firestore);
   private readonly ordersCol = collection(this.firestore, 'orders');
+  private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+  private started = false;
 
   private readonly _orders = signal<OrderDraft[]>([]);
   readonly orders = this._orders.asReadonly();
@@ -22,8 +25,13 @@ export class OrdersService {
     () => this._orders().filter((o) => o.status !== 'completed').length,
   );
 
-  constructor() {
-    // Echtzeit-Listener: Aktualisiert automatisch auf allen Geräten.
+  /**
+   * Echtzeit-Listener erst starten, wenn der (eingeloggte) Bestellbereich geöffnet wird.
+   * Verhindert „permission denied"-Fehler für nicht angemeldete Besucher.
+   */
+  start(): void {
+    if (this.started || !this.isBrowser) return;
+    this.started = true;
     // Ohne orderBy, damit auch Einträge ohne createdAt-Feld erscheinen –
     // sortiert wird im Browser (neueste zuerst).
     collectionData(this.ordersCol, { idField: 'id' }).subscribe({

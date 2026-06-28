@@ -203,7 +203,9 @@ $wood: #6e6457;
   background: #dbd6cd;
   flex: 1;
   padding: 2rem;
-  animation: fadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  // backwards (statt both): nach der Animation bleibt KEIN transform zurück →
+  // position:fixed (z. B. Modals) bleibt korrekt am Viewport verankert
+  animation: fadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
 @media (prefers-reduced-motion: reduce) {

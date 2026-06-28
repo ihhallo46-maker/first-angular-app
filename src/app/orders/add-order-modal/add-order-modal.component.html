@@ -28,15 +28,36 @@
     <!-- ── Form (scrollable body + sticky footer) ─────────── -->
     <form class="modal-form" [formGroup]="form" (ngSubmit)="submit()">
 
+      <!-- ── Tab-Leiste (Segmente: nur ein Bereich sichtbar) ── -->
+      <div class="modal-tabs" role="tablist">
+        <button type="button" class="modal-tab" role="tab"
+                [class.modal-tab--active]="activeTab() === 1"
+                [attr.aria-selected]="activeTab() === 1" (click)="setTab(1)">
+          <span class="tab-num">1</span>
+          <span class="tab-text">{{ ts.translator().modalSec1 }}</span>
+          @if (selectedTable) { <span class="tab-chip">{{ selectedTable }}</span> }
+        </button>
+        <button type="button" class="modal-tab" role="tab"
+                [class.modal-tab--active]="activeTab() === 2"
+                [attr.aria-selected]="activeTab() === 2" (click)="setTab(2)">
+          <span class="tab-num">2</span>
+          <span class="tab-text">{{ ts.translator().modalSec2 }}</span>
+          @if (drinkCount > 0) { <span class="tab-chip">{{ drinkCount }}</span> }
+        </button>
+        <button type="button" class="modal-tab" role="tab"
+                [class.modal-tab--active]="activeTab() === 3"
+                [attr.aria-selected]="activeTab() === 3" (click)="setTab(3)">
+          <span class="tab-num">3</span>
+          <span class="tab-text">{{ ts.translator().modalSec3 }}</span>
+          @if (serviceLabel) { <span class="tab-chip tab-chip--ok" aria-hidden="true">✓</span> }
+        </button>
+      </div>
+
       <div class="form-body">
 
         <!-- ─ Section 1: Tischnummer ─ -->
+        @if (activeTab() === 1) {
         <div class="form-section">
-          <div class="section-header">
-            <span class="section-badge">1</span>
-            <span class="section-label">{{ ts.translator().modalSec1 }}</span>
-            <span class="section-rule"></span>
-          </div>
           <span class="field-label">{{ ts.translator().modalSelectTable }}</span>
           <div class="table-grid" role="radiogroup" [attr.aria-label]="ts.translator().modalSelectTable">
             @for (n of tableNumbers; track n) {
@@ -48,14 +69,11 @@
             }
           </div>
         </div>
+        }
 
         <!-- ─ Section 2: Getränke ─ -->
+        @if (activeTab() === 2) {
         <div class="form-section">
-          <div class="section-header">
-            <span class="section-badge">2</span>
-            <span class="section-label">{{ ts.translator().modalSec2 }}</span>
-            <span class="section-rule"></span>
-          </div>
 
           <div class="drink-search-wrap">
             <i class="bi bi-search drink-search-icon" aria-hidden="true"></i>
@@ -158,14 +176,11 @@
           </div>
           }
         </div>
+        }
 
         <!-- ─ Section 3: Servierart ─ -->
+        @if (activeTab() === 3) {
         <div class="form-section">
-          <div class="section-header">
-            <span class="section-badge">3</span>
-            <span class="section-label">{{ ts.translator().modalSec3 }}</span>
-            <span class="section-rule"></span>
-          </div>
 
           <div class="service-grid">
 
@@ -291,6 +306,7 @@
             </p>
           }
         </div>
+        }
 
       </div><!-- /form-body -->
 

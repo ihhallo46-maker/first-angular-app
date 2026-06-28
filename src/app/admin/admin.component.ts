@@ -32,6 +32,14 @@ export class AdminComponent {
   readonly published = signal(false);
   readonly deleteTarget = signal<MenuCategory | null>(null);
   readonly activeCat = signal<string>('');
+  readonly dirty = signal(false);
+
+  markDirty(): void { this.dirty.set(true); }
+
+  @HostListener('window:beforeunload', ['$event'])
+  onBeforeUnload(e: BeforeUnloadEvent): void {
+    if (this.dirty()) { e.preventDefault(); e.returnValue = ''; }
+  }
 
   private initialized = false;
   private ensuring = false;
@@ -62,6 +70,13 @@ export class AdminComponent {
       this.draft.set(structuredClone(d) as MenuCategory[]);
       this.initialized = true;
     });
+
+    // Hintergrund-Scroll sperren, solange das Lösch-Modal offen ist
+    effect(() => {
+      if (typeof document === 'undefined') return;
+      document.body.style.overflow = this.deleteTarget() ? 'hidden' : '';
+    });
+
     afterNextRender(() => this.updateActiveCat());
   }
 
@@ -69,11 +84,13 @@ export class AdminComponent {
   addItem(cat: MenuCategory): void {
     cat.items.push({ name: '', price: '', description: '' });
     this.draft.set([...this.draft()]);
+    this.dirty.set(true);
   }
 
   removeItem(cat: MenuCategory, index: number): void {
     cat.items.splice(index, 1);
     this.draft.set([...this.draft()]);
+    this.dirty.set(true);
   }
 
   // ── Kategorien ────────────────────────────────────────────
@@ -103,6 +120,7 @@ export class AdminComponent {
     this.draft.set([...this.draft()]);
     await this.menu.saveDraftCategory(cat);
     this.savingId.set(null);
+    this.dirty.set(false);
   }
 
   // ── Löschen (mit Modal, optimistisch = schnell) ───────────
@@ -161,6 +179,7 @@ export class AdminComponent {
     // … und Entwurf live schalten
     await this.menu.publish();
     this.publishing.set(false);
+    this.dirty.set(false);
     this.published.set(true);
     setTimeout(() => this.published.set(false), 2600);
   }
@@ -175,6 +194,9 @@ export class AdminComponent {
 
   // ── Navigation ────────────────────────────────────────────
   backToMenu(): void {
+    if (this.dirty() && !confirm('Es gibt ungespeicherte Änderungen. Trotzdem zurück zur Speisekarte?')) {
+      return;
+    }
     this.router.navigate(['/menu']);
   }
 

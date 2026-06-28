@@ -362,7 +362,8 @@ $wood: #6e6457;
 
 .menu-section {
   // Sprungziel landet unter den Sticky-Leisten (mobil: Nav + Suche + Chip-Leiste)
-  scroll-margin-top: 175px;
+  // Wert = Scroll-Spy-Offset → Klick-Ziel und Markierung laufen synchron
+  scroll-margin-top: 168px;
   margin-bottom: 1.5rem;
   // Elegante Karte je Kategorie
   background: #faf8f3;
@@ -370,7 +371,8 @@ $wood: #6e6457;
   border-radius: 1.1rem;
   padding: 1.1rem;
   box-shadow: 0 2px 10px rgba($walnut, 0.05);
-  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  // schneller Übergang → Markierung erscheint synchron zur Navigation
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
   &:last-child { margin-bottom: 0; }
 }
 
@@ -384,18 +386,21 @@ $wood: #6e6457;
 }
 
 @media (min-width: 992px) {
-  // Desktop: fixe Nav (~59px) + sticky Suchleiste (~60px) → großzügig Abstand
-  .menu-section { scroll-margin-top: 150px; }
+  // Desktop: fixe Nav + sticky Suchleiste → Wert = Scroll-Spy-Offset (synchron)
+  .menu-section { scroll-margin-top: 124px; }
 }
 
-// Die ersten drei Kategorien blenden direkt beim Laden ein (gestaffelt)
+// Reveal auf der Speisekarte NUR über Opacity (kein translateY) →
+// kein Positions-Sprung nach Anker-Klick, exakte Scroll-Spy-Messung
+.menu-section.reveal { transform: none; }
+
+// Die ersten drei Kategorien blenden direkt beim Laden ein (gestaffelt, nur Opacity)
 @keyframes sectionIntro {
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 .menu-section--intro {
-  // backwards (statt both): nach der Animation bleibt KEIN transform → sticky funktioniert
-  animation: sectionIntro 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation: sectionIntro 0.55s ease backwards;
 }
 @media (prefers-reduced-motion: reduce) {
   .menu-section--intro { animation: none; }
