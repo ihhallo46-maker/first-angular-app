@@ -105,6 +105,13 @@ export class AddOrderModalComponent {
 
   toggleCategory(key: string): void {
     this.openCategory.update((current) => (current === key ? null : key));
+    // Geöffnete Kategorie in den sichtbaren Bereich holen (wichtig auf dem Handy)
+    if (this.openCategory() === key && typeof document !== 'undefined') {
+      setTimeout(
+        () => document.getElementById('drinkcat-' + key)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' }),
+        60,
+      );
+    }
   }
 
   getCategoryOptions(category: DrinkCategory): DrinkOption[] {

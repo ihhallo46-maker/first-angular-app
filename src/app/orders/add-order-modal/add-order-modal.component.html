@@ -122,7 +122,8 @@
           } @else {
           <div class="drink-categories">
             @for (cat of drinkCategories; track cat.key) {
-              <div class="drink-category" [class.drink-category--open]="isCategoryOpen(cat.key)">
+              <div class="drink-category" [id]="'drinkcat-' + cat.key"
+                   [class.drink-category--open]="isCategoryOpen(cat.key)">
 
                 <!-- ── Kategorie-Header ─────────────────── -->
                 <button type="button" class="category-header"

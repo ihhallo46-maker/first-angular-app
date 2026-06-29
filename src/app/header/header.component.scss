@@ -953,8 +953,9 @@ $wood:   #6e6457;
 // ── lg+ (≥ 992 px): zweispaltig, Text linksbündig ──────────
 @media (min-width: 992px) {
   .hero-text { padding-right: 1.5rem; }
-  // Desktop: „Reservieren" steht bereits in der Navigation → Hero-Button ausblenden
-  .hero-reserve-cta { display: none; }
+  // Desktop: „Reservieren" steht bereits in der Navigation → Hero-Button ausblenden.
+  // !important nötig, weil die Bootstrap-Klasse .d-flex display:flex !important setzt.
+  .hero-reserve-cta { display: none !important; }
 }
 
 // ══════════════════════════════════════════════════════════
