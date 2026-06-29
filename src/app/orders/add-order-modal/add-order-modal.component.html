@@ -291,6 +291,12 @@
                     <button type="button" class="stepper-btn" (click)="incrementService('carteCount')">+</button>
                   </div>
                   <label class="count-label comment-label" for="carte-comment">{{ ts.translator().modalComment }}</label>
+                  <div class="carte-chips">
+                    @for (chip of carteChips; track chip) {
+                      <button type="button" class="carte-chip"
+                              (click)="addToComment(chip); $event.stopPropagation()">+ {{ chip }}</button>
+                    }
+                  </div>
                   <textarea id="carte-comment" class="comment-input" formControlName="comment"
                             [placeholder]="ts.translator().modalCommentPh"
                             (click)="$event.stopPropagation()"></textarea>

@@ -269,6 +269,24 @@ export class AddOrderModalComponent {
     if (ctrl) ctrl.setValue(!ctrl.value);
   }
 
+  // ── À-la-carte: Schnell-Chips für häufige Saucen/Zusätze ──
+  readonly carteChips = [
+    'Knoblauchsauce',
+    'scharf',
+    'süß-sauer',
+    'Curry-Sauce',
+    'Erdnuss-Sauce',
+    'mit Gemüse'
+  ];
+
+  /** Chip-Text ans Kommentarfeld anhängen (Personal tippt nur noch die Nummer). */
+  addToComment(text: string): void {
+    const ctrl = this.form.get('comment');
+    if (!ctrl) return;
+    const current = (ctrl.value ?? '').toString().trim();
+    ctrl.setValue(current ? `${current}, ${text}` : text);
+  }
+
   // ── Public actions ────────────────────────────────────────
 
   close(): void {

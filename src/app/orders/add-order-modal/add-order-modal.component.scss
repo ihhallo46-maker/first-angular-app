@@ -629,6 +629,30 @@ $border: rgba(#6e6457, 0.22);
   strong { color: $walnut; font-weight: 700; }
 }
 
+.carte-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.35rem 0 0.5rem;
+}
+
+.carte-chip {
+  border: 1px solid rgba($wood, 0.3);
+  background: #fff;
+  color: $walnut;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.28rem 0.6rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.12s, border-color 0.12s, transform 0.1s;
+
+  &:hover { background: rgba($wood, 0.1); border-color: rgba($wood, 0.5); }
+  &:active { transform: scale(0.94); }
+}
+
 .comment-input {
   width: 100%;
   border: 1px solid rgba($wood, 0.3);
