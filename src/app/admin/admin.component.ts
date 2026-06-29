@@ -10,7 +10,8 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MenuService, type MenuCategory } from '../../service/menu.service';
+import { MenuRepository } from '../core/data/menu.repository';
+import { type MenuCategory } from '../core/models/menu.model';
 
 @Component({
   selector: 'app-admin',
@@ -21,7 +22,7 @@ import { MenuService, type MenuCategory } from '../../service/menu.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminComponent {
-  readonly menu = inject(MenuService);
+  readonly menu = inject(MenuRepository);
   private readonly router = inject(Router);
 
   /** Lokale Arbeitskopie (Entwurf) */

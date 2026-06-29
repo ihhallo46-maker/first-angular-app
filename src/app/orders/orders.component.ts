@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { AddOrderModalComponent } from './add-order-modal/add-order-modal.component';
-import { OrdersService } from '../../service/orders.service';
+import { OrdersRepository } from '../core/data/orders.repository';
 import { type OrderDraft } from './models/order.model';
 import { TranslationService } from '../i18n/translation.service';
 
@@ -13,7 +13,7 @@ import { TranslationService } from '../i18n/translation.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrdersComponent {
-  readonly orderService = inject(OrdersService);
+  readonly orderService = inject(OrdersRepository);
   readonly ts           = inject(TranslationService);
 
   constructor() {

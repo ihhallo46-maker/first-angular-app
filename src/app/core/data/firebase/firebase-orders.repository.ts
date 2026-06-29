@@ -9,10 +9,14 @@ import {
   deleteDoc,
   updateDoc,
 } from '@angular/fire/firestore';
-import { type OrderDraft, type OrderDrink } from '../app/orders/models/order.model';
+import { OrdersRepository } from '../orders.repository';
+import { type OrderDraft, type OrderDrink } from '../../../orders/models/order.model';
 
-@Injectable({ providedIn: 'root' })
-export class OrdersService {
+/**
+ * Firebase/Firestore-Umsetzung des OrdersRepository.
+ */
+@Injectable()
+export class FirebaseOrdersRepository extends OrdersRepository {
   private readonly firestore = inject(Firestore);
   private readonly ordersCol = collection(this.firestore, 'orders');
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
@@ -36,13 +40,13 @@ export class OrdersService {
     // sortiert wird im Browser (neueste zuerst).
     collectionData(this.ordersCol, { idField: 'id' }).subscribe({
       next: (data) => {
-        const orders = (data as OrderDraft[]).slice().sort((a, b) =>
-          (b.createdAt ?? '').localeCompare(a.createdAt ?? ''),
-        );
+        const orders = (data as OrderDraft[])
+          .slice()
+          .sort((a, b) => (b.createdAt ?? '').localeCompare(a.createdAt ?? ''));
         this._orders.set(orders);
       },
       error: (err) => {
-        console.error('[OrdersService] Firestore-Lesefehler:', err);
+        console.error('[Orders] Firestore-Lesefehler:', err);
       },
     });
   }
@@ -84,7 +88,11 @@ export class OrdersService {
       const key = `${drink.name}-${drink.size}`;
       const existing = merged.get(key);
       if (existing) {
-        merged.set(key, { ...existing, quantity: existing.quantity + drink.quantity, status: 'confirmed' });
+        merged.set(key, {
+          ...existing,
+          quantity: existing.quantity + drink.quantity,
+          status: 'confirmed',
+        });
       } else {
         merged.set(key, { ...drink, status: 'confirmed' });
       }

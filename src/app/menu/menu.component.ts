@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { menuData, type MenuItem } from './menu-data';
 import { TranslationService } from '../i18n/translation.service';
-import { MenuService } from '../../service/menu.service';
+import { MenuRepository } from '../core/data/menu.repository';
 import { AuthService } from '../auth/auth.service';
 import { RouterLink } from '@angular/router';
 import { ScrollRevealDirective } from '../directives/scroll-reveal.directive';
@@ -30,7 +30,7 @@ interface MenuSectionView {
 export class MenuComponent {
   readonly auth    = inject(AuthService);
   readonly ts   = inject(TranslationService);
-  readonly menu = inject(MenuService);
+  readonly menu = inject(MenuRepository);
   readonly searchTerm = signal('');
   readonly activeSection = signal<string>('');
 

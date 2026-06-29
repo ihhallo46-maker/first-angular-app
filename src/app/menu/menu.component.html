@@ -129,7 +129,7 @@
               <span class="section-rule"></span>
             </h2>
             <div class="items-list">
-              @for (item of section.items; track item.name) {
+              @for (item of section.items; track $index) {
                 <article class="menu-item">
                   <div class="item-head">
                     <span class="item-name">{{ item.name }}</span>
