@@ -357,6 +357,12 @@ $wood: #6e6457;
   box-shadow: 0 24px 64px rgba($walnut, 0.18);
 }
 
+// Langsamer Zoom + leichter Schwenk (Ken-Burns) → das Standbild „lebt".
+@keyframes kenBurns {
+  from { transform: scale(1)     translate(0, 0); }
+  to   { transform: scale(1.12)  translate(-1.5%, -1.2%); }
+}
+
 .slide {
   position: absolute;
   inset: 0;
@@ -364,9 +370,18 @@ $wood: #6e6457;
   background-position: center;
   opacity: 0;
   transition: opacity 1s ease;
-  will-change: opacity;
+  will-change: opacity, transform;
+  transform: scale(1);
 
-  &--active { opacity: 1; }
+  // Nur das aktive Bild wird langsam herangezoomt/geschwenkt
+  &--active {
+    opacity: 1;
+    animation: kenBurns 7s ease-out both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide--active { animation: none; }
 }
 
 .slide--1 { background-image: url('./assets/images/laternen.jpg'); }
