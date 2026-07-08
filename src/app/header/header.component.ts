@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, output, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { TranslationService } from '../i18n/translation.service';
 import { type Lang } from '../i18n/translations';
@@ -18,6 +19,10 @@ export class HeaderComponent {
   readonly auth    = inject(AuthService);
   readonly ts      = inject(TranslationService);
   readonly betrieb = inject(BetriebsurlaubService);
+  private  readonly router  = inject(Router);
+
+  private tapCount = 0;
+  private tapTimer: ReturnType<typeof setTimeout> | null = null;
 
   readonly activeView   = input<string | null>(null);
   readonly viewSelected = output<View>();
@@ -56,6 +61,21 @@ export class HeaderComponent {
   goHome(): void {
     this.closeNav();
     this.homeClicked.emit();
+  }
+
+  logoTap(): void {
+    if (this.activeView() !== null) {
+      this.tapCount = 0;
+      return;
+    }
+    this.tapCount++;
+    if (this.tapTimer) clearTimeout(this.tapTimer);
+    if (this.tapCount >= 5) {
+      this.tapCount = 0;
+      void this.router.navigate(['/intern']);
+      return;
+    }
+    this.tapTimer = setTimeout(() => { this.tapCount = 0; }, 2000);
   }
 
   logout(): void         { this.showLogoutConfirm.set(true); }
