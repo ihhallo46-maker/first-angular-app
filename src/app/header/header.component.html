@@ -120,6 +120,31 @@
 </nav>
 
 <!-- ══════════════════════════════════════════════
+     ABMELDE-BESTÄTIGUNG
+     ══════════════════════════════════════════════ -->
+@if (showLogoutConfirm()) {
+  <div class="logout-overlay" role="dialog" aria-modal="true"
+       [attr.aria-label]="ts.translator().logoutConfirmTitle"
+       (click)="cancelLogout()">
+    <div class="logout-dialog" (click)="$event.stopPropagation()">
+      <div class="logout-dialog-icon">
+        <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+      </div>
+      <h2 class="logout-dialog-title">{{ ts.translator().logoutConfirmTitle }}</h2>
+      <p class="logout-dialog-msg">{{ ts.translator().logoutConfirmMsg }}</p>
+      <div class="logout-dialog-actions">
+        <button type="button" class="logout-btn-cancel" (click)="cancelLogout()">
+          {{ ts.translator().logoutCancelBtn }}
+        </button>
+        <button type="button" class="logout-btn-confirm" (click)="confirmLogout()">
+          {{ ts.translator().logoutConfirmBtn }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- ══════════════════════════════════════════════
      HERO — Bootstrap Grid, nur Startseite
      ══════════════════════════════════════════════ -->
 @if (!activeView()) {

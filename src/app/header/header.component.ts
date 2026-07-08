@@ -23,7 +23,8 @@ export class HeaderComponent {
   readonly viewSelected = output<View>();
   readonly homeClicked  = output<void>();
 
-  readonly isLangOpen  = signal(false);
+  readonly isLangOpen       = signal(false);
+  readonly showLogoutConfirm = signal(false);
 
   private readonly today = signal(new Date());
 
@@ -57,8 +58,10 @@ export class HeaderComponent {
     this.homeClicked.emit();
   }
 
-  logout(): void { void this.auth.logout(); }
-  toggleLang(): void { this.isLangOpen.update(v => !v); }
+  logout(): void         { this.showLogoutConfirm.set(true); }
+  cancelLogout(): void   { this.showLogoutConfirm.set(false); }
+  confirmLogout(): void  { this.showLogoutConfirm.set(false); void this.auth.logout(); }
+  toggleLang(): void     { this.isLangOpen.update(v => !v); }
 
   setLang(lang: Lang): void {
     this.ts.setLang(lang);

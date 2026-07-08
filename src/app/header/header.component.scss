@@ -1024,3 +1024,113 @@ $wood:   #6e6457;
   .hero-buffet { justify-content: center; text-align: center; }
   .hb-body { margin-right: 0; align-items: center; }
 }
+
+// ══════════════════════════════════════════════════════════
+// ABMELDE-BESTÄTIGUNG
+// ══════════════════════════════════════════════════════════
+.logout-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.52);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 1rem;
+  animation: fadeIn 0.15s ease both;
+}
+
+.logout-dialog {
+  background: #faf8f3;
+  border-radius: 1.2rem;
+  padding: 2rem 2rem 1.75rem;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  animation: fadeUp 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.logout-dialog-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba($walnut, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.25rem;
+
+  i.bi {
+    font-size: 1.4rem;
+    color: $walnut;
+  }
+}
+
+.logout-dialog-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: $walnut;
+  margin: 0;
+  text-align: center;
+}
+
+.logout-dialog-msg {
+  font-size: 0.9rem;
+  color: rgba($walnut, 0.72);
+  line-height: 1.6;
+  text-align: center;
+  margin: 0 0 0.5rem;
+}
+
+.logout-dialog-actions {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.logout-btn-cancel {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  border: 1.5px solid rgba($walnut, 0.25);
+  border-radius: 999px;
+  background: transparent;
+  color: rgba($walnut, 0.75);
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+
+  &:hover {
+    background: rgba($walnut, 0.06);
+    border-color: rgba($walnut, 0.45);
+    color: $walnut;
+  }
+}
+
+.logout-btn-confirm {
+  flex: 1;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 999px;
+  background: #b91c1c;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.12s;
+
+  &:hover {
+    background: #991b1b;
+    transform: translateY(-1px);
+  }
+
+  &:active { transform: translateY(0); }
+}
