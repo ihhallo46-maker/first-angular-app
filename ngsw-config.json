@@ -9,6 +9,8 @@
         "files": [
           "/favicon.ico",
           "/favicon.svg",
+          "/index.csr.html",
+          "/index.html",
           "/manifest.webmanifest",
           "/*.css",
           "/*.js"
