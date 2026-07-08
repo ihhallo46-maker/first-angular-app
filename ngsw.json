@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1783504836352,
+  "timestamp": 1783505045585,
   "index": "/first-angular-app/index.csr.html",
   "assetGroups": [
     {
@@ -13,6 +13,8 @@
       "urls": [
         "/first-angular-app/favicon.ico",
         "/first-angular-app/favicon.svg",
+        "/first-angular-app/index.csr.html",
+        "/first-angular-app/index.html",
         "/first-angular-app/main-CCEE67PS.js",
         "/first-angular-app/manifest.webmanifest",
         "/first-angular-app/styles-QCCHD7YZ.css"
@@ -78,6 +80,8 @@
     "/first-angular-app/assets/images/woks.jpg": "0cb840c9b0087e0b23e83095d80744ceb3f41dec",
     "/first-angular-app/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
     "/first-angular-app/favicon.svg": "f309cd4bc1cd0a080b63cc0cbf7aeb5ed7d662d6",
+    "/first-angular-app/index.csr.html": "af6740143e8f8f5d1f2c0e965d3479234d023825",
+    "/first-angular-app/index.html": "c47f1f1381fcc64447c7a4094570086ccd962b62",
     "/first-angular-app/main-CCEE67PS.js": "c1e6b4d7fbde02345ef68855c01073e10faca5dd",
     "/first-angular-app/manifest.webmanifest": "0b8a25ac2dceb5508d5e119b41e9b509d71a4511",
     "/first-angular-app/og-image.jpg": "224e55802e3bc2ec419f5fc7942ddae02e361292",
