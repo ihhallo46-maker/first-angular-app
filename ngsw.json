@@ -1,0 +1,105 @@
+{
+  "configVersion": 1,
+  "timestamp": 1783504067316,
+  "index": "/first-angular-app/index.csr.html",
+  "assetGroups": [
+    {
+      "name": "app-shell",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/first-angular-app/favicon.ico",
+        "/first-angular-app/favicon.svg",
+        "/first-angular-app/main-Z46VPHSR.js",
+        "/first-angular-app/manifest.webmanifest",
+        "/first-angular-app/styles-QCCHD7YZ.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/first-angular-app/assets/duckhouse.svg",
+        "/first-angular-app/assets/images/buffet.jpg",
+        "/first-angular-app/assets/images/ente-figur-laternen.jpg",
+        "/first-angular-app/assets/images/ente-teller-1.jpg",
+        "/first-angular-app/assets/images/ente-teller-2.jpg",
+        "/first-angular-app/assets/images/entenofen.jpg",
+        "/first-angular-app/assets/images/gebaeude.jpg",
+        "/first-angular-app/assets/images/hero-schild.jpg",
+        "/first-angular-app/assets/images/laternen.jpg",
+        "/first-angular-app/assets/images/restaurant.jpg",
+        "/first-angular-app/assets/images/speisekarte.jpg",
+        "/first-angular-app/assets/images/speisesaal.jpg",
+        "/first-angular-app/assets/images/wok-flamme.jpg",
+        "/first-angular-app/assets/images/woks.jpg",
+        "/first-angular-app/og-image.jpg"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "firebase-api",
+      "patterns": [
+        "https:\\/\\/firestore\\.googleapis\\.com\\/.*"
+      ],
+      "strategy": "freshness",
+      "maxSize": 20,
+      "maxAge": 3600000,
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "version": 1
+    }
+  ],
+  "hashTable": {
+    "/first-angular-app/assets/duckhouse.svg": "5594c3231d10fd7caae469fed45fe7e291d3e10f",
+    "/first-angular-app/assets/images/buffet.jpg": "40330bcd86a519a798edb1c07ab2e5b9c0a9fd3d",
+    "/first-angular-app/assets/images/ente-figur-laternen.jpg": "988a70792480eec1dd7fdf3b2320c5c86f14f4e5",
+    "/first-angular-app/assets/images/ente-teller-1.jpg": "eaf97b7351c85b5de96cd7fcfd11da810b24aeb5",
+    "/first-angular-app/assets/images/ente-teller-2.jpg": "8968d4f56d2e62f8dbcd1e7f9c0001f702a14ea8",
+    "/first-angular-app/assets/images/entenofen.jpg": "99bf2092a25fdaaccc143d40b7e8501094c80988",
+    "/first-angular-app/assets/images/gebaeude.jpg": "12bc9ef4826ac7940b57867b57ad7fba05bc9197",
+    "/first-angular-app/assets/images/hero-schild.jpg": "24684a75b1749e113bbe89ef883f7a53f4c23970",
+    "/first-angular-app/assets/images/laternen.jpg": "25dea19562da48652d535219254bf21228658497",
+    "/first-angular-app/assets/images/restaurant.jpg": "24684a75b1749e113bbe89ef883f7a53f4c23970",
+    "/first-angular-app/assets/images/speisekarte.jpg": "24d2cc5e08e55c671a8f68fa25c121b3a5f72f40",
+    "/first-angular-app/assets/images/speisesaal.jpg": "540c0dda3a970907a5d21ff501be4ac08008bc3f",
+    "/first-angular-app/assets/images/wok-flamme.jpg": "e734b848b9cf1ffeddc982cfd23451baf93f08b2",
+    "/first-angular-app/assets/images/woks.jpg": "0cb840c9b0087e0b23e83095d80744ceb3f41dec",
+    "/first-angular-app/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "/first-angular-app/favicon.svg": "f309cd4bc1cd0a080b63cc0cbf7aeb5ed7d662d6",
+    "/first-angular-app/main-Z46VPHSR.js": "716796acc9306526c70f03094b88b56b5a761ec6",
+    "/first-angular-app/manifest.webmanifest": "0b8a25ac2dceb5508d5e119b41e9b509d71a4511",
+    "/first-angular-app/og-image.jpg": "224e55802e3bc2ec419f5fc7942ddae02e361292",
+    "/first-angular-app/styles-QCCHD7YZ.css": "f61747b924af1ed37761025d7c0e16d447913ed8"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
