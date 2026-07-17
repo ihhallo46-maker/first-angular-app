@@ -70,7 +70,7 @@ export class HeaderComponent {
     }
     this.tapCount++;
     if (this.tapTimer) clearTimeout(this.tapTimer);
-    if (this.tapCount >= 5) {
+    if (this.tapCount >= 10) {
       this.tapCount = 0;
       void this.router.navigate(['/intern']);
       return;

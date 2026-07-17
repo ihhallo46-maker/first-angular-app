@@ -321,6 +321,22 @@ export class AddOrderModalComponent {
       ? Number(this.form.get('carteCount')?.value ?? 1)
       : 0;
 
+    const buffetStatus = this.getItemStatus(
+      existingOrder?.buffetCount ?? 0,
+      existingOrder?.buffetStatus,
+      selectedBuffetCount,
+    );
+    const carteStatus = this.getItemStatus(
+      existingOrder?.carteCount ?? 0,
+      existingOrder?.carteStatus,
+      selectedCarteCount,
+    );
+
+    const hasNewItems =
+      selectedDrinks.some((d) => d.status === 'new') ||
+      buffetStatus === 'new' ||
+      carteStatus === 'new';
+
     const draft: OrderDraft = {
       id: existingOrder?.id ?? crypto.randomUUID(),
       tableNumber: Number(this.form.get('tableNumber')?.value ?? 1),
@@ -328,19 +344,11 @@ export class AddOrderModalComponent {
       buffetCount: selectedBuffetCount,
       buffetAdults,
       buffetChildren,
-      buffetStatus: this.getItemStatus(
-        existingOrder?.buffetCount ?? 0,
-        existingOrder?.buffetStatus,
-        selectedBuffetCount,
-      ),
+      buffetStatus,
       carteCount: selectedCarteCount,
-      carteStatus: this.getItemStatus(
-        existingOrder?.carteCount ?? 0,
-        existingOrder?.carteStatus,
-        selectedCarteCount,
-      ),
+      carteStatus,
       carteComment: this.form.get('carte')?.value ? (this.form.get('comment')?.value ?? '') : '',
-      status: 'in-progress',
+      status: existingOrder && !hasNewItems ? existingOrder.status : 'in-progress',
     };
 
     this.saveOrder.emit(draft);
