@@ -58,13 +58,22 @@
         <!-- ─ Section 1: Tischnummer ─ -->
         @if (activeTab() === 1) {
         <div class="form-section">
-          <span class="field-label">{{ ts.translator().modalSelectTable }}</span>
-          <div class="table-grid" role="radiogroup" [attr.aria-label]="ts.translator().modalSelectTable">
+          <span class="field-label">
+            {{ ts.translator().modalSelectTable }}
+            @if (orderToEdit()) {
+              <span class="table-locked-hint">
+                <i class="bi bi-lock-fill" aria-hidden="true"></i> Tisch kann beim Bearbeiten nicht geändert werden
+              </span>
+            }
+          </span>
+          <div class="table-grid" role="radiogroup" [attr.aria-label]="ts.translator().modalSelectTable"
+               [class.table-grid--locked]="!!orderToEdit()">
             @for (n of tableNumbers; track n) {
               <button type="button" class="table-cell"
                       [class.table-cell--active]="selectedTable === n"
                       role="radio" [attr.aria-checked]="selectedTable === n"
                       [attr.aria-label]="ts.translator().modalTableOption.replace('{n}', n.toString())"
+                      [disabled]="!!orderToEdit()"
                       (click)="selectTable(n)">{{ n }}</button>
             }
           </div>

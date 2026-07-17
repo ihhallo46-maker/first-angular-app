@@ -19,6 +19,10 @@
     </div>
 
     <div class="header-actions">
+      <button type="button" class="btn-report" (click)="isReportOpen.set(true)">
+        <i class="bi bi-file-earmark-bar-graph" aria-hidden="true"></i>
+        Bericht
+      </button>
       <button type="button" class="btn-new" (click)="openModal()">
         <i class="bi bi-plus-lg" aria-hidden="true"></i>
         {{ ts.translator().ordersNewBtn }}
@@ -232,4 +236,10 @@
     [orderToEdit]="editingOrder()"
     (closeModal)="closeModal()"
     (saveOrder)="saveOrder($event)" />
+}
+
+@if (isReportOpen()) {
+  <app-daily-report
+    [orders]="orderService.allOrders()"
+    (closed)="isReportOpen.set(false)" />
 }

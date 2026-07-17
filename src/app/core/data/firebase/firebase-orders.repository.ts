@@ -6,15 +6,11 @@ import {
   collectionData,
   doc,
   setDoc,
-  deleteDoc,
   updateDoc,
 } from '@angular/fire/firestore';
 import { OrdersRepository } from '../orders.repository';
 import { type OrderDraft, type OrderDrink } from '../../../orders/models/order.model';
 
-/**
- * Firebase/Firestore-Umsetzung des OrdersRepository.
- */
 @Injectable()
 export class FirebaseOrdersRepository extends OrdersRepository {
   private readonly firestore = inject(Firestore);
@@ -22,28 +18,27 @@ export class FirebaseOrdersRepository extends OrdersRepository {
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
   private started = false;
 
-  private readonly _orders = signal<OrderDraft[]>([]);
-  readonly orders = this._orders.asReadonly();
+  private readonly _allOrders = signal<OrderDraft[]>([]);
+
+  // Nur aktive (nicht gelöschte) Bestellungen — für die Bestellliste
+  readonly orders = computed(() => this._allOrders().filter((o: OrderDraft) => !o.deletedAt));
+
+  // Alle inkl. archivierte — für Berichte
+  readonly allOrders = this._allOrders.asReadonly();
 
   readonly inProgressCount = computed(
-    () => this._orders().filter((o) => o.status !== 'completed').length,
+    () => this.orders().filter((o) => o.status !== 'completed').length,
   );
 
-  /**
-   * Echtzeit-Listener erst starten, wenn der (eingeloggte) Bestellbereich geöffnet wird.
-   * Verhindert „permission denied"-Fehler für nicht angemeldete Besucher.
-   */
   start(): void {
     if (this.started || !this.isBrowser) return;
     this.started = true;
-    // Ohne orderBy, damit auch Einträge ohne createdAt-Feld erscheinen –
-    // sortiert wird im Browser (neueste zuerst).
     collectionData(this.ordersCol, { idField: 'id' }).subscribe({
       next: (data) => {
         const orders = (data as OrderDraft[])
           .slice()
           .sort((a, b) => (b.createdAt ?? '').localeCompare(a.createdAt ?? ''));
-        this._orders.set(orders);
+        this._allOrders.set(orders);
       },
       error: (err) => {
         console.error('[Orders] Firestore-Lesefehler:', err);
@@ -52,12 +47,13 @@ export class FirebaseOrdersRepository extends OrdersRepository {
   }
 
   async save(order: OrderDraft): Promise<'duplicate' | 'saved'> {
-    const duplicate = this._orders().find(
+    // Duplikat-Prüfung nur gegen aktive Bestellungen
+    const duplicate = this.orders().find(
       (o) => o.tableNumber === order.tableNumber && o.id !== order.id,
     );
     if (duplicate) return 'duplicate';
 
-    const isExisting = this._orders().some((o) => o.id === order.id);
+    const isExisting = this.orders().some((o) => o.id === order.id);
     const data: OrderDraft = isExisting
       ? order
       : { ...order, createdAt: new Date().toISOString() };
@@ -66,12 +62,18 @@ export class FirebaseOrdersRepository extends OrdersRepository {
     return 'saved';
   }
 
+  // Soft-Delete: Bestellung bleibt in Firestore, wird nur als gelöscht markiert
   async delete(orderId: string): Promise<void> {
-    await deleteDoc(doc(this.ordersCol, orderId));
+    const order = this._allOrders().find((o) => o.id === orderId);
+    await updateDoc(doc(this.ordersCol, orderId), {
+      deletedAt: new Date().toISOString(),
+      // createdAt explizit mitschreiben, damit es nicht verloren geht
+      ...(order?.createdAt ? { createdAt: order.createdAt } : {}),
+    });
   }
 
   async markCompleted(orderId: string): Promise<void> {
-    const order = this._orders().find((o) => o.id === orderId);
+    const order = this.orders().find((o) => o.id === orderId);
     if (!order) return;
 
     await updateDoc(doc(this.ordersCol, orderId), {

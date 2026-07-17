@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { AddOrderModalComponent } from './add-order-modal/add-order-modal.component';
+import { DailyReportComponent } from './report/daily-report.component';
 import { OrdersRepository } from '../core/data/orders.repository';
 import { type OrderDraft } from './models/order.model';
 import { TranslationService } from '../i18n/translation.service';
@@ -7,7 +8,7 @@ import { TranslationService } from '../i18n/translation.service';
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [AddOrderModalComponent],
+  imports: [AddOrderModalComponent, DailyReportComponent],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,6 +23,7 @@ export class OrdersComponent {
   }
 
   readonly isModalOpen     = signal(false);
+  readonly isReportOpen    = signal(false);
   readonly editingOrder    = signal<OrderDraft | null>(null);
   readonly warningMessage  = signal<string | null>(null);
   readonly confirmDeleteId = signal<string | null>(null);
@@ -48,7 +50,7 @@ export class OrdersComponent {
   }
 
   startEdit(order: OrderDraft): void {
-    this.openModal({ ...order, status: 'in-progress' });
+    this.openModal(order);
   }
 
   async saveOrder(order: OrderDraft): Promise<void> {

@@ -20,7 +20,8 @@ export class HttpOrdersRepository extends OrdersRepository {
   private readonly http = inject(HttpClient);
 
   private readonly _orders = signal<OrderDraft[]>([]);
-  readonly orders = this._orders.asReadonly();
+  readonly orders    = this._orders.asReadonly();
+  readonly allOrders = this._orders.asReadonly();
 
   readonly inProgressCount = computed(
     () => this._orders().filter((o) => o.status !== 'completed').length,

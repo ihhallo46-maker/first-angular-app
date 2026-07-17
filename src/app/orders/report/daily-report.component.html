@@ -1,0 +1,274 @@
+<div class="rpt-overlay">
+
+  <!-- Toolbar -->
+  <div class="rpt-toolbar no-print">
+    <button type="button" class="rpt-btn-close" (click)="closed.emit()">
+      <i class="bi bi-arrow-left" aria-hidden="true"></i> Zurück
+    </button>
+    <button type="button" class="rpt-btn-print" (click)="print()">
+      <i class="bi bi-printer-fill" aria-hidden="true"></i> Als PDF speichern
+    </button>
+  </div>
+
+  <!-- Perioden-Auswahl -->
+  <div class="rpt-period-bar no-print">
+    <div class="rpt-period-tabs">
+      <button type="button" class="rpt-period-tab" [class.rpt-period-tab--active]="periodType() === 'tag'"
+              (click)="setPeriod('tag')">Tag</button>
+      <button type="button" class="rpt-period-tab" [class.rpt-period-tab--active]="periodType() === 'monat'"
+              (click)="setPeriod('monat')">Monat</button>
+      <button type="button" class="rpt-period-tab" [class.rpt-period-tab--active]="periodType() === 'jahr'"
+              (click)="setPeriod('jahr')">Jahr</button>
+    </div>
+    <div class="rpt-period-nav">
+      <button type="button" class="rpt-nav-btn" (click)="prev()" aria-label="Vorherige Periode">‹</button>
+      <span class="rpt-period-label">{{ periodLabel() }}</span>
+      <button type="button" class="rpt-nav-btn" (click)="next()" aria-label="Nächste Periode">›</button>
+    </div>
+  </div>
+
+  <!-- Report-Inhalt -->
+  <div class="rpt-page">
+
+    <!-- Briefkopf -->
+    <header class="rpt-header">
+      <div class="rpt-logo">
+        <svg viewBox="0 0 60 48" fill="none" stroke="currentColor"
+             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <ellipse cx="36" cy="32" rx="18" ry="11"/>
+          <circle cx="18" cy="18" r="11"/>
+          <path d="M 8 21 L 1 19 L 8 16 Z" fill="currentColor" stroke="none"/>
+          <circle cx="14" cy="15" r="2" fill="currentColor" stroke="none"/>
+          <path d="M 27 27 Q 37 21 51 26"/>
+          <path d="M 53 27 Q 60 19 57 37"/>
+        </svg>
+        <span>DUCK HOUSE</span>
+      </div>
+      <div class="rpt-meta">
+        <h1 class="rpt-title">
+          @if (periodType() === 'tag')   { Tagesbericht }
+          @if (periodType() === 'monat') { Monatsbericht }
+          @if (periodType() === 'jahr')  { Jahresbericht }
+        </h1>
+        <p class="rpt-date">{{ periodLabel() }}</p>
+      </div>
+    </header>
+
+    <hr class="rpt-rule" />
+
+    <!-- Kein Daten-State -->
+    @if (filteredOrders().length === 0) {
+      <div class="rpt-empty">
+        <i class="bi bi-inbox" aria-hidden="true"></i>
+        <p>Keine Bestellungen für diesen Zeitraum.</p>
+      </div>
+    }
+
+    @if (filteredOrders().length > 0) {
+
+      <!-- Bestellübersicht -->
+      <section class="rpt-section">
+        <h2 class="rpt-section-title">Bestellübersicht ({{ filteredOrders().length }} Tische)</h2>
+        <table class="rpt-table">
+          <thead>
+            <tr>
+              <th>Tisch</th>
+              <th>Buffet</th>
+              <th>À la carte</th>
+              <th>Getränke</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (order of filteredOrders(); track order.id) {
+              <tr [class.rpt-row-done]="order.status === 'completed'">
+                <td class="rpt-cell-bold">{{ order.tableNumber }}</td>
+                <td>
+                  @if (order.buffetCount > 0) {
+                    {{ order.buffetAdults }} Erw. / {{ order.buffetChildren }} Kind.
+                  } @else { — }
+                </td>
+                <td>@if (order.carteCount > 0) { {{ order.carteCount }} P. } @else { — }</td>
+                <td>
+                  @if (order.drinks.length > 0) {
+                    {{ drinkCount(order) }} Gläser
+                    <span class="rpt-drink-list">
+                      @for (d of order.drinks; track $index) {
+                        {{ d.quantity }}× {{ d.name }} {{ d.size }}@if (!$last) { · }
+                      }
+                    </span>
+                  } @else { — }
+                </td>
+                <td>
+                  @if (order.status === 'completed') {
+                    <span class="rpt-badge rpt-badge--done">Abgeschlossen</span>
+                  } @else {
+                    <span class="rpt-badge rpt-badge--open">In Bearbeitung</span>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Getränke -->
+      @if (drinkLines().length > 0) {
+        <section class="rpt-section">
+          <h2 class="rpt-section-title">Getränke — Zusammenfassung</h2>
+          <table class="rpt-table">
+            <thead>
+              <tr>
+                <th>Getränk</th>
+                <th>Größe</th>
+                <th class="rpt-num">Anzahl</th>
+                <th class="rpt-num">Einzelpreis</th>
+                <th class="rpt-num">Gesamt</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (line of drinkLines(); track line.name + line.size) {
+                <tr>
+                  <td>{{ line.name }}</td>
+                  <td>{{ line.size }}</td>
+                  <td class="rpt-num">{{ line.quantity }}</td>
+                  <td class="rpt-num">{{ fmt(line.unitPrice) }}</td>
+                  <td class="rpt-num rpt-cell-bold">{{ fmt(line.total) }}</td>
+                </tr>
+              }
+            </tbody>
+            <tfoot>
+              <tr class="rpt-subtotal">
+                <td colspan="4">Summe Getränke</td>
+                <td class="rpt-num">{{ fmt(totalDrinks()) }}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </section>
+      }
+
+      <!-- Buffet -->
+      @if (totalBuffetAdults() + totalBuffetChildren() > 0) {
+        <section class="rpt-section">
+          <h2 class="rpt-section-title">Buffet — Zusammenfassung</h2>
+          <table class="rpt-table">
+            <thead>
+              <tr>
+                <th>Kategorie</th>
+                <th class="rpt-num">Personen</th>
+                <th class="rpt-num">Preis / Person</th>
+                <th class="rpt-num">Gesamt</th>
+              </tr>
+            </thead>
+            <tbody>
+              @if (totalBuffetAdults() > 0) {
+                <tr>
+                  <td>Erwachsene</td>
+                  <td class="rpt-num">{{ totalBuffetAdults() }}</td>
+                  <td class="rpt-num">{{ fmt(buffetAdultPrice) }}</td>
+                  <td class="rpt-num rpt-cell-bold">{{ fmt(totalBuffetAdults() * buffetAdultPrice) }}</td>
+                </tr>
+              }
+              @if (totalBuffetChildren() > 0) {
+                <tr>
+                  <td>Kinder (bis 10 J.)</td>
+                  <td class="rpt-num">{{ totalBuffetChildren() }}</td>
+                  <td class="rpt-num">{{ fmt(buffetChildPrice) }}</td>
+                  <td class="rpt-num rpt-cell-bold">{{ fmt(totalBuffetChildren() * buffetChildPrice) }}</td>
+                </tr>
+              }
+            </tbody>
+            <tfoot>
+              <tr class="rpt-subtotal">
+                <td colspan="3">Summe Buffet</td>
+                <td class="rpt-num">{{ fmt(totalBuffet()) }}</td>
+              </tr>
+            </tfoot>
+          </table>
+        </section>
+      }
+
+      <!-- À la carte Hinweis -->
+      @if (totalCartePersons() > 0) {
+        <section class="rpt-section">
+          <h2 class="rpt-section-title">À la carte</h2>
+          <p class="rpt-note">
+            <i class="bi bi-info-circle" aria-hidden="true"></i>
+            {{ totalCartePersons() }} Person(en) à la carte — Preise variieren je nach Gericht.
+            Preisreferenz siehe unten.
+          </p>
+        </section>
+      }
+
+      <!-- Gesamtumsatz (Getränke + Buffet) -->
+      <section class="rpt-section rpt-total-section">
+        <table class="rpt-table rpt-total-table">
+          <tbody>
+            @if (drinkLines().length > 0) {
+              <tr>
+                <td>Getränke</td>
+                <td class="rpt-num">{{ fmt(totalDrinks()) }}</td>
+              </tr>
+            }
+            @if (totalBuffetAdults() + totalBuffetChildren() > 0) {
+              <tr>
+                <td>Buffet</td>
+                <td class="rpt-num">{{ fmt(totalBuffet()) }}</td>
+              </tr>
+            }
+            @if (totalCartePersons() > 0) {
+              <tr class="rpt-carte-row">
+                <td>À la carte <span class="rpt-carte-hint">(nicht berechnet)</span></td>
+                <td class="rpt-num rpt-carte-hint">—</td>
+              </tr>
+            }
+          </tbody>
+          <tfoot>
+            <tr class="rpt-grand-total">
+              <td>GESAMTUMSATZ (Getränke + Buffet)</td>
+              <td class="rpt-num">{{ fmt(grandTotal()) }}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </section>
+
+    }
+
+    <!-- Gerichte-Preisliste (Referenz) -->
+    <section class="rpt-section rpt-pricelist-section">
+      <div class="rpt-pricelist-head">
+        <h2 class="rpt-section-title">Gerichte — Preisliste (Referenz)</h2>
+        <button type="button" class="rpt-toggle-btn no-print"
+                (click)="showPriceList.set(!showPriceList())">
+          @if (showPriceList()) { Verbergen } @else { Anzeigen }
+        </button>
+      </div>
+
+      @if (showPriceList()) {
+        <div class="rpt-pricelist-grid">
+          @for (section of menuSections; track section.title) {
+            <div class="rpt-pricelist-cat">
+              <h3 class="rpt-pricelist-cat-title">{{ section.title }}</h3>
+              @for (item of section.items; track $index) {
+                <div class="rpt-pricelist-item">
+                  <span class="rpt-pricelist-name">
+                    {{ item.name }}
+                    @if (item.description) {
+                      <span class="rpt-pricelist-desc">{{ item.description }}</span>
+                    }
+                  </span>
+                  <span class="rpt-pricelist-price">{{ item.price }}</span>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </section>
+
+    <footer class="rpt-footer">
+      Duck House · Harpener Hellweg 211a · 44805 Bochum · 0234 – 33 89 688
+    </footer>
+
+  </div>
+</div>

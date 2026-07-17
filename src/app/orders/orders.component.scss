@@ -124,6 +124,29 @@ $wood: #6e6457;
   flex-wrap: wrap;
 }
 
+.btn-report {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  color: rgba($walnut, 0.7);
+  border: 1.5px solid rgba($walnut, 0.25);
+  border-radius: 0.5rem;
+  padding: 0.65rem 1.1rem;
+  font-size: 0.84rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+
+  &:hover {
+    background: rgba($walnut, 0.06);
+    border-color: rgba($walnut, 0.45);
+    color: $walnut;
+  }
+}
+
 .btn-new {
   display: inline-flex;
   align-items: center;

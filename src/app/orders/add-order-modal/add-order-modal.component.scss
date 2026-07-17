@@ -294,6 +294,28 @@ $border: rgba(#6e6457, 0.22);
   grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
   gap: 0.5rem;
   margin-top: 0.3rem;
+
+  &--locked .table-cell {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+
+    &.table-cell--active {
+      opacity: 1;
+      cursor: default;
+    }
+  }
+}
+
+.table-locked-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: $wood;
+  margin-left: 0.6rem;
+  i.bi { font-size: 0.7rem; }
 }
 
 .table-cell {

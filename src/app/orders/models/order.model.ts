@@ -11,6 +11,7 @@ export interface OrderDrink {
 export interface OrderDraft {
   id: string;
   createdAt?: string;   // ISO-String, gesetzt beim ersten Speichern
+  deletedAt?: string;   // ISO-String, gesetzt beim Soft-Delete (Archiv bleibt erhalten)
   tableNumber: number;
   drinks: OrderDrink[];
   buffetCount: number;       // Summe: Erwachsene + Kinder
