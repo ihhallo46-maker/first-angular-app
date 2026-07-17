@@ -43,6 +43,9 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 
-# Secrets — enthält Passwort-Hashes, niemals committen
+# Secrets — niemals committen
 /src/environments/environment.ts
 /src/environments/environment.example.ts
+**/serviceAccountKey*.json
+**/*.pem
+**/*.p12

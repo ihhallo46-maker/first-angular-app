@@ -1,4 +1,7 @@
 {
+  "firestore": {
+    "rules": "firestore.rules"
+  },
   "hosting": {
     "public": "dist/first-angular-app/browser",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
