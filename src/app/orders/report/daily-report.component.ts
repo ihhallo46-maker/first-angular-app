@@ -18,6 +18,14 @@ export interface DrinkLine {
   total: number;
 }
 
+export interface CarteLine {
+  id: number;
+  name: string;
+  unitPrice: number;
+  quantity: number;
+  total: number;
+}
+
 @Component({
   selector: 'app-daily-report',
   standalone: true,
@@ -115,7 +123,25 @@ export class DailyReportComponent {
   readonly totalDrinks = computed(() => this.drinkLines().reduce((s, l) => s + l.total, 0));
   readonly totalBuffet = computed(() =>
     this.totalBuffetAdults() * BUFFET_ADULT_PRICE + this.totalBuffetChildren() * BUFFET_CHILD_PRICE);
-  readonly grandTotal  = computed(() => this.totalDrinks() + this.totalBuffet());
+
+  readonly carteLines = computed((): CarteLine[] => {
+    const map = new Map<number, CarteLine>();
+    for (const order of this.filteredOrders()) {
+      for (const item of (order.carteItems ?? [])) {
+        const existing = map.get(item.id);
+        if (existing) {
+          existing.quantity += item.quantity;
+          existing.total     = existing.quantity * existing.unitPrice;
+        } else {
+          map.set(item.id, { id: item.id, name: item.name, unitPrice: item.price, quantity: item.quantity, total: item.price * item.quantity });
+        }
+      }
+    }
+    return [...map.values()].sort((a, b) => a.id - b.id);
+  });
+
+  readonly totalCarte = computed(() => this.carteLines().reduce((s, l) => s + l.total, 0));
+  readonly grandTotal = computed(() => this.totalDrinks() + this.totalBuffet() + this.totalCarte());
 
   drinkCount(order: OrderDraft): number {
     return order.drinks.reduce((s, d) => s + d.quantity, 0);

@@ -167,7 +167,18 @@
                   </span>
                 }
               </div>
-              @if (order.carteCount) {
+              @if (order.carteCount && order.carteItems && order.carteItems.length > 0) {
+                <ul class="carte-dishes">
+                  @for (item of order.carteItems; track item.id) {
+                    <li>
+                      <span class="carte-dish-nr">{{ item.id }}</span>
+                      {{ item.name }}
+                      @if (item.quantity > 1) { <span class="carte-dish-qty">×{{ item.quantity }}</span> }
+                    </li>
+                  }
+                </ul>
+              }
+              @if (order.carteCount && order.carteComment) {
                 <p class="carte-comment">
                   <i class="bi bi-chat-left-text" aria-hidden="true"></i>
                   {{ order.carteComment }}

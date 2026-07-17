@@ -299,6 +299,51 @@
                     <span class="stepper-val count-val">{{ form.get('carteCount')?.value || 1 }}</span>
                     <button type="button" class="stepper-btn" (click)="incrementService('carteCount')">+</button>
                   </div>
+                  <!-- Gerichtsauswahl -->
+                  <label class="count-label comment-label">Gerichte</label>
+                  <div class="carte-dish-picker" (click)="$event.stopPropagation()">
+                    <input type="search" inputmode="numeric" class="carte-search-input"
+                           [value]="carteSearch()"
+                           (input)="carteSearch.set($any($event.target).value)"
+                           placeholder="Nr. oder Name eingeben …"
+                           autocomplete="off" />
+                    @if (carteSearchResults().length > 0) {
+                      <ul class="carte-suggestions">
+                        @for (item of carteSearchResults(); track item.id) {
+                          <li>
+                            <button type="button" class="carte-suggestion-btn"
+                                    (click)="addCarteItem(item)">
+                              <span class="suggestion-id">{{ item.id }}</span>
+                              <span class="suggestion-name">{{ item.name }}</span>
+                              <span class="suggestion-price">{{ fmtPrice(item.price) }}</span>
+                            </button>
+                          </li>
+                        }
+                      </ul>
+                    }
+                    @if (carteItems().length > 0) {
+                      <ul class="carte-items-list">
+                        @for (item of carteItems(); track item.id) {
+                          <li class="carte-item-row">
+                            <span class="carte-item-nr">Nr.{{ item.id }}</span>
+                            <span class="carte-item-name">{{ item.name }}</span>
+                            <div class="carte-item-qty">
+                              <button type="button" (click)="updateCarteItemQty(item.id, -1)">−</button>
+                              <span>{{ item.quantity }}</span>
+                              <button type="button" (click)="updateCarteItemQty(item.id, 1)">+</button>
+                            </div>
+                            <span class="carte-item-total">{{ fmtPrice(item.price * item.quantity) }}</span>
+                            <button type="button" class="carte-item-remove" (click)="removeCarteItem(item.id)">×</button>
+                          </li>
+                        }
+                      </ul>
+                      <div class="carte-items-sum">
+                        <span>Gesamt À la carte</span>
+                        <span>{{ fmtPrice(carteTotalPrice()) }}</span>
+                      </div>
+                    }
+                  </div>
+
                   <label class="count-label comment-label" for="carte-comment">{{ ts.translator().modalComment }}</label>
                   <div class="carte-chips">
                     @for (chip of carteChips; track chip) {

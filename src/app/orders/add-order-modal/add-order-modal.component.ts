@@ -6,7 +6,8 @@ const requiresService: ValidatorFn = (group: AbstractControl) => {
   const carte  = group.get('carte')?.value;
   return buffet || carte ? null : { serviceRequired: true };
 };
-import { type OrderDraft, type OrderDrink, type OrderItemStatus } from '../models/order.model';
+import { type OrderDraft, type OrderDrink, type OrderItemStatus, type CarteItem } from '../models/order.model';
+import { CARTE_ITEMS, type CarteItemDef } from '../report/report-prices';
 import { TranslationService } from '../../i18n/translation.service';
 
 interface DrinkOption {
@@ -279,12 +280,55 @@ export class AddOrderModalComponent {
     'mit Gemüse'
   ];
 
-  /** Chip-Text ans Kommentarfeld anhängen (Personal tippt nur noch die Nummer). */
+  /** Chip-Text ans Kommentarfeld anhängen. */
   addToComment(text: string): void {
     const ctrl = this.form.get('comment');
     if (!ctrl) return;
     const current = (ctrl.value ?? '').toString().trim();
     ctrl.setValue(current ? `${current}, ${text}` : text);
+  }
+
+  // ── À-la-carte: Gerichtsauswahl ──────────────────────────
+  readonly carteItems  = signal<CarteItem[]>([]);
+  readonly carteSearch = signal('');
+
+  carteSearchResults(): CarteItemDef[] {
+    const q = this.carteSearch().trim();
+    if (!q) return [];
+    const num = parseInt(q, 10);
+    if (!isNaN(num)) {
+      return CARTE_ITEMS.filter(i => String(i.id).startsWith(q)).slice(0, 6);
+    }
+    return CARTE_ITEMS.filter(i => i.name.toLowerCase().includes(q.toLowerCase())).slice(0, 6);
+  }
+
+  addCarteItem(item: CarteItemDef): void {
+    this.carteItems.update(items => {
+      const existing = items.find(i => i.id === item.id);
+      if (existing) {
+        return items.map(i => i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i);
+      }
+      return [...items, { id: item.id, name: item.name, price: item.price, quantity: 1 }];
+    });
+    this.carteSearch.set('');
+  }
+
+  removeCarteItem(id: number): void {
+    this.carteItems.update(items => items.filter(i => i.id !== id));
+  }
+
+  updateCarteItemQty(id: number, delta: number): void {
+    this.carteItems.update(items =>
+      items.map(i => i.id === id ? { ...i, quantity: Math.max(1, i.quantity + delta) } : i)
+    );
+  }
+
+  carteTotalPrice(): number {
+    return this.carteItems().reduce((s, i) => s + i.price * i.quantity, 0);
+  }
+
+  fmtPrice(n: number): string {
+    return n.toFixed(2).replace('.', ',') + ' €';
   }
 
   // ── Public actions ────────────────────────────────────────
@@ -332,10 +376,17 @@ export class AddOrderModalComponent {
       selectedCarteCount,
     );
 
+    const newCarteItems = this.form.get('carte')?.value ? this.carteItems() : [];
+    const hasNewCarteItems = newCarteItems.some(ci => {
+      const prev = existingOrder?.carteItems?.find(e => e.id === ci.id);
+      return !prev || prev.quantity < ci.quantity;
+    });
+
     const hasNewItems =
       selectedDrinks.some((d) => d.status === 'new') ||
       buffetStatus === 'new' ||
-      carteStatus === 'new';
+      carteStatus === 'new' ||
+      hasNewCarteItems;
 
     const draft: OrderDraft = {
       id: existingOrder?.id ?? crypto.randomUUID(),
@@ -348,6 +399,7 @@ export class AddOrderModalComponent {
       carteCount: selectedCarteCount,
       carteStatus,
       carteComment: this.form.get('carte')?.value ? (this.form.get('comment')?.value ?? '') : '',
+      carteItems: newCarteItems,
       status: existingOrder && !hasNewItems ? existingOrder.status : 'in-progress',
     };
 
@@ -425,6 +477,8 @@ export class AddOrderModalComponent {
     };
 
     this.form.reset(values);
+    this.carteItems.set(order?.carteItems ?? []);
+    this.carteSearch.set('');
   }
 
   private addDrinkBySize(

@@ -173,15 +173,43 @@
         </section>
       }
 
-      <!-- À la carte Hinweis -->
+      <!-- À la carte -->
       @if (totalCartePersons() > 0) {
         <section class="rpt-section">
           <h2 class="rpt-section-title">À la carte</h2>
-          <p class="rpt-note">
-            <i class="bi bi-info-circle" aria-hidden="true"></i>
-            {{ totalCartePersons() }} Person(en) à la carte — Preise variieren je nach Gericht.
-            Preisreferenz siehe unten.
-          </p>
+          @if (carteLines().length > 0) {
+            <table class="rpt-table">
+              <thead>
+                <tr>
+                  <th>Nr.</th>
+                  <th>Gericht</th>
+                  <th class="rpt-num">Anz.</th>
+                  <th class="rpt-num">Gesamt</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (line of carteLines(); track line.id) {
+                  <tr>
+                    <td class="rpt-carte-nr">{{ line.id }}</td>
+                    <td>{{ line.name }}</td>
+                    <td class="rpt-num">{{ line.quantity }}</td>
+                    <td class="rpt-num rpt-cell-bold">{{ fmt(line.total) }}</td>
+                  </tr>
+                }
+              </tbody>
+              <tfoot>
+                <tr class="rpt-subtotal">
+                  <td colspan="3">Summe À la carte</td>
+                  <td class="rpt-num">{{ fmt(totalCarte()) }}</td>
+                </tr>
+              </tfoot>
+            </table>
+          } @else {
+            <p class="rpt-note">
+              <i class="bi bi-info-circle" aria-hidden="true"></i>
+              {{ totalCartePersons() }} Person(en) à la carte — keine Gerichte erfasst.
+            </p>
+          }
         </section>
       }
 
@@ -202,9 +230,9 @@
               </tr>
             }
             @if (totalCartePersons() > 0) {
-              <tr class="rpt-carte-row">
-                <td>À la carte <span class="rpt-carte-hint">(nicht berechnet)</span></td>
-                <td class="rpt-num rpt-carte-hint">—</td>
+              <tr>
+                <td>À la carte</td>
+                <td class="rpt-num">{{ fmt(totalCarte()) }}</td>
               </tr>
             }
           </tbody>

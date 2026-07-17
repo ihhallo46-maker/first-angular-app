@@ -451,10 +451,11 @@ $wood:   #6e6457;
   flex-shrink: 0;
 }
 
-.rpt-carte-hint {
-  font-size: 0.8rem;
+.rpt-carte-nr {
+  font-size: 0.72rem;
+  font-weight: 800;
   color: $wood;
-  font-weight: 400;
+  white-space: nowrap;
 }
 
 // ── Footer ────────────────────────────────────────────────

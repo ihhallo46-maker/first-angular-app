@@ -1,6 +1,13 @@
 export type OrderStatus = 'in-progress' | 'completed';
 export type OrderItemStatus = 'confirmed' | 'new';
 
+export interface CarteItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
 export interface OrderDrink {
   name: string;
   size: '0.1L' | '0.2L' | '0.3L' | '0.5L' | '0.75L';
@@ -21,5 +28,6 @@ export interface OrderDraft {
   carteCount: number;
   carteStatus?: OrderItemStatus;
   carteComment: string;
+  carteItems?: CarteItem[];
   status: OrderStatus;
 }

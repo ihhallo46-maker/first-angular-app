@@ -675,6 +675,191 @@ $border: rgba(#6e6457, 0.22);
   &:active { transform: scale(0.94); }
 }
 
+// ── Gerichts-Picker ───────────────────────────────────────
+.carte-dish-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+}
+
+.carte-search-input {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgba($wood, 0.35);
+  border-radius: 0.5rem;
+  background: #fff;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: $walnut;
+
+  &::placeholder { color: rgba($wood, 0.55); }
+  &:focus { outline: none; border-color: $walnut; }
+}
+
+.carte-suggestions {
+  list-style: none;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  background: #fff;
+  border: 1px solid rgba($wood, 0.22);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba($walnut, 0.1);
+}
+
+.carte-suggestion-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba($wood, 0.1);
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+
+  &:last-child { border-bottom: none; }
+  &:hover { background: rgba($walnut, 0.05); }
+  &:active { background: rgba($walnut, 0.1); }
+}
+
+.suggestion-id {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: $wood;
+  min-width: 22px;
+  background: rgba($wood, 0.1);
+  border-radius: 4px;
+  padding: 0.1rem 0.3rem;
+  text-align: center;
+}
+
+.suggestion-name {
+  flex: 1;
+  font-size: 0.85rem;
+  color: $walnut;
+}
+
+.suggestion-price {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: $walnut;
+  white-space: nowrap;
+}
+
+.carte-items-list {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  border: 1px solid rgba($wood, 0.18);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: rgba($walnut, 0.02);
+}
+
+.carte-item-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.6rem;
+  border-bottom: 1px solid rgba($wood, 0.1);
+
+  &:last-child { border-bottom: none; }
+}
+
+.carte-item-nr {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: $wood;
+  white-space: nowrap;
+  min-width: 32px;
+}
+
+.carte-item-name {
+  flex: 1;
+  font-size: 0.78rem;
+  color: $walnut;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.carte-item-qty {
+  display: flex;
+  align-items: center;
+  gap: 0;
+
+  button {
+    width: 24px;
+    height: 24px;
+    border: 1px solid rgba($wood, 0.25);
+    background: #fff;
+    color: $walnut;
+    font-size: 0.95rem;
+    line-height: 1;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    &:active { background: $ivory; }
+  }
+
+  span {
+    min-width: 22px;
+    text-align: center;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: $walnut;
+  }
+}
+
+.carte-item-total {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: $walnut;
+  white-space: nowrap;
+  min-width: 52px;
+  text-align: right;
+}
+
+.carte-item-remove {
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  color: rgba($wood, 0.55);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+  &:hover { background: rgba($wood, 0.1); color: $walnut; }
+}
+
+.carte-items-sum {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: $walnut;
+  background: rgba($walnut, 0.05);
+  border: 1px solid rgba($wood, 0.18);
+  border-top: none;
+  border-radius: 0 0 0.5rem 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .comment-input {
   width: 100%;
   border: 1px solid rgba($wood, 0.3);
