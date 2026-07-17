@@ -66,8 +66,8 @@
 
     @if (filteredOrders().length > 0) {
 
-      <!-- Bestellübersicht -->
-      <section class="rpt-section">
+      <!-- Bestellübersicht (nur auf dem Bildschirm, nicht im PDF) -->
+      <section class="rpt-section no-print">
         <h2 class="rpt-section-title">Bestellübersicht ({{ filteredOrders().length }} Tische)</h2>
         <table class="rpt-table">
           <thead>
@@ -116,34 +116,19 @@
       @if (drinkLines().length > 0) {
         <section class="rpt-section">
           <h2 class="rpt-section-title">Getränke — Zusammenfassung</h2>
-          <table class="rpt-table">
-            <thead>
-              <tr>
-                <th>Getränk</th>
-                <th>Größe</th>
-                <th class="rpt-num">Anzahl</th>
-                <th class="rpt-num">Einzelpreis</th>
-                <th class="rpt-num">Gesamt</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (line of drinkLines(); track line.name + line.size) {
-                <tr>
-                  <td>{{ line.name }}</td>
-                  <td>{{ line.size }}</td>
-                  <td class="rpt-num">{{ line.quantity }}</td>
-                  <td class="rpt-num">{{ fmt(line.unitPrice) }}</td>
-                  <td class="rpt-num rpt-cell-bold">{{ fmt(line.total) }}</td>
-                </tr>
-              }
-            </tbody>
-            <tfoot>
-              <tr class="rpt-subtotal">
-                <td colspan="4">Summe Getränke</td>
-                <td class="rpt-num">{{ fmt(totalDrinks()) }}</td>
-              </tr>
-            </tfoot>
-          </table>
+          <div class="rpt-drinks-grid">
+            @for (line of drinkLines(); track line.name + line.size) {
+              <div class="rpt-drink-row">
+                <span class="rpt-drink-name">{{ line.name }} <span class="rpt-drink-size">{{ line.size }}</span></span>
+                <span class="rpt-drink-qty">{{ line.quantity }}×</span>
+                <span class="rpt-drink-total">{{ fmt(line.total) }}</span>
+              </div>
+            }
+          </div>
+          <div class="rpt-drinks-sum">
+            <span>Summe Getränke</span>
+            <span>{{ fmt(totalDrinks()) }}</span>
+          </div>
         </section>
       }
 
@@ -225,7 +210,7 @@
           </tbody>
           <tfoot>
             <tr class="rpt-grand-total">
-              <td>GESAMTUMSATZ (Getränke + Buffet)</td>
+              <td>GESAMTUMSATZ</td>
               <td class="rpt-num">{{ fmt(grandTotal()) }}</td>
             </tr>
           </tfoot>
@@ -234,8 +219,8 @@
 
     }
 
-    <!-- Gerichte-Preisliste (Referenz) -->
-    <section class="rpt-section rpt-pricelist-section">
+    <!-- Gerichte-Preisliste (nur auf dem Bildschirm, nicht im PDF) -->
+    <section class="rpt-section rpt-pricelist-section no-print">
       <div class="rpt-pricelist-head">
         <h2 class="rpt-section-title">Gerichte — Preisliste (Referenz)</h2>
         <button type="button" class="rpt-toggle-btn no-print"

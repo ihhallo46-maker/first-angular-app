@@ -196,12 +196,67 @@ $wood:   #6e6457;
   color: #a16207;
 }
 
-// ── Getränke-Liste ────────────────────────────────────────
+// ── Getränke-Liste (Bestellübersicht) ─────────────────────
 .rpt-drink-list {
   display: block;
   font-size: 0.75rem;
   color: $wood;
   margin-top: 0.15rem;
+}
+
+// ── Getränke 2-Spalten-Grid ───────────────────────────────
+.rpt-drinks-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.rpt-drink-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.28rem 0;
+  border-bottom: 1px dotted rgba($walnut, 0.1);
+  font-size: 0.83rem;
+}
+
+.rpt-drink-name {
+  flex: 1;
+  min-width: 0;
+  color: rgba($walnut, 0.9);
+}
+
+.rpt-drink-size {
+  font-size: 0.73rem;
+  color: $wood;
+  margin-left: 0.2rem;
+}
+
+.rpt-drink-qty {
+  font-size: 0.75rem;
+  color: $wood;
+  white-space: nowrap;
+}
+
+.rpt-drink-total {
+  font-weight: 700;
+  color: $walnut;
+  white-space: nowrap;
+  min-width: 58px;
+  text-align: right;
+}
+
+.rpt-drinks-sum {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.4rem;
+  padding: 0.4rem 0.5rem;
+  background: rgba($walnut, 0.04);
+  border-top: 1px solid rgba($walnut, 0.2);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: $walnut;
 }
 
 // ── Hinweis ───────────────────────────────────────────────
@@ -410,32 +465,6 @@ $wood:   #6e6457;
   font-size: 0.75rem;
   color: rgba($walnut, 0.45);
   text-align: center;
-}
-
-// ══════════════════════════════════════════════════════════
-// DRUCK / PDF
-// ══════════════════════════════════════════════════════════
-@media print {
-  .no-print { display: none !important; }
-
-  .rpt-overlay {
-    position: static;
-    background: #fff;
-    overflow: visible;
-  }
-
-  .rpt-page {
-    max-width: 100%;
-    margin: 0;
-    padding: 1.5cm 2cm;
-    box-shadow: none;
-    border-radius: 0;
-  }
-
-  // Preisliste beim Drucken immer anzeigen
-  .rpt-pricelist-grid { display: grid !important; }
-  .rpt-pricelist-cat  { break-inside: avoid; }
-  .rpt-pricelist-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 // ── Mobile ────────────────────────────────────────────────
